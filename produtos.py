@@ -45,14 +45,15 @@ class Produto:
         self._preco_unitario = valor
 
 #____________________________teste de classe____________________________
-prod = Produto('Cimento',1,43.50,42)
-print('Quantidade do produto:',prod.quantidade)
-print('Nome do produto:',prod.nome_do_produto)
-print('Preço do produto:',prod.preco_unitario)
-print('Identificador do produto:',prod.identificador)
+if __name__ == '__main__'
+    prod = Produto('Cimento',1,43.50,42)
+    print('Quantidade do produto:',prod.quantidade)
+    print('Nome do produto:',prod.nome_do_produto)
+    print('Preço do produto:',prod.preco_unitario)
+    print('Identificador do produto:',prod.identificador)
 
-prod.adicionar_quantidade(10)
-print('Quantidade do produto:',prod.quantidade)
-prod.retirar_quantidade(3)
-print('Quantidade do produto:',prod.quantidade)
+    prod.adicionar_quantidade(10)
+    print('Quantidade do produto:',prod.quantidade)
+    prod.retirar_quantidade(3)
+    print('Quantidade do produto:',prod.quantidade)
 
