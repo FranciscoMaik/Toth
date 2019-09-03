@@ -29,4 +29,4 @@ class Loja:
 	identificador = property(getIdentificador)
 if __name__ == '__main__':
 	loj = Loja("Nome","identificador","Endereco completo")
-	print(loj.nome_da_filial)
+	print(loj.nome_da_filial,loj.identificador)
