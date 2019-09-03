@@ -45,7 +45,7 @@ class Produto:
         self._preco_unitario = valor
 
 #____________________________teste de classe____________________________
-if __name__ == '__main__'
+if __name__ == '__main__':
     prod = Produto('Cimento',1,43.50,42)
     print('Quantidade do produto:',prod.quantidade)
     print('Nome do produto:',prod.nome_do_produto)
