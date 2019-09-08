@@ -1,11 +1,17 @@
 class Produto:
+
+    _identificador_do_produto = 0
+    @staticmethod
+    def identificador_do_produto():
+        return Produto._identificador_do_produto
+
     __slots__ = ['_nome_do_produto','_quantidade','_identificador','_preco_unitario']
-    def __init__(self,nome_do_produto,identificador,preco_unitario,quantidade = 0):
+    def __init__(self,nome_do_produto,preco_unitario,quantidade = 0):
         self._nome_do_produto = nome_do_produto
         self._quantidade = quantidade
-        self._identificador = identificador
+        Produto._identificador_do_produto += 1
         self._preco_unitario = preco_unitario
-
+        self._identificador = Produto._identificador_do_produto
     #____________________________nome____________________________
     @property
     def nome_do_produto(self):
@@ -44,14 +50,29 @@ class Produto:
     def alterar_valor(self,valor):
         self._preco_unitario = valor
 
+    def mostra_produto(self):
+        print("Nome: {}\nIdentificador: {}\nPreço: {}\nQuantidade: {}\n\n".format(self.nome_do_produto, self.identificador,
+                                                                                    self.preco_unitario, self.quantidade))
+
 #____________________________teste de classe____________________________
 if __name__ == '__main__':
-    prod = Produto('Cimento',1,43.50,42)
+    lista = []
+    prod = Produto('Cimento',43.50,42)
+    prod2 = Produto('Reajunte', 12.00, 10)
+    lista.append(prod);
+    #Criar função com lambida
+    #valor = list(filter(lambda elemento : elemento.identificador == identificador(entrada), lista_de_produtos))
+    #if valor :
+    #    print(valor.mostrar dados())
+    #else:
+    #   print("Produto não encontrado")
+
+
     print('Quantidade do produto:',prod.quantidade)
     print('Nome do produto:',prod.nome_do_produto)
     print('Preço do produto:',prod.preco_unitario)
-    print('Identificador do produto:',prod.identificador)
-
+    print('Identificador do produto 1:',prod.identificador)
+    print('Identificador do produto 2:', prod2.identificador)
     prod.adicionar_quantidade(10)
     print('Quantidade do produto:',prod.quantidade)
     prod.retirar_quantidade(3)
