@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>fundo_func</class>
+ <widget class="QDialog" name="fundo_func">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,6 +15,11 @@
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#fundo_func{
+background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
+}</string>
   </property>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
@@ -35,22 +40,12 @@
     <string>CPF</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="txt_num_func">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>320</y>
-     <width>371</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
      <x>200</x>
      <y>610</y>
-     <width>61</width>
+     <width>71</width>
      <height>21</height>
     </rect>
    </property>
@@ -62,29 +57,6 @@
    </property>
    <property name="text">
     <string>Bairro</string>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="txt_cpf_func">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>230</y>
-     <width>371</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="txt_nome_func">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>140</y>
-     <width>371</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="accessibleName">
-    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">
@@ -104,16 +76,6 @@
    </property>
    <property name="text">
     <string>Número de Telefone</string>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="txt_end_bairro_func">
-   <property name="geometry">
-    <rect>
-     <x>310</x>
-     <y>600</y>
-     <width>371</width>
-     <height>41</height>
-    </rect>
    </property>
   </widget>
   <widget class="QLabel" name="label_11">
@@ -155,6 +117,46 @@ background-color:rgb(194, 194, 194);
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
+   <widget class="QTextEdit" name="txt_rua_func">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>70</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="txt_bairro_func">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>130</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="txt_cep_func">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>190</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="txt_num_end_func">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>60</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QLabel" name="label_6">
    <property name="geometry">
@@ -175,16 +177,6 @@ background-color:rgb(194, 194, 194);
    </property>
    <property name="text">
     <string>Endereço</string>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="txt_end_rua_func">
-   <property name="geometry">
-    <rect>
-     <x>310</x>
-     <y>540</y>
-     <width>371</width>
-     <height>41</height>
-    </rect>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -227,16 +219,6 @@ background-color:rgb(194, 194, 194);
     <string>Cadastro de Funcionário</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="txt_end_num_func">
-   <property name="geometry">
-    <rect>
-     <x>930</x>
-     <y>530</y>
-     <width>101</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_9">
    <property name="geometry">
     <rect>
@@ -275,16 +257,6 @@ background-color:rgb(194, 194, 194);
     <string>Rua</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="txt_end_cep_func">
-   <property name="geometry">
-    <rect>
-     <x>310</x>
-     <y>660</y>
-     <width>371</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="btn_cancel_func">
    <property name="geometry">
     <rect>
@@ -300,7 +272,7 @@ background-color:rgb(194, 194, 194);
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">#pushButton{
+    <string notr="true">#btn_cancel_func{
 background-color:rgb(208, 0, 0);
 color:#ffffff
 }</string>
@@ -324,7 +296,7 @@ color:#ffffff
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">#pushButton_2{
+    <string notr="true">#btn_cad_func{
 background-color:rgb(0, 197, 0);
 color:#ffffff
 }</string>
@@ -361,6 +333,11 @@ color:#ffffff
      <height>41</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">#sb_id_loja_func{
+border-radius:5px;
+}</string>
+   </property>
   </widget>
   <widget class="QPushButton" name="btn_voltar_tela_func">
    <property name="geometry">
@@ -380,28 +357,59 @@ color:#ffffff
     <string>Voltar</string>
    </property>
   </widget>
+  <widget class="QTextEdit" name="txt_num_func">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>320</y>
+     <width>371</width>
+     <height>41</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txt_cpf_func">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>230</y>
+     <width>371</width>
+     <height>41</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txt_nome_func">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>150</y>
+     <width>371</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#txt_nome_func{
+border-radius:10px;
+}</string>
+   </property>
+  </widget>
   <zorder>frame_3</zorder>
   <zorder>label_4</zorder>
-  <zorder>txt_num_func</zorder>
   <zorder>label_8</zorder>
-  <zorder>txt_cpf_func</zorder>
-  <zorder>txt_nome_func</zorder>
   <zorder>label_5</zorder>
-  <zorder>txt_end_bairro_func</zorder>
   <zorder>label_11</zorder>
   <zorder>label_6</zorder>
-  <zorder>txt_end_rua_func</zorder>
   <zorder>label_3</zorder>
   <zorder>label_10</zorder>
-  <zorder>txt_end_num_func</zorder>
   <zorder>label_9</zorder>
   <zorder>label_7</zorder>
-  <zorder>txt_end_cep_func</zorder>
   <zorder>btn_cancel_func</zorder>
   <zorder>btn_cad_func</zorder>
   <zorder>label_12</zorder>
   <zorder>sb_id_loja_func</zorder>
   <zorder>btn_voltar_tela_func</zorder>
+  <zorder>txt_num_func</zorder>
+  <zorder>txt_cpf_func</zorder>
+  <zorder>txt_nome_func</zorder>
  </widget>
  <resources/>
  <connections/>

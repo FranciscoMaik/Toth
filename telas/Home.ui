@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>ui_home</class>
+ <widget class="QDialog" name="ui_home">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>1180</width>
-    <height>857</height>
+    <height>814</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,13 @@
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
-  <widget class="QTabWidget" name="CadastrarProduto">
+  <widget class="QTabWidget" name="grafico">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
-     <x>-10</x>
+     <x>0</x>
      <y>0</y>
      <width>1191</width>
      <height>861</height>
@@ -27,22 +30,30 @@
    </property>
    <property name="font">
     <font>
-     <family>Microsoft PhagsPa</family>
-     <pointsize>16</pointsize>
+     <family>DejaVu Sans</family>
+     <pointsize>12</pointsize>
     </font>
+   </property>
+   <property name="mouseTracking">
+    <bool>false</bool>
    </property>
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>4</number>
    </property>
-   <widget class="QWidget" name="tab">
+   <widget class="QWidget" name="pagina_inicial">
     <property name="font">
      <font>
       <family>Microsoft PhagsPa</family>
       <pointsize>14</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#pagina_inicial{
+background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
+}</string>
     </property>
     <attribute name="title">
      <string>Página Inicial</string>
@@ -67,6 +78,9 @@
      </property>
     </widget>
     <widget class="QPushButton" name="btn_cadastrar_loja">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -81,11 +95,20 @@
        <pointsize>16</pointsize>
       </font>
      </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#btn_cadastrar_loja{
+background-color:#ffffff;
+border-radius: 5px;
+}</string>
+     </property>
      <property name="text">
       <string>Cadastra Loja</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_casdastrar_funcionario">
+    <widget class="QPushButton" name="btn_cadastrar_funcionario">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -99,6 +122,12 @@
        <family>Microsoft PhagsPa</family>
        <pointsize>16</pointsize>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#btn_cadastrar_funcionario{
+background-color:#ffffff;
+border-radius: 5px;
+}</string>
      </property>
      <property name="text">
       <string>Cadastrar Funcionário</string>
@@ -119,6 +148,12 @@
        <pointsize>16</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">#btn_cadastrar_produto{
+background-color:#ffffff;
+border-radius: 5px;
+}</string>
+     </property>
      <property name="text">
       <string>Cadastrar Produto</string>
      </property>
@@ -134,12 +169,14 @@
      </property>
      <property name="font">
       <font>
-       <family>Microsoft PhagsPa</family>
+       <family>DejaVu Sans</family>
        <pointsize>16</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
-      <string>Gráficos de Compras</string>
+      <string>Gráfico de Compras</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_atualizar_dia">
@@ -199,13 +236,24 @@
       <string>Atualizar</string>
      </property>
     </widget>
-    <widget class="QLabel" name="grafico">
+    <widget class="QWidget" name="gridLayoutWidget">
      <property name="geometry">
       <rect>
        <x>650</x>
        <y>170</y>
        <width>471</width>
-       <height>411</height>
+       <height>381</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout"/>
+    </widget>
+    <widget class="QLabel" name="lb_loja_conect">
+     <property name="geometry">
+      <rect>
+       <x>1090</x>
+       <y>750</y>
+       <width>67</width>
+       <height>17</height>
       </rect>
      </property>
      <property name="text">
@@ -213,7 +261,12 @@
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="tab_3">
+   <widget class="QWidget" name="buscar_produto">
+    <property name="styleSheet">
+     <string notr="true">#buscar_produto{
+background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
+}</string>
+    </property>
     <attribute name="title">
      <string>Buscar Produto</string>
     </attribute>
@@ -238,44 +291,6 @@
       <string>Buscar Produto</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="cb_nome_produto">
-     <property name="geometry">
-      <rect>
-       <x>320</x>
-       <y>200</y>
-       <width>70</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Microsoft PhagsPa</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="cb_id_produto">
-     <property name="geometry">
-      <rect>
-       <x>320</x>
-       <y>290</y>
-       <width>70</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Microsoft PhagsPa</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QLineEdit" name="txt_nome_produto">
      <property name="geometry">
       <rect>
@@ -290,6 +305,11 @@
        <family>Microsoft PhagsPa</family>
        <pointsize>16</pointsize>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#txt_nome_produto{
+border-radius: 5px;
+}</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="txt_id_produto">
@@ -307,12 +327,17 @@
        <pointsize>16</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">#txt_id_produto{
+border-radius: 5px;
+}</string>
+     </property>
     </widget>
     <widget class="QFrame" name="frame_4">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>79</y>
+       <x>200</x>
+       <y>90</y>
        <width>801</width>
        <height>281</height>
       </rect>
@@ -342,6 +367,12 @@ background-color:rgb(194, 194, 194);
         <pointsize>16</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">#btn_buscar_produto{
+background-color:rgb(138, 226, 52);
+border-radius: 5px;
+}</string>
+      </property>
       <property name="text">
        <string>Buscar</string>
       </property>
@@ -349,16 +380,16 @@ background-color:rgb(194, 194, 194);
      <widget class="QLabel" name="label_13">
       <property name="geometry">
        <rect>
-        <x>190</x>
-        <y>110</y>
+        <x>160</x>
+        <y>100</y>
         <width>191</width>
         <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <family>Microsoft PhagsPa</family>
-        <pointsize>16</pointsize>
+        <family>DejaVu Sans</family>
+        <pointsize>14</pointsize>
        </font>
       </property>
       <property name="text">
@@ -368,10 +399,29 @@ background-color:rgb(194, 194, 194);
      <widget class="QLabel" name="label_14">
       <property name="geometry">
        <rect>
-        <x>190</x>
-        <y>200</y>
+        <x>160</x>
+        <y>190</y>
         <width>161</width>
         <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>DejaVu Sans</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Identificador</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="cb_nome_produto">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>110</y>
+        <width>16</width>
+        <height>17</height>
        </rect>
       </property>
       <property name="font">
@@ -381,7 +431,26 @@ background-color:rgb(194, 194, 194);
        </font>
       </property>
       <property name="text">
-       <string>Identificador</string>
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="cb_id_produto">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>200</y>
+        <width>16</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Microsoft PhagsPa</family>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </widget>
@@ -400,81 +469,116 @@ background-color:rgb(194, 194, 194);
        <pointsize>16</pointsize>
       </font>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="label_15">
-        <property name="font">
-         <font>
-          <family>Microsoft PhagsPa</family>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Id</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_16">
-        <property name="font">
-         <font>
-          <family>Microsoft PhagsPa</family>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Nome</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_17">
-        <property name="font">
-         <font>
-          <family>Microsoft PhagsPa</family>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Quantidade</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_18">
-        <property name="font">
-         <font>
-          <family>Microsoft PhagsPa</family>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Preço Uni.</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <layout class="QHBoxLayout" name="horizontalLayout"/>
     </widget>
     <widget class="QColumnView" name="cv_mostrar_produtos">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>500</y>
+       <x>200</x>
+       <y>490</y>
        <width>801</width>
        <height>192</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#cv_mostrar_produtos{
+border-radius: 5px;
+}</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_16">
+     <property name="geometry">
+      <rect>
+       <x>402</x>
+       <y>451</y>
+       <width>196</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Microsoft PhagsPa</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Nome</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_15">
+     <property name="geometry">
+      <rect>
+       <x>201</x>
+       <y>451</y>
+       <width>195</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Microsoft PhagsPa</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Id</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>805</x>
+       <y>451</y>
+       <width>195</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Microsoft PhagsPa</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Preço Uni.</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_17">
+     <property name="geometry">
+      <rect>
+       <x>604</x>
+       <y>451</y>
+       <width>195</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Microsoft PhagsPa</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Quantidade</string>
      </property>
     </widget>
     <zorder>layoutWidget</zorder>
     <zorder>frame_4</zorder>
     <zorder>label_12</zorder>
-    <zorder>cb_nome_produto</zorder>
-    <zorder>cb_id_produto</zorder>
     <zorder>txt_nome_produto</zorder>
     <zorder>txt_id_produto</zorder>
     <zorder>cv_mostrar_produtos</zorder>
+    <zorder>label_16</zorder>
+    <zorder>label_15</zorder>
+    <zorder>label_18</zorder>
+    <zorder>label_17</zorder>
    </widget>
-   <widget class="QWidget" name="widget">
+   <widget class="QWidget" name="buscar_loja">
+    <property name="styleSheet">
+     <string notr="true">#buscar_loja{
+background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
+}</string>
+    </property>
     <attribute name="title">
      <string>Buscar Loja</string>
     </attribute>
@@ -489,6 +593,7 @@ background-color:rgb(194, 194, 194);
      </property>
      <property name="font">
       <font>
+       <family>Ubuntu</family>
        <pointsize>20</pointsize>
        <weight>75</weight>
        <bold>true</bold>
@@ -507,6 +612,12 @@ background-color:rgb(194, 194, 194);
        <height>27</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Nome da Filial</string>
      </property>
@@ -519,6 +630,12 @@ background-color:rgb(194, 194, 194);
        <width>141</width>
        <height>27</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>14</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Identificador</string>
@@ -559,6 +676,11 @@ background-color:rgb(194, 194, 194);
        <height>33</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">#txt_nome_filial{
+border-radius: 5px;
+}</string>
+     </property>
     </widget>
     <widget class="QFrame" name="frame">
      <property name="geometry">
@@ -580,20 +702,26 @@ background-color:rgb(194, 194, 194);
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="btn_buscar_loja">
       <property name="geometry">
        <rect>
-        <x>530</x>
-        <y>230</y>
+        <x>620</x>
+        <y>250</y>
         <width>91</width>
         <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <family>Microsoft PhagsPa</family>
-        <pointsize>16</pointsize>
+        <family>DejaVu Sans</family>
+        <pointsize>14</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#btn_buscar_loja{
+background-color:rgb(138, 226, 52);
+border-radius: 5px;
+}</string>
       </property>
       <property name="text">
        <string>Buscar</string>
@@ -608,45 +736,71 @@ background-color:rgb(194, 194, 194);
         <height>41</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">#sb_id_loja{
+border-radius: 5px;
+}</string>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>240</x>
-       <y>430</y>
-       <width>481</width>
-       <height>29</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <widget class="QLabel" name="label_28">
-        <property name="text">
-         <string>Id</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_29">
-        <property name="text">
-         <string>Nome</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
     <widget class="QColumnView" name="cv_mostrar_loja">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>230</x>
        <y>480</y>
-       <width>731</width>
+       <width>741</width>
        <height>192</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">#cv_mostrar_loja{
+border-radius: 5px;
+}</string>
+     </property>
     </widget>
-    <zorder>layoutWidget</zorder>
+    <widget class="QLabel" name="label_28">
+     <property name="geometry">
+      <rect>
+       <x>231</x>
+       <y>431</y>
+       <width>251</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Ubuntu</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Id</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_29">
+     <property name="geometry">
+      <rect>
+       <x>484</x>
+       <y>431</y>
+       <width>481</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Ubuntu</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Nome</string>
+     </property>
+    </widget>
+    <zorder>label_28</zorder>
+    <zorder>label_29</zorder>
     <zorder>frame</zorder>
     <zorder>label_25</zorder>
     <zorder>label_26</zorder>
@@ -656,7 +810,12 @@ background-color:rgb(194, 194, 194);
     <zorder>txt_nome_filial</zorder>
     <zorder>cv_mostrar_loja</zorder>
    </widget>
-   <widget class="QWidget" name="tab_4">
+   <widget class="QWidget" name="ver_estoque">
+    <property name="styleSheet">
+     <string notr="true">#ver_estoque{
+background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
+}</string>
+    </property>
     <attribute name="title">
      <string>Ver Estoque</string>
     </attribute>
@@ -671,8 +830,8 @@ background-color:rgb(194, 194, 194);
      </property>
      <property name="font">
       <font>
-       <family>Microsoft PhagsPa</family>
-       <pointsize>16</pointsize>
+       <family>DejaVu Sans</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -709,8 +868,8 @@ background-color:rgb(194, 194, 194);
      </property>
      <property name="font">
       <font>
-       <family>Microsoft PhagsPa</family>
-       <pointsize>16</pointsize>
+       <family>DejaVu Sans</family>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="text">
@@ -771,6 +930,11 @@ background-color:rgb(194, 194, 194);
         <pointsize>16</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">#txt_nome_produto_estoque{
+border-radius: 5px;
+}</string>
+      </property>
      </widget>
      <widget class="QSpinBox" name="sb_id_loja_estoque">
       <property name="geometry">
@@ -787,6 +951,14 @@ background-color:rgb(194, 194, 194);
         <pointsize>16</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">#sb_id_loja_estoque{
+border-radius: 5px;
+}</string>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
      </widget>
      <widget class="QPushButton" name="btn_ver_estoque">
       <property name="geometry">
@@ -799,87 +971,20 @@ background-color:rgb(194, 194, 194);
       </property>
       <property name="font">
        <font>
-        <family>Microsoft PhagsPa</family>
-        <pointsize>16</pointsize>
+        <family>DejaVu Sans</family>
+        <pointsize>14</pointsize>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">#btn_ver_estoque{
+background-color:rgb(138, 226, 52);
+border-radius: 5px;
+}</string>
       </property>
       <property name="text">
        <string>Ver Estoque</string>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>250</y>
-       <width>931</width>
-       <height>29</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Microsoft PhagsPa</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLabel" name="label_21">
-        <property name="font">
-         <font>
-          <family>Microsoft PhagsPa</family>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Id_Produto</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_22">
-        <property name="font">
-         <font>
-          <family>Microsoft PhagsPa</family>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Nome</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_23">
-        <property name="font">
-         <font>
-          <family>Microsoft PhagsPa</family>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Quantidade</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_24">
-        <property name="font">
-         <font>
-          <family>Microsoft PhagsPa</family>
-          <pointsize>16</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Id_loja</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
     <widget class="QColumnView" name="cv_estoque">
      <property name="geometry">
@@ -890,14 +995,256 @@ background-color:rgb(194, 194, 194);
        <height>411</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">#cv_estoque{
+border-radius: 5px;
+}</string>
+     </property>
     </widget>
-    <zorder>layoutWidget</zorder>
+    <widget class="QLabel" name="label_21">
+     <property name="geometry">
+      <rect>
+       <x>171</x>
+       <y>251</y>
+       <width>231</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Microsoft PhagsPa</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Id_Produto</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_22">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>250</y>
+       <width>231</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Microsoft PhagsPa</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Nome</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_23">
+     <property name="geometry">
+      <rect>
+       <x>710</x>
+       <y>250</y>
+       <width>231</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Microsoft PhagsPa</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Quantidade</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_24">
+     <property name="geometry">
+      <rect>
+       <x>910</x>
+       <y>250</y>
+       <width>231</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Microsoft PhagsPa</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Id_loja</string>
+     </property>
+    </widget>
+    <zorder>label_21</zorder>
+    <zorder>label_22</zorder>
+    <zorder>label_23</zorder>
+    <zorder>label_24</zorder>
     <zorder>frame_2</zorder>
     <zorder>label_19</zorder>
     <zorder>cb_nome_prod_estoque</zorder>
     <zorder>label_20</zorder>
     <zorder>cb_id_loja_estoque</zorder>
     <zorder>cv_estoque</zorder>
+   </widget>
+   <widget class="QWidget" name="identificador_loja">
+    <property name="styleSheet">
+     <string notr="true">#identificador_loja{
+background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
+}</string>
+    </property>
+    <attribute name="title">
+     <string>Page</string>
+    </attribute>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>740</x>
+       <y>90</y>
+       <width>181</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Serif</family>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Loja Conectada</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="sb_loja_conectada">
+     <property name="geometry">
+      <rect>
+       <x>740</x>
+       <y>140</y>
+       <width>181</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#sb_loja_conectada{
+border-radius: 5px;
+}</string>
+     </property>
+     <property name="maximum">
+      <number>100000</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>90</y>
+       <width>261</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Serif</family>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Funcionario Conetado</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="sb_func_conectado">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>140</y>
+       <width>261</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#sb_func_conectado{
+border-radius: 5px;
+}</string>
+     </property>
+     <property name="maximum">
+      <number>1000</number>
+     </property>
+     <property name="displayIntegerBase">
+      <number>10</number>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="txt_senha_conectada">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>220</y>
+       <width>261</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#txt_senha_conectada{
+border-radius: 5px;
+}</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>180</y>
+       <width>261</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Serif</family>
+       <pointsize>16</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Senha</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frame_3">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>80</y>
+       <width>771</width>
+       <height>231</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#frame_3{
+background-color:rgb(194, 194, 194);
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+    <zorder>frame_3</zorder>
+    <zorder>label_3</zorder>
+    <zorder>sb_loja_conectada</zorder>
+    <zorder>label_4</zorder>
+    <zorder>sb_func_conectado</zorder>
+    <zorder>txt_senha_conectada</zorder>
+    <zorder>label_5</zorder>
    </widget>
   </widget>
  </widget>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>ui_loja</class>
+ <widget class="QDialog" name="ui_loja">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -16,12 +16,17 @@
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#ui_loja{
+background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
+}</string>
+  </property>
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
      <x>190</x>
      <y>380</y>
-     <width>61</width>
+     <width>71</width>
      <height>21</height>
     </rect>
    </property>
@@ -33,29 +38,6 @@
    </property>
    <property name="text">
     <string>Bairro</string>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="txt_nome_filial_loja">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>140</y>
-     <width>371</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="accessibleName">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="txt_end_bairro_loja">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>370</y>
-     <width>371</width>
-     <height>41</height>
-    </rect>
    </property>
   </widget>
   <widget class="QLabel" name="label_11">
@@ -97,6 +79,46 @@ background-color:rgb(194, 194, 194);
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
+   <widget class="QTextEdit" name="txt_rua_loja">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>60</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="txt_bairro_loja">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>120</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="txt_cep_loja">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>180</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="txt_num_loja">
+    <property name="geometry">
+     <rect>
+      <x>830</x>
+      <y>50</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QLabel" name="label_6">
    <property name="geometry">
@@ -117,16 +139,6 @@ background-color:rgb(194, 194, 194);
    </property>
    <property name="text">
     <string>Endereço</string>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="txt_end_rua_loja">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>310</y>
-     <width>371</width>
-     <height>41</height>
-    </rect>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -169,16 +181,6 @@ background-color:rgb(194, 194, 194);
     <string>Cadastro de Loja</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="txt_end_num_loja">
-   <property name="geometry">
-    <rect>
-     <x>920</x>
-     <y>300</y>
-     <width>101</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_9">
    <property name="geometry">
     <rect>
@@ -217,16 +219,6 @@ background-color:rgb(194, 194, 194);
     <string>Rua</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="txt_end_cep_loja">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>430</y>
-     <width>371</width>
-     <height>41</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="btn_cad_loja">
    <property name="geometry">
     <rect>
@@ -242,7 +234,7 @@ background-color:rgb(194, 194, 194);
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">#pushButton_2{
+    <string notr="true">#btn_cad_loja{
 background-color:rgb(0, 197, 0);
 color:#ffffff
 }</string>
@@ -266,7 +258,7 @@ color:#ffffff
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">#pushButton{
+    <string notr="true">#btn_cancel_loja{
 background-color:rgb(208, 0, 0);
 color:#ffffff
 }</string>
@@ -293,22 +285,28 @@ color:#ffffff
     <string>Voltar</string>
    </property>
   </widget>
+  <widget class="QTextEdit" name="txt_nome_loja">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>140</y>
+     <width>371</width>
+     <height>41</height>
+    </rect>
+   </property>
+  </widget>
   <zorder>frame_3</zorder>
   <zorder>label_8</zorder>
-  <zorder>txt_nome_filial_loja</zorder>
-  <zorder>txt_end_bairro_loja</zorder>
   <zorder>label_11</zorder>
   <zorder>label_6</zorder>
-  <zorder>txt_end_rua_loja</zorder>
   <zorder>label_3</zorder>
   <zorder>label_10</zorder>
-  <zorder>txt_end_num_loja</zorder>
   <zorder>label_9</zorder>
   <zorder>label_7</zorder>
-  <zorder>txt_end_cep_loja</zorder>
   <zorder>btn_cad_loja</zorder>
   <zorder>btn_cancel_loja</zorder>
   <zorder>btn_voltar_loja</zorder>
+  <zorder>txt_nome_loja</zorder>
  </widget>
  <resources/>
  <connections/>

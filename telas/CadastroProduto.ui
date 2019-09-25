@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>tela_cad_prod</class>
+ <widget class="QDialog" name="tela_cad_prod">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,6 +15,11 @@
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#tela_cad_prod{
+background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
+}</string>
   </property>
   <widget class="QFrame" name="frame_3">
    <property name="geometry">
@@ -83,6 +88,9 @@ background-color:rgb(194, 194, 194);
       <height>31</height>
      </rect>
     </property>
+    <property name="maximum">
+     <number>100000</number>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="dsp_preco_prod">
     <property name="geometry">
@@ -92,6 +100,9 @@ background-color:rgb(194, 194, 194);
       <width>371</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="maximum">
+     <double>99999.990000000005239</double>
     </property>
    </widget>
    <widget class="QTextBrowser" name="txt_nome_prod_prod">
@@ -122,7 +133,7 @@ background-color:rgb(194, 194, 194);
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">#pushButton_2{
+     <string notr="true">#btn_cad_prod{
 background-color:rgb(0, 197, 0);
 color:#ffffff
 }</string>
@@ -146,7 +157,7 @@ color:#ffffff
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">#pushButton{
+     <string notr="true">#btn_cancel_prod{
 background-color:rgb(208, 0, 0);
 color:#ffffff
 }</string>
@@ -182,6 +193,9 @@ color:#ffffff
       <width>371</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="maximum">
+     <number>1000</number>
     </property>
    </widget>
   </widget>
