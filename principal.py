@@ -1,4 +1,15 @@
 from produtos import Produto
+import socket
+host = ''
+port = 7000
+addr = (host,port)
+serv_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+serv_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1)
+serv_socket.bind(addr)
+serv_socket.listen(10)
+print("Aguardando COnexão!")
+con, cliente = serv_socket.accept()
+print("Conectado!")
 
 def cadastra_produto(lista_de_produto):
     valor = int(input("Cadastrar produto:\n1 - para sim\n2 - para não\n>>>"))
@@ -22,6 +33,12 @@ def cadastra_produto(lista_de_produto):
 
 
 if __name__ == '__main__':
+    while(True):
+        recebe = con.recv(1024)
+        print('Mensagem recebida: '+ recebe.decode())
+
+        mensagem = "Cliente Conectado!"
+        con.send(mensagem.encode())
     lista_de_produto = []
     while(True):
         print(10*'_'+'MENU'+10*'_')

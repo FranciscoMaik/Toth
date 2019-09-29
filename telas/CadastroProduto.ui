@@ -105,19 +105,6 @@ background-color:rgb(194, 194, 194);
      <double>99999.990000000005239</double>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="txt_nome_prod_prod">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>100</y>
-      <width>371</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="accessibleName">
-     <string/>
-    </property>
-   </widget>
    <widget class="QPushButton" name="btn_cad_prod">
     <property name="geometry">
      <rect>
@@ -196,6 +183,16 @@ color:#ffffff
     </property>
     <property name="maximum">
      <number>1000</number>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="txt_nome_prod_prod">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>100</y>
+      <width>371</width>
+      <height>31</height>
+     </rect>
     </property>
    </widget>
   </widget>

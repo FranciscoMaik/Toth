@@ -5,7 +5,7 @@
 # Created by: PyQt5 UI code generator 5.13.1
 #
 # WARNING! All changes made in this file will be lost!
-
+import socket
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -537,6 +537,46 @@ class Ui_ui_home(object):
         self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
+        self.frame_5 = QtWidgets.QFrame(self.identificador_loja)
+        self.frame_5.setGeometry(QtCore.QRect(210, 380, 771, 231))
+        self.frame_5.setStyleSheet("#frame_5{\n"
+"background-color:rgb(194, 194, 194);\n"
+"}")
+        self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_5.setObjectName("frame_5")
+        self.label_7 = QtWidgets.QLabel(self.frame_5)
+        self.label_7.setGeometry(QtCore.QRect(60, 20, 301, 41))
+        font = QtGui.QFont()
+        font.setFamily("DejaVu Serif")
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.label_7.setFont(font)
+        self.label_7.setObjectName("label_7")
+        self.txt_ip_server = QtWidgets.QTextEdit(self.frame_5)
+        self.txt_ip_server.setGeometry(QtCore.QRect(60, 80, 261, 41))
+        self.txt_ip_server.setStyleSheet("#txt_senha_conectada{\n"
+"border-radius: 5px;\n"
+"}")
+        self.txt_ip_server.setObjectName("txt_ip_server")
+        self.btn_conect_server = QtWidgets.QPushButton(self.frame_5)
+        self.btn_conect_server.setGeometry(QtCore.QRect(510, 80, 99, 41))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.btn_conect_server.setFont(font)
+        self.btn_conect_server.setObjectName("btn_conect_server")
+        self.label_6 = QtWidgets.QLabel(self.identificador_loja)
+        self.label_6.setGeometry(QtCore.QRect(210, 340, 261, 41))
+        font = QtGui.QFont()
+        font.setFamily("DejaVu Serif")
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.label_6.setFont(font)
+        self.label_6.setObjectName("label_6")
         self.frame_3.raise_()
         self.label_3.raise_()
         self.sb_loja_conectada.raise_()
@@ -544,6 +584,8 @@ class Ui_ui_home(object):
         self.sb_func_conectado.raise_()
         self.txt_senha_conectada.raise_()
         self.label_5.raise_()
+        self.frame_5.raise_()
+        self.label_6.raise_()
         self.grafico.addTab(self.identificador_loja, "")
 
         self.retranslateUi(ui_home)
@@ -589,7 +631,33 @@ class Ui_ui_home(object):
         self.label_3.setText(_translate("ui_home", "Loja Conectada"))
         self.label_4.setText(_translate("ui_home", "Funcionario Conetado"))
         self.label_5.setText(_translate("ui_home", "Senha"))
+        self.label_7.setText(_translate("ui_home", "Informe o IP do Servidor"))
+        self.btn_conect_server.setText(_translate("ui_home", "Conectar"))
+        self.label_6.setText(_translate("ui_home", "Conectar ao Servidor"))
         self.grafico.setTabText(self.grafico.indexOf(self.identificador_loja), _translate("ui_home", "Page"))
+
+        self.funcionalidades()
+
+    def funcionalidades(self):
+        #click de botões
+        self.btn_conect_server.clicked.connect(self.conectarServer)
+
+    def conectarServer(self):
+        ip = self.txt_ip_server.text()
+        port = 7000
+        addr = ((ip,port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+        while(True):
+            a = "Criar Cliente"
+            client_socket.send((a.encode()))
+            mensagem_recebida = client_socket.recv(1024).decode()
+            QtWidgets.QMessageBox.about(None, "Conectar", mensagem_recebida)
+
+
+
+
+
 
 
 if __name__ == "__main__":
