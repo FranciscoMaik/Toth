@@ -6,7 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-
+import socket
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -108,6 +108,7 @@ class Ui_tela_cad_prod(object):
         self.retranslateUi(tela_cad_prod)
         QtCore.QMetaObject.connectSlotsByName(tela_cad_prod)
 
+
     def retranslateUi(self, tela_cad_prod):
         _translate = QtCore.QCoreApplication.translate
         tela_cad_prod.setWindowTitle(_translate("tela_cad_prod", "Dialog"))
@@ -119,6 +120,32 @@ class Ui_tela_cad_prod(object):
         self.label_3.setText(_translate("tela_cad_prod", "Nome"))
         self.label_10.setText(_translate("tela_cad_prod", "Cadastro de Produto"))
         self.btn_voltar_prod.setText(_translate("tela_cad_prod", "Voltar"))
+
+        self.funcionalidades()
+
+    def funcionalidades(self):
+        #click de botões
+        self.btn_cad_prod.clicked.connect(self.conectarServer)
+
+    def conectarServer(self):
+        nome = self.txt_nome_prod_prod.toPlainText()
+        quantidade = self.sb_quant_prod.text()
+        valor = self.dsp_preco_prod.text()
+        ip = '127.0.0.1'
+        port = 7000
+        addr = ((ip,port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+        a = "Produto"
+        mensagem_total = a + "," + nome + "," + quantidade + "," + valor
+        client_socket.send((mensagem_total.encode()))
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
+        client_socket.close()
+
+        self.txt_nome_prod_prod.setText("")
+        self.sb_quant_prod.setValue(0)
+        self.dsp_preco_prod.setValue(0.00)
 
 
 if __name__ == "__main__":

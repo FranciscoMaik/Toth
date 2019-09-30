@@ -643,16 +643,20 @@ class Ui_ui_home(object):
         self.btn_conect_server.clicked.connect(self.conectarServer)
 
     def conectarServer(self):
-        ip = self.txt_ip_server.text()
+        ip = self.txt_ip_server.toPlainText()
+        print(ip)
         port = 7000
         addr = ((ip,port))
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect(addr)
-        while(True):
-            a = "Criar Cliente"
-            client_socket.send((a.encode()))
-            mensagem_recebida = client_socket.recv(1024).decode()
-            QtWidgets.QMessageBox.about(None, "Conectar", mensagem_recebida)
+        print("Entrou!")
+        a = "Criar Cliente,"
+        client_socket.send((a.encode()))
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Conectar", mensagem_recebida)
+        client_socket.close()
+
+
 
 
 

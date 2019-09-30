@@ -7,9 +7,6 @@ serv_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 serv_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1)
 serv_socket.bind(addr)
 serv_socket.listen(10)
-print("Aguardando COnexão!")
-con, cliente = serv_socket.accept()
-print("Conectado!")
 
 def cadastra_produto(lista_de_produto):
     valor = int(input("Cadastrar produto:\n1 - para sim\n2 - para não\n>>>"))
@@ -31,17 +28,29 @@ def cadastra_produto(lista_de_produto):
     for i in lista_de_produto:
         i.mostra_produto()
 
+def conectar():
+    while (True):
+        print("Servidor está aguardando Conexão!")
+        con, cliente = serv_socket.accept()
+        print("Conectado!")
+        recebe = con.recv(1024).decode()
+        recebe = recebe.split(",")
+        opcao = recebe[0]
+        print(opcao)
+        print('Mensagem recebida: ' + opcao)
+        if opcao == "sair":
+            return
+        elif opcao == "Produto":
+            prod = Produto(recebe[1],int(recebe[2]),float(recebe[3]))
+            nmensagem = prod.nome_do_produto + " foi adicionado!"
+            mensagem = nmensagem.encode()
+        else:
+            mensagem = "Cliente Conectado!".encode()
+        con.send(mensagem)
 
-if __name__ == '__main__':
-    while(True):
-        recebe = con.recv(1024)
-        print('Mensagem recebida: '+ recebe.decode())
-
-        mensagem = "Cliente Conectado!"
-        con.send(mensagem.encode())
     lista_de_produto = []
-    while(True):
-        print(10*'_'+'MENU'+10*'_')
+    while (True):
+        print(10 * '_' + 'MENU' + 10 * '_')
         print("1 - OPÇÔES DOS PRODUTOS")
         print("2 - OPÇÔES DE FUNCIONÁRIOS")
         print("3 - OPÇÔES DA LOJA")
@@ -62,8 +71,8 @@ if __name__ == '__main__':
                     i.mostra_produto()
             elif opcao2 == 3:
                 iden = int(input("Informe o identificador do produto: "))
-                valor = list(filter(lambda elemento : elemento.identificador == iden, lista_de_produto))
-                if valor :
+                valor = list(filter(lambda elemento: elemento.identificador == iden, lista_de_produto))
+                if valor:
                     valor[0].mostra_produto()
                 else:
                     print("Produto não encontrado")
@@ -71,3 +80,6 @@ if __name__ == '__main__':
         elif opcao == 4:
             break
 
+
+if __name__ == '__main__':
+    conectar()
