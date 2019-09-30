@@ -156,6 +156,14 @@ class Ui_ui_loja(object):
     def funcionalidades(self):
         #click de botões
         self.btn_cad_loja.clicked.connect(self.conectarServer)
+        self.btn_cancel_loja.clicked.connect(self.limpar)
+
+    def limpar(self):
+        self.txt_nome_loja.setText("")
+        self.txt_rua_loja.setText("")
+        self.txt_bairro_loja.setText("")
+        self.txt_cep_loja.setText("")
+        self.txt_num_loja.setText("")
 
     def conectarServer(self):
         #loja

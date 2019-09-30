@@ -200,6 +200,16 @@ class Ui_fundo_func(object):
     def funcionalidades(self):
         # click de botões
         self.btn_cad_func.clicked.connect(self.conectarServer)
+        self.btn_cancel_func.clicked.connect(self.limpar)
+
+    def limpar(self):
+        self.txt_nome_func.setText("")
+        self.txt_cpf_func.setText("")
+        self.txt_num_func.setText("")
+        self.txt_rua_func.setText("")
+        self.txt_bairro_func.setText("")
+        self.txt_cep_func.setText("")
+        self.txt_num_end_func.setText("")
 
     def conectarServer(self):
         nome_fun = self.txt_nome_func.toPlainText()

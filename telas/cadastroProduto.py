@@ -126,6 +126,12 @@ class Ui_tela_cad_prod(object):
     def funcionalidades(self):
         #click de botões
         self.btn_cad_prod.clicked.connect(self.conectarServer)
+        self.btn_cancel_prod.clicked.connect(self.limpar)
+
+    def limpar(self):
+        self.txt_nome_prod_prod.setText("")
+        self.sb_quant_prod.setValue(0)
+        self.dsp_preco_prod.setValue(0.00)
 
     def conectarServer(self):
         nome = self.txt_nome_prod_prod.toPlainText()
