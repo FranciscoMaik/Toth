@@ -115,7 +115,7 @@ class Ui_tela_cad_prod(object):
         self.label_4.setText(_translate("tela_cad_prod", "Quantidade"))
         self.label_5.setText(_translate("tela_cad_prod", "Preço"))
         self.btn_cad_prod.setText(_translate("tela_cad_prod", "Cadastrar"))
-        self.btn_cancel_prod.setText(_translate("tela_cad_prod", "Cancelar"))
+        self.btn_cancel_prod.setText(_translate("tela_cad_prod", "Limpar"))
         self.label_6.setText(_translate("tela_cad_prod", "Loja"))
         self.label_3.setText(_translate("tela_cad_prod", "Nome"))
         self.label_10.setText(_translate("tela_cad_prod", "Cadastro de Produto"))

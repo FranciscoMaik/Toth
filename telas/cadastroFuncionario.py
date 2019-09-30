@@ -6,7 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-
+import socket
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -190,10 +190,47 @@ class Ui_fundo_func(object):
         self.label_10.setText(_translate("fundo_func", "Cadastro de Funcionário"))
         self.label_9.setText(_translate("fundo_func", "CEP"))
         self.label_7.setText(_translate("fundo_func", "Rua"))
-        self.btn_cancel_func.setText(_translate("fundo_func", "Cancelar"))
+        self.btn_cancel_func.setText(_translate("fundo_func", "Limpar"))
         self.btn_cad_func.setText(_translate("fundo_func", "Cadastrar"))
         self.label_12.setText(_translate("fundo_func", "Loja"))
         self.btn_voltar_tela_func.setText(_translate("fundo_func", "Voltar"))
+
+        self.funcionalidades()
+
+    def funcionalidades(self):
+        # click de botões
+        self.btn_cad_func.clicked.connect(self.conectarServer)
+
+    def conectarServer(self):
+        nome_fun = self.txt_nome_func.toPlainText()
+        cpf_fun = self.txt_cpf_func.toPlainText()
+        num_tel = self.txt_num_func.toPlainText()
+
+        #endereço
+        rua = self.txt_rua_func.toPlainText()
+        bairro = self.txt_bairro_func.toPlainText()
+        cep = self.txt_cep_func.toPlainText()
+        num_rua = self.txt_num_end_func.toPlainText()
+
+        ip = '127.0.0.1'
+        port = 7000
+        addr = ((ip, port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+        a = "Funcionario"
+        mensagem_total = a + "," + nome_fun + "," + cpf_fun + "," + num_tel + "," + rua + "," + bairro + "," + cep + "," + num_rua
+        client_socket.send((mensagem_total.encode()))
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
+        client_socket.close()
+
+        self.txt_nome_func.setText("")
+        self.txt_cpf_func.setText("")
+        self.txt_num_func.setText("")
+        self.txt_rua_func.setText("")
+        self.txt_bairro_func.setText("")
+        self.txt_cep_func.setText("")
+        self.txt_num_end_func.setText("")
 
 
 if __name__ == "__main__":

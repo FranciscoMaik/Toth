@@ -1,4 +1,7 @@
 from produtos import Produto
+from funcionario import Funcionario
+from endereço import Endereco
+from loja import Loja
 import socket
 host = ''
 port = 7000
@@ -40,15 +43,35 @@ def conectar():
         print('Mensagem recebida: ' + opcao)
         if opcao == "sair":
             return
+        #cadastro de produtos
         elif opcao == "Produto":
             prod = Produto(recebe[1],int(recebe[2]),float(recebe[3]))
+            print(prod)
             nmensagem = prod.nome_do_produto + " foi adicionado!"
             mensagem = nmensagem.encode()
+
+        #cadastro de funcionarios
+        elif opcao == "Funcionario":
+            endereco_fun = Endereco(recebe[4],recebe[5],int(recebe[7]),recebe[6])
+            new_func = Funcionario(recebe[1],recebe[2],recebe[3],endereco_fun)
+            print(new_func)
+            nmensagem = "Funcionário " + new_func.nome_do_funcionario + " Cadastrado!"
+            mensagem = nmensagem.encode()
+
+        #cadastro de lojas
+        elif opcao == "Loja":
+            end_loja = Endereco(recebe[2],recebe[3],int(recebe[5]),recebe[4])
+            loja = Loja(recebe[1],end_loja)
+            print(loja)
+            nmensagem = "Loja " + loja.nome_da_filial + " Cadastrada!"
+            mensagem = nmensagem.encode()
+
+        #mensagem de conexão
         else:
             mensagem = "Cliente Conectado!".encode()
         con.send(mensagem)
 
-    lista_de_produto = []
+    """lista_de_produto = []
     while (True):
         print(10 * '_' + 'MENU' + 10 * '_')
         print("1 - OPÇÔES DOS PRODUTOS")
@@ -78,7 +101,7 @@ def conectar():
                     print("Produto não encontrado")
 
         elif opcao == 4:
-            break
+            break"""
 
 
 if __name__ == '__main__':
