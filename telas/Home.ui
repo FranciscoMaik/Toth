@@ -41,7 +41,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="pagina_inicial">
     <property name="font">
@@ -274,7 +274,7 @@ background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0
      <property name="geometry">
       <rect>
        <x>470</x>
-       <y>100</y>
+       <y>40</y>
        <width>221</width>
        <height>41</height>
       </rect>
@@ -295,7 +295,7 @@ background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0
      <property name="geometry">
       <rect>
        <x>560</x>
-       <y>190</y>
+       <y>130</y>
        <width>201</width>
        <height>31</height>
       </rect>
@@ -316,7 +316,7 @@ border-radius: 5px;
      <property name="geometry">
       <rect>
        <x>560</x>
-       <y>280</y>
+       <y>220</y>
        <width>201</width>
        <height>31</height>
       </rect>
@@ -337,7 +337,7 @@ border-radius: 5px;
      <property name="geometry">
       <rect>
        <x>200</x>
-       <y>90</y>
+       <y>30</y>
        <width>801</width>
        <height>281</height>
       </rect>
@@ -454,28 +454,11 @@ border-radius: 5px;
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>460</y>
-       <width>801</width>
-       <height>29</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Microsoft PhagsPa</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout"/>
-    </widget>
     <widget class="QColumnView" name="cv_mostrar_produtos">
      <property name="geometry">
       <rect>
        <x>200</x>
-       <y>490</y>
+       <y>390</y>
        <width>801</width>
        <height>192</height>
       </rect>
@@ -489,8 +472,8 @@ border-radius: 5px;
     <widget class="QLabel" name="label_16">
      <property name="geometry">
       <rect>
-       <x>402</x>
-       <y>451</y>
+       <x>401</x>
+       <y>350</y>
        <width>196</width>
        <height>27</height>
       </rect>
@@ -508,8 +491,8 @@ border-radius: 5px;
     <widget class="QLabel" name="label_15">
      <property name="geometry">
       <rect>
-       <x>201</x>
-       <y>451</y>
+       <x>200</x>
+       <y>350</y>
        <width>195</width>
        <height>27</height>
       </rect>
@@ -527,8 +510,8 @@ border-radius: 5px;
     <widget class="QLabel" name="label_18">
      <property name="geometry">
       <rect>
-       <x>805</x>
-       <y>451</y>
+       <x>804</x>
+       <y>350</y>
        <width>195</width>
        <height>27</height>
       </rect>
@@ -546,8 +529,8 @@ border-radius: 5px;
     <widget class="QLabel" name="label_17">
      <property name="geometry">
       <rect>
-       <x>604</x>
-       <y>451</y>
+       <x>603</x>
+       <y>350</y>
        <width>195</width>
        <height>27</height>
       </rect>
@@ -562,7 +545,29 @@ border-radius: 5px;
       <string>Quantidade</string>
      </property>
     </widget>
-    <zorder>layoutWidget</zorder>
+    <widget class="QPushButton" name="btn_vender">
+     <property name="geometry">
+      <rect>
+       <x>890</x>
+       <y>650</y>
+       <width>99</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#btn_vender{
+background-color:rgb(138, 226, 52);
+border-radius: 5px;}</string>
+     </property>
+     <property name="text">
+      <string>Vender</string>
+     </property>
+    </widget>
     <zorder>frame_4</zorder>
     <zorder>label_12</zorder>
     <zorder>txt_nome_produto</zorder>
@@ -572,6 +577,7 @@ border-radius: 5px;
     <zorder>label_15</zorder>
     <zorder>label_18</zorder>
     <zorder>label_17</zorder>
+    <zorder>btn_vender</zorder>
    </widget>
    <widget class="QWidget" name="buscar_loja">
     <property name="styleSheet">

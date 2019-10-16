@@ -5,6 +5,7 @@ from cadastroFuncionario import Ui_fundo_func
 from cadastroProduto import Ui_tela_cad_prod
 from cadastroLoja import Ui_ui_loja
 from home import Ui_ui_home
+from vender import Ui_Form
 from PyQt5.QtGui import QPixmap
 import PyQt5
 import sys
@@ -22,6 +23,7 @@ class Ui_Main(QtWidgets.QWidget):
         self.stack1 = QtWidgets.QMainWindow()
         self.stack2 = QtWidgets.QMainWindow()
         self.stack3 = QtWidgets.QMainWindow()
+        self.stack4 = QtWidgets.QMainWindow()
 
         self.cadastroFuncionario = Ui_fundo_func()
         self.cadastroFuncionario.setupUi(self.stack3);
@@ -35,11 +37,15 @@ class Ui_Main(QtWidgets.QWidget):
         self.home = Ui_ui_home()
         self.home.setupUi(self.stack0)
 
+        self.vender = Ui_Form()
+        self.vender.setupUi(self.stack4)
+
 
         self.QtStack.addWidget(self.stack0)
         self.QtStack.addWidget(self.stack1)
         self.QtStack.addWidget(self.stack2)
         self.QtStack.addWidget(self.stack3)
+        self.QtStack.addWidget(self.stack4)
 
 
 class Main(QMainWindow, Ui_Main):
@@ -51,6 +57,9 @@ class Main(QMainWindow, Ui_Main):
         self.home.btn_cadastrar_loja.clicked.connect(self.abrirTelaCadastrarLoja)
         self.home.btn_cadastrar_funcionario.clicked.connect(self.abrirTelaCadastrarFuncionario)
         self.home.btn_cadastrar_produto.clicked.connect((self.abrirTelaCadastrarProduto))
+        self.home.btn_vender.clicked.connect(self.abrirTelaVenda)
+
+
 
         #botões Loja
         self.cadastroLoja.btn_voltar_loja.clicked.connect(self.voltarTelaHome)
@@ -60,6 +69,9 @@ class Main(QMainWindow, Ui_Main):
 
         #botões Produto
         self.cadastroProduto.btn_voltar_prod.clicked.connect(self.voltarTelaHome)
+
+        #botões_vender
+        self.vender.btn_voltar_vender.clicked.connect(self.voltarTelaHome)
 
 
 
@@ -75,6 +87,9 @@ class Main(QMainWindow, Ui_Main):
 
     def voltarTelaHome(self):
         self.QtStack.setCurrentIndex(0)
+
+    def abrirTelaVenda(self):
+        self.QtStack.setCurrentIndex(4)
 
 
 

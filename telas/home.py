@@ -2,13 +2,12 @@
 
 # Form implementation generated from reading ui file 'Home.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.1
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
-import socket
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import socket
 
 class Ui_ui_home(object):
     def setupUi(self, ui_home):
@@ -123,7 +122,7 @@ class Ui_ui_home(object):
 "}")
         self.buscar_produto.setObjectName("buscar_produto")
         self.label_12 = QtWidgets.QLabel(self.buscar_produto)
-        self.label_12.setGeometry(QtCore.QRect(470, 100, 221, 41))
+        self.label_12.setGeometry(QtCore.QRect(470, 40, 221, 41))
         font = QtGui.QFont()
         font.setFamily("Microsoft PhagsPa")
         font.setPointSize(18)
@@ -132,7 +131,7 @@ class Ui_ui_home(object):
         self.label_12.setFont(font)
         self.label_12.setObjectName("label_12")
         self.txt_nome_produto = QtWidgets.QLineEdit(self.buscar_produto)
-        self.txt_nome_produto.setGeometry(QtCore.QRect(560, 190, 201, 31))
+        self.txt_nome_produto.setGeometry(QtCore.QRect(560, 130, 201, 31))
         font = QtGui.QFont()
         font.setFamily("Microsoft PhagsPa")
         font.setPointSize(16)
@@ -142,7 +141,7 @@ class Ui_ui_home(object):
 "}")
         self.txt_nome_produto.setObjectName("txt_nome_produto")
         self.txt_id_produto = QtWidgets.QLineEdit(self.buscar_produto)
-        self.txt_id_produto.setGeometry(QtCore.QRect(560, 280, 201, 31))
+        self.txt_id_produto.setGeometry(QtCore.QRect(560, 220, 201, 31))
         font = QtGui.QFont()
         font.setFamily("Microsoft PhagsPa")
         font.setPointSize(16)
@@ -152,7 +151,7 @@ class Ui_ui_home(object):
 "}")
         self.txt_id_produto.setObjectName("txt_id_produto")
         self.frame_4 = QtWidgets.QFrame(self.buscar_produto)
-        self.frame_4.setGeometry(QtCore.QRect(200, 90, 801, 281))
+        self.frame_4.setGeometry(QtCore.QRect(200, 30, 801, 281))
         self.frame_4.setStyleSheet("#frame_4{\n"
 "background-color:rgb(194, 194, 194);\n"
 "}")
@@ -199,51 +198,49 @@ class Ui_ui_home(object):
         self.cb_id_produto.setFont(font)
         self.cb_id_produto.setText("")
         self.cb_id_produto.setObjectName("cb_id_produto")
-        self.layoutWidget = QtWidgets.QWidget(self.buscar_produto)
-        self.layoutWidget.setGeometry(QtCore.QRect(170, 460, 801, 29))
-        font = QtGui.QFont()
-        font.setFamily("Microsoft PhagsPa")
-        font.setPointSize(16)
-        self.layoutWidget.setFont(font)
-        self.layoutWidget.setObjectName("layoutWidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.layoutWidget)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout.setObjectName("horizontalLayout")
         self.cv_mostrar_produtos = QtWidgets.QColumnView(self.buscar_produto)
-        self.cv_mostrar_produtos.setGeometry(QtCore.QRect(200, 490, 801, 192))
+        self.cv_mostrar_produtos.setGeometry(QtCore.QRect(200, 390, 801, 192))
         self.cv_mostrar_produtos.setStyleSheet("#cv_mostrar_produtos{\n"
 "border-radius: 5px;\n"
 "}")
         self.cv_mostrar_produtos.setObjectName("cv_mostrar_produtos")
         self.label_16 = QtWidgets.QLabel(self.buscar_produto)
-        self.label_16.setGeometry(QtCore.QRect(402, 451, 196, 27))
+        self.label_16.setGeometry(QtCore.QRect(401, 350, 196, 27))
         font = QtGui.QFont()
         font.setFamily("Microsoft PhagsPa")
         font.setPointSize(16)
         self.label_16.setFont(font)
         self.label_16.setObjectName("label_16")
         self.label_15 = QtWidgets.QLabel(self.buscar_produto)
-        self.label_15.setGeometry(QtCore.QRect(201, 451, 195, 27))
+        self.label_15.setGeometry(QtCore.QRect(200, 350, 195, 27))
         font = QtGui.QFont()
         font.setFamily("Microsoft PhagsPa")
         font.setPointSize(16)
         self.label_15.setFont(font)
         self.label_15.setObjectName("label_15")
         self.label_18 = QtWidgets.QLabel(self.buscar_produto)
-        self.label_18.setGeometry(QtCore.QRect(805, 451, 195, 27))
+        self.label_18.setGeometry(QtCore.QRect(804, 350, 195, 27))
         font = QtGui.QFont()
         font.setFamily("Microsoft PhagsPa")
         font.setPointSize(16)
         self.label_18.setFont(font)
         self.label_18.setObjectName("label_18")
         self.label_17 = QtWidgets.QLabel(self.buscar_produto)
-        self.label_17.setGeometry(QtCore.QRect(604, 451, 195, 27))
+        self.label_17.setGeometry(QtCore.QRect(603, 350, 195, 27))
         font = QtGui.QFont()
         font.setFamily("Microsoft PhagsPa")
         font.setPointSize(16)
         self.label_17.setFont(font)
         self.label_17.setObjectName("label_17")
-        self.layoutWidget.raise_()
+        self.btn_vender = QtWidgets.QPushButton(self.buscar_produto)
+        self.btn_vender.setGeometry(QtCore.QRect(890, 650, 99, 27))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.btn_vender.setFont(font)
+        self.btn_vender.setStyleSheet("#btn_vender{\n"
+"background-color:rgb(138, 226, 52);\n"
+"border-radius: 5px;}")
+        self.btn_vender.setObjectName("btn_vender")
         self.frame_4.raise_()
         self.label_12.raise_()
         self.txt_nome_produto.raise_()
@@ -253,6 +250,7 @@ class Ui_ui_home(object):
         self.label_15.raise_()
         self.label_18.raise_()
         self.label_17.raise_()
+        self.btn_vender.raise_()
         self.grafico.addTab(self.buscar_produto, "")
         self.buscar_loja = QtWidgets.QWidget()
         self.buscar_loja.setStyleSheet("#buscar_loja{\n"
@@ -589,7 +587,7 @@ class Ui_ui_home(object):
         self.grafico.addTab(self.identificador_loja, "")
 
         self.retranslateUi(ui_home)
-        self.grafico.setCurrentIndex(4)
+        self.grafico.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(ui_home)
 
     def retranslateUi(self, ui_home):
@@ -612,6 +610,7 @@ class Ui_ui_home(object):
         self.label_15.setText(_translate("ui_home", "Id"))
         self.label_18.setText(_translate("ui_home", "Preço Uni."))
         self.label_17.setText(_translate("ui_home", "Quantidade"))
+        self.btn_vender.setText(_translate("ui_home", "Vender"))
         self.grafico.setTabText(self.grafico.indexOf(self.buscar_produto), _translate("ui_home", "Buscar Produto"))
         self.label_25.setText(_translate("ui_home", "Buscar Loja"))
         self.label_26.setText(_translate("ui_home", "Nome da Filial"))
@@ -639,14 +638,14 @@ class Ui_ui_home(object):
         self.funcionalidades()
 
     def funcionalidades(self):
-        #click de botões
+        # click de botões
         self.btn_conect_server.clicked.connect(self.conectarServer)
 
     def conectarServer(self):
         ip = self.txt_ip_server.toPlainText()
         print(ip)
         port = 7000
-        addr = ((ip,port))
+        addr = ((ip, port))
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect(addr)
         print("Entrou!")
@@ -657,13 +656,6 @@ class Ui_ui_home(object):
         client_socket.close()
 
 
-
-
-
-
-
-
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -672,3 +664,4 @@ if __name__ == "__main__":
     ui.setupUi(ui_home)
     ui_home.show()
     sys.exit(app.exec_())
+
