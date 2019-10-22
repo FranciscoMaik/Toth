@@ -45,6 +45,7 @@ def conectar():
             return
         #cadastro de produtos
         elif opcao == "Produto":
+            #cria produto
             prod = Produto(recebe[1],int(recebe[2]),float(recebe[3]))
             print(prod)
             nmensagem = prod.nome_do_produto + " foi adicionado!"
@@ -52,7 +53,9 @@ def conectar():
 
         #cadastro de funcionarios
         elif opcao == "Funcionario":
+            #cria endereço para funcionário
             endereco_fun = Endereco(recebe[4],recebe[5],int(recebe[7]),recebe[6])
+            #cria funcionário
             new_func = Funcionario(recebe[1],recebe[2],recebe[3],endereco_fun)
             print(new_func)
             nmensagem = "Funcionário " + new_func.nome_do_funcionario + " Cadastrado!"
@@ -60,7 +63,9 @@ def conectar():
 
         #cadastro de lojas
         elif opcao == "Loja":
+            #cria endereço da loja
             end_loja = Endereco(recebe[2],recebe[3],int(recebe[5]),recebe[4])
+            #cria loja
             loja = Loja(recebe[1],end_loja)
             print(loja)
             nmensagem = "Loja " + loja.nome_da_filial + " Cadastrada!"
