@@ -49,3 +49,7 @@ class Banco:
             conexao.close()
         except Exception as e:
             raise
+
+Banco().Funcionario("Maik","06121129344","665622","meu endereço")
+
+

@@ -655,6 +655,19 @@ class Ui_ui_home(object):
         QtWidgets.QMessageBox.about(None, "Conectar", mensagem_recebida)
         client_socket.close()
 
+        #adicionar loja no produto
+        #adicionar o endereço
+        #tirar id da loja e colocar nome da filial
+        #retirar a tela de buscar produto
+        #colocar o botão vender no ver estoque
+        #colocar nome cpf para a conexão
+        #arquivo para ter o ip do server
+        #campo senha no cadastro de funcionário
+        #colocar botão para alterar rpoduto
+        #colocar botão para alterar loja
+        #colocar botão para alterar funcionário
+        #logar funcionário
+        #tratamento das entradas
 
 if __name__ == "__main__":
     import sys
