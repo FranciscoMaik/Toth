@@ -220,7 +220,7 @@ background-color:rgb(194, 194, 194);
   <widget class="QPushButton" name="btn_cad_loja">
    <property name="geometry">
     <rect>
-     <x>830</x>
+     <x>630</x>
      <y>580</y>
      <width>121</width>
      <height>33</height>
@@ -290,7 +290,7 @@ background-color:rgb(194, 194, 194);
   <widget class="QPushButton" name="btn_buscar_loja">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>270</x>
      <y>580</y>
      <width>101</width>
      <height>33</height>
@@ -311,7 +311,7 @@ background-color:rgb(194, 194, 194);
   <widget class="QPushButton" name="btn_alterar_loja">
    <property name="geometry">
     <rect>
-     <x>580</x>
+     <x>460</x>
      <y>580</y>
      <width>101</width>
      <height>33</height>
@@ -329,6 +329,27 @@ background-color:rgb(194, 194, 194);
     <string>Alterar</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="btn_exluir__loja">
+   <property name="geometry">
+    <rect>
+     <x>820</x>
+     <y>580</y>
+     <width>121</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>Excluir</string>
+   </property>
+  </widget>
   <zorder>frame_3</zorder>
   <zorder>label_8</zorder>
   <zorder>label_11</zorder>
@@ -343,6 +364,7 @@ background-color:rgb(194, 194, 194);
   <zorder>txt_nome_loja</zorder>
   <zorder>btn_buscar_loja</zorder>
   <zorder>btn_alterar_loja</zorder>
+  <zorder>btn_exluir__loja</zorder>
  </widget>
  <resources/>
  <connections/>

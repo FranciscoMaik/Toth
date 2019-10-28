@@ -46,7 +46,7 @@ class Ui_tela_cad_prod(object):
         self.dsp_preco_prod.setMaximum(99999.99)
         self.dsp_preco_prod.setObjectName("dsp_preco_prod")
         self.btn_cad_prod = QtWidgets.QPushButton(self.frame_3)
-        self.btn_cad_prod.setGeometry(QtCore.QRect(550, 440, 111, 33))
+        self.btn_cad_prod.setGeometry(QtCore.QRect(480, 440, 111, 33))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.btn_cad_prod.setFont(font)
@@ -74,19 +74,26 @@ class Ui_tela_cad_prod(object):
         self.txt_nome_prod_prod.setGeometry(QtCore.QRect(310, 100, 371, 31))
         self.txt_nome_prod_prod.setObjectName("txt_nome_prod_prod")
         self.btn_buscar_prod = QtWidgets.QPushButton(self.frame_3)
-        self.btn_buscar_prod.setGeometry(QtCore.QRect(220, 440, 91, 33))
+        self.btn_buscar_prod.setGeometry(QtCore.QRect(200, 440, 91, 33))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.btn_buscar_prod.setFont(font)
         self.btn_buscar_prod.setStyleSheet("")
         self.btn_buscar_prod.setObjectName("btn_buscar_prod")
         self.btn_alterar_prod = QtWidgets.QPushButton(self.frame_3)
-        self.btn_alterar_prod.setGeometry(QtCore.QRect(370, 440, 101, 33))
+        self.btn_alterar_prod.setGeometry(QtCore.QRect(340, 440, 101, 33))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.btn_alterar_prod.setFont(font)
         self.btn_alterar_prod.setStyleSheet("")
         self.btn_alterar_prod.setObjectName("btn_alterar_prod")
+        self.btn_excluir_produto = QtWidgets.QPushButton(self.frame_3)
+        self.btn_excluir_produto.setGeometry(QtCore.QRect(640, 440, 111, 33))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.btn_excluir_produto.setFont(font)
+        self.btn_excluir_produto.setStyleSheet("")
+        self.btn_excluir_produto.setObjectName("btn_excluir_produto")
         self.label_3 = QtWidgets.QLabel(tela_cad_prod)
         self.label_3.setGeometry(QtCore.QRect(210, 150, 151, 31))
         font = QtGui.QFont()
@@ -123,19 +130,19 @@ class Ui_tela_cad_prod(object):
         self.label_6.setText(_translate("tela_cad_prod", "Loja"))
         self.btn_buscar_prod.setText(_translate("tela_cad_prod", "Buscar"))
         self.btn_alterar_prod.setText(_translate("tela_cad_prod", "Alterar"))
+        self.btn_excluir_produto.setText(_translate("tela_cad_prod", "Excluir"))
         self.label_3.setText(_translate("tela_cad_prod", "Nome"))
         self.label_10.setText(_translate("tela_cad_prod", "Cadastro de Produto"))
         self.btn_voltar_prod.setText(_translate("tela_cad_prod", "Voltar"))
 
         self.funcionalidades()
 
-
     def funcionalidades(self):
         self.btn_cad_prod.clicked.connect(self.cadastrarProduto)
         self.btn_cancel_prod.clicked.connect(self.cancelarProduto)
         self.btn_buscar_prod.clicked.connect(self.buscarProduto)
         self.btn_alterar_prod.clicked.connect(self.alterarValoresProduto)
-
+        self.btn_excluir_produto.clicked.connect(self.excluirProduto)
 
     def cadastrarProduto(self):
         nome = self.txt_nome_prod_prod.toPlainText()
@@ -156,11 +163,13 @@ class Ui_tela_cad_prod(object):
         QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
         client_socket.close()
 
-        self.txt_nome_prod_prod.setText("")
-
+        self.cancelarProduto()
 
     def cancelarProduto(self):
         self.txt_nome_prod_prod.setText("")
+        self.sb_quant_prod.setValue(0)
+        self.sb_id_loja_prod.setValue(0)
+        self.dsp_preco_prod.setValue(0.0)
 
     def buscarProduto(self):
         nome = self.txt_nome_prod_prod.toPlainText()
@@ -182,6 +191,9 @@ class Ui_tela_cad_prod(object):
         client_socket.close()
 
         self.txt_nome_prod_prod.setText("tals produto")
+        self.sb_quant_prod.setValue(2)
+        self.sb_id_loja_prod.setValue(13)
+        self.dsp_preco_prod.setValue(0.80)
 
     def alterarValoresProduto(self):
         nome = self.txt_nome_prod_prod.toPlainText()
@@ -202,7 +214,29 @@ class Ui_tela_cad_prod(object):
         QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
         client_socket.close()
 
-        self.txt_nome_prod_prod.setText("")
+        self.cancelarProduto()
+
+    def excluirProduto(self):
+        nome = self.txt_nome_prod_prod.toPlainText()
+        quantidade = str(self.sb_quant_prod.value())
+        preco = str(self.dsp_preco_prod.value())
+        loja = str(self.sb_id_loja_prod.value())
+
+        ip = "127.0.0.1"
+        port = 7000
+        addr = ((ip, port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+
+        a = "excluirProduto,"
+
+        client_socket.send(a.encode())
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
+        client_socket.close()
+
+        self.cancelarProduto()
+
 
 
 if __name__ == "__main__":

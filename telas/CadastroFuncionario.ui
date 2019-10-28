@@ -258,8 +258,8 @@ background-color:rgb(194, 194, 194);
   <widget class="QPushButton" name="btn_cancel_func">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>760</y>
+     <x>110</x>
+     <y>770</y>
      <width>131</width>
      <height>31</height>
     </rect>
@@ -279,8 +279,8 @@ background-color:rgb(194, 194, 194);
   <widget class="QPushButton" name="btn_cad_func">
    <property name="geometry">
     <rect>
-     <x>830</x>
-     <y>760</y>
+     <x>680</x>
+     <y>770</y>
      <width>131</width>
      <height>31</height>
     </rect>
@@ -387,8 +387,8 @@ border-radius:10px;
   <widget class="QPushButton" name="btn_buscar_funcionario">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>760</y>
+     <x>300</x>
+     <y>770</y>
      <width>131</width>
      <height>31</height>
     </rect>
@@ -408,8 +408,8 @@ border-radius:10px;
   <widget class="QPushButton" name="btn_editar_funcionario">
    <property name="geometry">
     <rect>
-     <x>620</x>
-     <y>760</y>
+     <x>500</x>
+     <y>770</y>
      <width>131</width>
      <height>31</height>
     </rect>
@@ -460,6 +460,27 @@ border-radius:10px;
     <string>Senha</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="btn_excluir_funcionario">
+   <property name="geometry">
+    <rect>
+     <x>870</x>
+     <y>770</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>Excluir</string>
+   </property>
+  </widget>
   <zorder>frame_3</zorder>
   <zorder>label_4</zorder>
   <zorder>label_8</zorder>
@@ -482,6 +503,7 @@ border-radius:10px;
   <zorder>btn_editar_funcionario</zorder>
   <zorder>txt_senha_fun</zorder>
   <zorder>label_13</zorder>
+  <zorder>btn_excluir_funcionario</zorder>
  </widget>
  <resources/>
  <connections/>

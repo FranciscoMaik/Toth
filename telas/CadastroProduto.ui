@@ -106,7 +106,7 @@ background-color:rgb(194, 194, 194);
    <widget class="QPushButton" name="btn_cad_prod">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>480</x>
       <y>440</y>
       <width>111</width>
       <height>33</height>
@@ -190,7 +190,7 @@ background-color:rgb(194, 194, 194);
    <widget class="QPushButton" name="btn_buscar_prod">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>200</x>
       <y>440</y>
       <width>91</width>
       <height>33</height>
@@ -211,7 +211,7 @@ background-color:rgb(194, 194, 194);
    <widget class="QPushButton" name="btn_alterar_prod">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>340</x>
       <y>440</y>
       <width>101</width>
       <height>33</height>
@@ -227,6 +227,27 @@ background-color:rgb(194, 194, 194);
     </property>
     <property name="text">
      <string>Alterar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_excluir_produto">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>440</y>
+      <width>111</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Excluir</string>
     </property>
    </widget>
   </widget>

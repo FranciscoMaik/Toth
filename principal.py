@@ -64,6 +64,12 @@ def conectar():
             nmensagem = "Valores Alterador"
             mensagem = nmensagem.encode()
 
+        #excluir produto
+        elif opcao == "excluirProduto":
+            #exclui produto do banco
+            nmensagem = "Produto excluido!"
+            mensagem = nmensagem.encode()
+
         #cadastro de funcionarios
         elif opcao == "Funcionario":
             #cria endereço para funcionário
@@ -89,6 +95,11 @@ def conectar():
             nmensagem = "Valores alterados"
             mensagem = nmensagem.encode()
 
+        #exclusão de funcionário
+        elif opcao == "excluirFuncionario":
+            #excluir funcionário do banco
+            nmensagem = "Funcionário excluido"
+            mensagem = nmensagem.encode()
         #cadastro de lojas
         elif opcao == "Loja":
             #sequencia de cadastro no banco
@@ -111,6 +122,12 @@ def conectar():
         elif opcao == "valoresLojaAlterado":
             #recebe os valores da loja para ser alterados
             nmensagem = "Alterados"
+            mensagem = nmensagem.encode()
+
+        #exclusão da loja
+        elif opcao == "excluirLoja":
+            #exclui a loja do banco
+            nmensagem = "Loja Excluida!"
             mensagem = nmensagem.encode()
 
         #mensagem de conexão

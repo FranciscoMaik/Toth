@@ -103,14 +103,14 @@ class Ui_fundo_func(object):
         self.label_7.setFont(font)
         self.label_7.setObjectName("label_7")
         self.btn_cancel_func = QtWidgets.QPushButton(fundo_func)
-        self.btn_cancel_func.setGeometry(QtCore.QRect(190, 760, 131, 31))
+        self.btn_cancel_func.setGeometry(QtCore.QRect(110, 770, 131, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.btn_cancel_func.setFont(font)
         self.btn_cancel_func.setStyleSheet("")
         self.btn_cancel_func.setObjectName("btn_cancel_func")
         self.btn_cad_func = QtWidgets.QPushButton(fundo_func)
-        self.btn_cad_func.setGeometry(QtCore.QRect(830, 760, 131, 31))
+        self.btn_cad_func.setGeometry(QtCore.QRect(680, 770, 131, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.btn_cad_func.setFont(font)
@@ -148,14 +148,14 @@ class Ui_fundo_func(object):
 "}")
         self.txt_nome_func.setObjectName("txt_nome_func")
         self.btn_buscar_funcionario = QtWidgets.QPushButton(fundo_func)
-        self.btn_buscar_funcionario.setGeometry(QtCore.QRect(400, 760, 131, 31))
+        self.btn_buscar_funcionario.setGeometry(QtCore.QRect(300, 770, 131, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.btn_buscar_funcionario.setFont(font)
         self.btn_buscar_funcionario.setStyleSheet("")
         self.btn_buscar_funcionario.setObjectName("btn_buscar_funcionario")
         self.btn_editar_funcionario = QtWidgets.QPushButton(fundo_func)
-        self.btn_editar_funcionario.setGeometry(QtCore.QRect(620, 760, 131, 31))
+        self.btn_editar_funcionario.setGeometry(QtCore.QRect(500, 770, 131, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.btn_editar_funcionario.setFont(font)
@@ -174,6 +174,13 @@ class Ui_fundo_func(object):
         font.setPointSize(16)
         self.label_13.setFont(font)
         self.label_13.setObjectName("label_13")
+        self.btn_excluir_funcionario = QtWidgets.QPushButton(fundo_func)
+        self.btn_excluir_funcionario.setGeometry(QtCore.QRect(870, 770, 131, 31))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.btn_excluir_funcionario.setFont(font)
+        self.btn_excluir_funcionario.setStyleSheet("")
+        self.btn_excluir_funcionario.setObjectName("btn_excluir_funcionario")
         self.frame_3.raise_()
         self.label_4.raise_()
         self.label_8.raise_()
@@ -196,6 +203,7 @@ class Ui_fundo_func(object):
         self.btn_editar_funcionario.raise_()
         self.txt_senha_fun.raise_()
         self.label_13.raise_()
+        self.btn_excluir_funcionario.raise_()
 
         self.retranslateUi(fundo_func)
         QtCore.QMetaObject.connectSlotsByName(fundo_func)
@@ -219,6 +227,7 @@ class Ui_fundo_func(object):
         self.btn_buscar_funcionario.setText(_translate("fundo_func", "Buscar"))
         self.btn_editar_funcionario.setText(_translate("fundo_func", "Alterar"))
         self.label_13.setText(_translate("fundo_func", "Senha"))
+        self.btn_excluir_funcionario.setText(_translate("fundo_func", "Excluir"))
 
         self.funcionalidades()
 
@@ -227,6 +236,7 @@ class Ui_fundo_func(object):
         self.btn_cancel_func.clicked.connect(self.cancelarFuncionario)
         self.btn_buscar_funcionario.clicked.connect(self.buscarFuncionario)
         self.btn_editar_funcionario.clicked.connect(self.alterarValores)
+        self.btn_excluir_funcionario.clicked.connect(self.excluirFuncionario)
 
     def cadastrarFuncionario(self):
         nome = self.txt_nome_func.toPlainText()
@@ -247,21 +257,12 @@ class Ui_fundo_func(object):
 
         a = "Funcionario," + nome + "," + rua + "," + num + "," + bairro + "," + cep + "," + senha + "," + cpf + "," + loja + "," + numero_rua
 
-
-
         client_socket.send(a.encode())
         mensagem_recebida = client_socket.recv(1024).decode()
         QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
         client_socket.close()
 
-        self.txt_num_end_func.setText("")
-        self.txt_cep_func.setText("")
-        self.txt_bairro_func.setText("")
-        self.txt_rua_func.setText("")
-        self.txt_num_func.setText("")
-        self.txt_cpf_func.setText("")
-        self.txt_senha_fun.setText("")
-        self.txt_nome_func.setText("")
+        self.cancelarFuncionario()
 
     def cancelarFuncionario(self):
         self.txt_num_end_func.setText("")
@@ -272,6 +273,7 @@ class Ui_fundo_func(object):
         self.txt_cpf_func.setText("")
         self.txt_senha_fun.setText("")
         self.txt_nome_func.setText("")
+        self.sb_id_loja_func.setValue(0)
 
     def buscarFuncionario(self):
         ip = "127.0.0.1"
@@ -295,6 +297,7 @@ class Ui_fundo_func(object):
         self.txt_cpf_func.setText("06121129344")
         self.txt_senha_fun.setText("estaeasenha")
         self.txt_nome_func.setText("maik")
+        self.sb_id_loja_func.setValue(32)
 
     def alterarValores(self):
         nome = self.txt_nome_func.toPlainText()
@@ -320,14 +323,34 @@ class Ui_fundo_func(object):
         QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
         client_socket.close()
 
-        self.txt_num_end_func.setText("")
-        self.txt_cep_func.setText("")
-        self.txt_bairro_func.setText("")
-        self.txt_rua_func.setText("")
-        self.txt_num_func.setText("")
-        self.txt_cpf_func.setText("")
-        self.txt_senha_fun.setText("")
-        self.txt_nome_func.setText("")
+        self.cancelarFuncionario()
+
+    def excluirFuncionario(self):
+        nome = self.txt_nome_func.toPlainText()
+        senha = self.txt_senha_fun.toPlainText()
+        cpf = self.txt_cpf_func.toPlainText()
+        num = self.txt_num_func.toPlainText()
+        loja = str(self.sb_id_loja_func.value())
+        rua = self.txt_rua_func.toPlainText()
+        bairro = self.txt_bairro_func.toPlainText()
+        cep = self.txt_cep_func.toPlainText()
+        numero_rua = self.txt_num_end_func.toPlainText()
+
+        ip = "127.0.0.1"
+        port = 7000
+        addr = ((ip, port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+
+        a = "excluirFuncionario,"
+
+        client_socket.send(a.encode())
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
+        client_socket.close()
+
+        self.cancelarFuncionario()
+
 
 
 if __name__ == "__main__":
