@@ -46,9 +46,22 @@ def conectar():
         #cadastro de produtos
         elif opcao == "Produto":
             #cria produto
+            #parametros que o produto recebe
+            #a = "Produto," + nome + "," + quantidade + "," + preco + "," + loja
             prod = Produto(recebe[1],int(recebe[2]),float(recebe[3]))
-            print(prod)
             nmensagem = prod.nome_do_produto + " foi adicionado!"
+            mensagem = nmensagem.encode()
+
+        #buscar produto para a tela
+        elif opcao == "buscarProduto":
+            #pegar valores no banco
+            nmensagem = "Valores do produto"
+            mensagem = nmensagem.encode()
+
+        #alterando os valores do produto
+        elif opcao == "alterarValoresdoProduto":
+            #altera os valores no banco
+            nmensagem = "Valores Alterador"
             mensagem = nmensagem.encode()
 
         #cadastro de funcionarios

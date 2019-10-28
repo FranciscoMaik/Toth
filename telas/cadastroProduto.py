@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import socket
 
 class Ui_tela_cad_prod(object):
     def setupUi(self, tela_cad_prod):
@@ -125,6 +126,83 @@ class Ui_tela_cad_prod(object):
         self.label_3.setText(_translate("tela_cad_prod", "Nome"))
         self.label_10.setText(_translate("tela_cad_prod", "Cadastro de Produto"))
         self.btn_voltar_prod.setText(_translate("tela_cad_prod", "Voltar"))
+
+        self.funcionalidades()
+
+
+    def funcionalidades(self):
+        self.btn_cad_prod.clicked.connect(self.cadastrarProduto)
+        self.btn_cancel_prod.clicked.connect(self.cancelarProduto)
+        self.btn_buscar_prod.clicked.connect(self.buscarProduto)
+        self.btn_alterar_prod.clicked.connect(self.alterarValoresProduto)
+
+
+    def cadastrarProduto(self):
+        nome = self.txt_nome_prod_prod.toPlainText()
+        quantidade = str(self.sb_quant_prod.value())
+        preco = str(self.dsp_preco_prod.value())
+        loja = str(self.sb_id_loja_prod.value())
+
+        ip = "127.0.0.1"
+        port = 7000
+        addr = ((ip, port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+
+        a = "Produto," + nome + "," + quantidade + "," + preco + "," + loja
+
+        client_socket.send(a.encode())
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
+        client_socket.close()
+
+        self.txt_nome_prod_prod.setText("")
+
+
+    def cancelarProduto(self):
+        self.txt_nome_prod_prod.setText("")
+
+    def buscarProduto(self):
+        nome = self.txt_nome_prod_prod.toPlainText()
+        quantidade = str(self.sb_quant_prod.value())
+        preco = str(self.dsp_preco_prod.value())
+        loja = str(self.sb_id_loja_prod.value())
+
+        ip = "127.0.0.1"
+        port = 7000
+        addr = ((ip, port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+
+        a = "buscarProduto,"
+
+        client_socket.send(a.encode())
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
+        client_socket.close()
+
+        self.txt_nome_prod_prod.setText("tals produto")
+
+    def alterarValoresProduto(self):
+        nome = self.txt_nome_prod_prod.toPlainText()
+        quantidade = str(self.sb_quant_prod.value())
+        preco = str(self.dsp_preco_prod.value())
+        loja = str(self.sb_id_loja_prod.value())
+
+        ip = "127.0.0.1"
+        port = 7000
+        addr = ((ip, port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+
+        a = "alterarValoresdoProduto,"
+
+        client_socket.send(a.encode())
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
+        client_socket.close()
+
+        self.txt_nome_prod_prod.setText("")
 
 
 if __name__ == "__main__":
