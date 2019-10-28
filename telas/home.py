@@ -498,6 +498,8 @@ class Ui_ui_home(object):
         self.label_6.setText(_translate("ui_home", "Conectar ao Servidor"))
         self.grafico.setTabText(self.grafico.indexOf(self.identificador_loja), _translate("ui_home", "Page"))
 
+        self.funcionalidades()
+
     def funcionalidades(self):
         # click de botões
         self.btn_conect_server.clicked.connect(self.conectarServer)
@@ -514,6 +516,7 @@ class Ui_ui_home(object):
         client_socket.send((a.encode()))
         mensagem_recebida = client_socket.recv(1024).decode()
         QtWidgets.QMessageBox.about(None, "Conectar", mensagem_recebida)
+        self.txt_ip_server.setText("")
         client_socket.close()
 
         #adicionar loja no produto

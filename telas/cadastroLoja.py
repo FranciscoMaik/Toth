@@ -161,8 +161,38 @@ class Ui_ui_loja(object):
         self.btn_buscar_loja.setText(_translate("ui_loja", "Buscar"))
         self.btn_alterar_loja.setText(_translate("ui_loja", "Alterar"))
 
+        self.funcionalidades()
+
     def funcionalidades(self):
-        self.btn_cancel_loja.clicked(self.limparCampos)
+        self.btn_cancel_loja.clicked.connect(self.limparCampos)
+        self.btn_cad_loja.clicked.connect(self.cadastrarProduto)
+
+    def cadastrarProduto(self):
+
+        nome = self.txt_nome_loja.toPlainText()
+        rua = self.txt_rua_loja.toPlainText()
+        num = self.txt_num_loja.toPlainText()
+        bairro = self.txt_bairro_loja.toPlainText()
+        cep = self.txt_cep_loja.toPlainText()
+
+        ip = "127.0.0.1"
+        port = 7000
+        addr = ((ip,port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+
+        a = "Loja," + nome + "," + rua + "," + num + "," + bairro + "," + cep
+
+        client_socket.send(a.encode())
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Loja" , mensagem_recebida)
+        client_socket.close()
+
+        self.txt_nome_loja.setText("")
+        self.txt_bairro_loja.setText("")
+        self.txt_cep_loja.setText("")
+        self.txt_num_loja.setText("")
+        self.txt_rua_loja.setText("")
 
     def limparCampos(self):
         self.txt_nome_loja.setText("")

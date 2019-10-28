@@ -63,11 +63,13 @@ def conectar():
 
         #cadastro de lojas
         elif opcao == "Loja":
+            #sequencia de cadastro no banco
+            # a = "Loja," + nome + "," + rua + "," + num + "," + bairro + "," + cep
+
             #cria endereço da loja
-            end_loja = Endereco(recebe[2],recebe[3],int(recebe[5]),recebe[4])
+            end_loja = Endereco(recebe[2],recebe[4],int(recebe[3]),recebe[5])
             #cria loja
             loja = Loja(recebe[1],end_loja)
-            print(loja)
             nmensagem = "Loja " + loja.nome_da_filial + " Cadastrada!"
             mensagem = nmensagem.encode()
 
