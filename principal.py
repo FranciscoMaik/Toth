@@ -54,11 +54,26 @@ def conectar():
         #cadastro de funcionarios
         elif opcao == "Funcionario":
             #cria endereço para funcionário
-            endereco_fun = Endereco(recebe[4],recebe[5],int(recebe[7]),recebe[6])
+            #métodos de recebimento
+            # a = "Funcionario," + nome + "," + rua + "," + num + "," + bairro + "," + cep + "," + senha + "," + cpf + "," + loja + "," + numero_rua
+
+            endereco_fun = Endereco(recebe[2],recebe[4],int(recebe[9]),recebe[5])
             #cria funcionário
-            new_func = Funcionario(recebe[1],recebe[2],recebe[3],endereco_fun)
+            new_func = Funcionario(recebe[1],recebe[7],recebe[3],endereco_fun,recebe[6])
             print(new_func)
             nmensagem = "Funcionário " + new_func.nome_do_funcionario + " Cadastrado!"
+            mensagem = nmensagem.encode()
+
+        #buscar funcionario
+        elif opcao == "buscarFuncionaio":
+            #retona os valores do banco
+            nmensagem = "Esses são os valores do funcionario"
+            mensagem = nmensagem.encode()
+
+        #alterar valores do funcionário
+        elif opcao == "alterarDadosFuncionario":
+            #recebe e altera os valores de um funcionario
+            nmensagem = "Valores alterados"
             mensagem = nmensagem.encode()
 
         #cadastro de lojas
@@ -73,11 +88,13 @@ def conectar():
             nmensagem = "Loja " + loja.nome_da_filial + " Cadastrada!"
             mensagem = nmensagem.encode()
 
+        #buscando Loja
         elif opcao == "buscarLoja":
             #retorno de valores da loja pelo banco
             nmensagem = "Retorno da Loja"
             mensagem = nmensagem.encode()
 
+        #alterando valores da loja
         elif opcao == "valoresLojaAlterado":
             #recebe os valores da loja para ser alterados
             nmensagem = "Alterados"

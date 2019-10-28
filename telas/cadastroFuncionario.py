@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import socket
 
 class Ui_fundo_func(object):
     def setupUi(self, fundo_func):
@@ -218,6 +219,115 @@ class Ui_fundo_func(object):
         self.btn_buscar_funcionario.setText(_translate("fundo_func", "Buscar"))
         self.btn_editar_funcionario.setText(_translate("fundo_func", "Alterar"))
         self.label_13.setText(_translate("fundo_func", "Senha"))
+
+        self.funcionalidades()
+
+    def funcionalidades(self):
+        self.btn_cad_func.clicked.connect(self.cadastrarFuncionario)
+        self.btn_cancel_func.clicked.connect(self.cancelarFuncionario)
+        self.btn_buscar_funcionario.clicked.connect(self.buscarFuncionario)
+        self.btn_editar_funcionario.clicked.connect(self.alterarValores)
+
+    def cadastrarFuncionario(self):
+        nome = self.txt_nome_func.toPlainText()
+        senha = self.txt_senha_fun.toPlainText()
+        cpf = self.txt_cpf_func.toPlainText()
+        num = self.txt_num_func.toPlainText()
+        loja = str(self.sb_id_loja_func.value())
+        rua = self.txt_rua_func.toPlainText()
+        bairro = self.txt_bairro_func.toPlainText()
+        cep = self.txt_cep_func.toPlainText()
+        numero_rua = self.txt_num_end_func.toPlainText()
+
+        ip = "127.0.0.1"
+        port = 7000
+        addr = ((ip, port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+
+        a = "Funcionario," + nome + "," + rua + "," + num + "," + bairro + "," + cep + "," + senha + "," + cpf + "," + loja + "," + numero_rua
+
+
+
+        client_socket.send(a.encode())
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
+        client_socket.close()
+
+        self.txt_num_end_func.setText("")
+        self.txt_cep_func.setText("")
+        self.txt_bairro_func.setText("")
+        self.txt_rua_func.setText("")
+        self.txt_num_func.setText("")
+        self.txt_cpf_func.setText("")
+        self.txt_senha_fun.setText("")
+        self.txt_nome_func.setText("")
+
+    def cancelarFuncionario(self):
+        self.txt_num_end_func.setText("")
+        self.txt_cep_func.setText("")
+        self.txt_bairro_func.setText("")
+        self.txt_rua_func.setText("")
+        self.txt_num_func.setText("")
+        self.txt_cpf_func.setText("")
+        self.txt_senha_fun.setText("")
+        self.txt_nome_func.setText("")
+
+    def buscarFuncionario(self):
+        ip = "127.0.0.1"
+        port = 7000
+        addr = ((ip, port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+
+        a = "buscarFuncionaio,"
+
+        client_socket.send(a.encode())
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
+        client_socket.close()
+
+        self.txt_num_end_func.setText("111")
+        self.txt_cep_func.setText("2415")
+        self.txt_bairro_func.setText("centro")
+        self.txt_rua_func.setText("tals")
+        self.txt_num_func.setText("89988020693")
+        self.txt_cpf_func.setText("06121129344")
+        self.txt_senha_fun.setText("estaeasenha")
+        self.txt_nome_func.setText("maik")
+
+    def alterarValores(self):
+        nome = self.txt_nome_func.toPlainText()
+        senha = self.txt_senha_fun.toPlainText()
+        cpf = self.txt_cpf_func.toPlainText()
+        num = self.txt_num_func.toPlainText()
+        loja = str(self.sb_id_loja_func.value())
+        rua = self.txt_rua_func.toPlainText()
+        bairro = self.txt_bairro_func.toPlainText()
+        cep = self.txt_cep_func.toPlainText()
+        numero_rua = self.txt_num_end_func.toPlainText()
+
+        ip = "127.0.0.1"
+        port = 7000
+        addr = ((ip, port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+
+        a = "alterarDadosFuncionario," + nome + "," + rua + "," + num + "," + bairro + "," + cep + "," + senha + "," + cpf + "," + loja + "," + numero_rua
+
+        client_socket.send(a.encode())
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
+        client_socket.close()
+
+        self.txt_num_end_func.setText("")
+        self.txt_cep_func.setText("")
+        self.txt_bairro_func.setText("")
+        self.txt_rua_func.setText("")
+        self.txt_num_func.setText("")
+        self.txt_cpf_func.setText("")
+        self.txt_senha_fun.setText("")
+        self.txt_nome_func.setText("")
 
 
 if __name__ == "__main__":

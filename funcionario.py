@@ -1,10 +1,20 @@
 class Funcionario:
-	__slots__ = ['_nome_do_funcionario', '_cpf', '_numero_de_telefone', '_endereco']
-	def __init__(self,nome_do_funcionario,cpf,numero_de_telefone,endereco):
+	__slots__ = ['_nome_do_funcionario', '_cpf', '_numero_de_telefone', '_endereco', '_senhaFuncionario']
+	def __init__(self,nome_do_funcionario,cpf,numero_de_telefone,endereco,senha):
 		self._nome_do_funcionario = nome_do_funcionario
 		self._cpf = cpf
+		self._senhaFuncionario = senha
 		self._numero_de_telefone = numero_de_telefone
 		self._endereco = endereco
+
+
+	#_________________________________senha do funcionario ____________________
+	def getSenhaDoFuncionario(self):
+		return self._senhaFuncionario
+
+	def setSenhaDoFuncionario(self,novasenha):
+		self._senhaFuncionario = novasenha
+		return True
 	#_________________________________nome do funcionario______________________
 
 	def getNomeDoFuncionario(self):
@@ -37,6 +47,7 @@ class Funcionario:
 	cpf = property(getCpf,setCpf)
 	numero_de_telefone = property(getNumeroDeTelefone,setNumeroDeTelefone)
 	endereco = property(getEndereco,setEndereco)
+	senhaFuncionario = property(getSenhaDoFuncionario,setSenhaDoFuncionario)
 if __name__ == '__main__':
-	func = Funcionario("nome dele","Cpf","numero","Endereco")
+	func = Funcionario("nome dele","Cpf","numero","Endereco","asdasd")
 	print(func.cpf)
