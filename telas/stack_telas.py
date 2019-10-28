@@ -1,11 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow,QMessageBox,QApplication, QTableWidgetItem
 
-from cadastroFuncionario import Ui_fundo_func
-from cadastroProduto import Ui_tela_cad_prod
-from cadastroLoja import Ui_ui_loja
-from home import Ui_ui_home
-from vender import Ui_Form
+from telas.cadastroFuncionario import Ui_fundo_func
+from telas.cadastroProduto import Ui_tela_cad_prod
+from telas.cadastroLoja import Ui_ui_loja
+from telas.home import Ui_ui_home
+from telas.vender import Ui_Form
 from PyQt5.QtGui import QPixmap
 import PyQt5
 import sys
@@ -57,7 +57,7 @@ class Main(QMainWindow, Ui_Main):
         self.home.btn_cadastrar_loja.clicked.connect(self.abrirTelaCadastrarLoja)
         self.home.btn_cadastrar_funcionario.clicked.connect(self.abrirTelaCadastrarFuncionario)
         self.home.btn_cadastrar_produto.clicked.connect((self.abrirTelaCadastrarProduto))
-        self.home.btn_vender.clicked.connect(self.abrirTelaVenda)
+        self.home.btn_vender_produto.clicked.connect(self.abrirTelaVenda)
 
 
 

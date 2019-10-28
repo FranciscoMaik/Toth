@@ -12,9 +12,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(1113, 810)
-        Form.setStyleSheet("#Form{\n"
-"background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));\n"
-"}")
+        Form.setStyleSheet("")
         self.ln_id_prod_venda = QtWidgets.QLineEdit(Form)
         self.ln_id_prod_venda.setGeometry(QtCore.QRect(160, 100, 113, 27))
         self.ln_id_prod_venda.setObjectName("ln_id_prod_venda")
@@ -60,15 +58,6 @@ class Ui_Form(object):
 "background-color: rgb(255, 0, 18);\n"
 "}")
         self.btn_voltar_vender.setObjectName("btn_voltar_vender")
-        self.btn_vender = QtWidgets.QPushButton(Form)
-        self.btn_vender.setGeometry(QtCore.QRect(780, 240, 99, 27))
-        font = QtGui.QFont()
-        font.setPointSize(16)
-        self.btn_vender.setFont(font)
-        self.btn_vender.setStyleSheet("#btn_vender{\n"
-"background-color: rgb(0, 255, 0);\n"
-"}")
-        self.btn_vender.setObjectName("btn_vender")
         self.frame = QtWidgets.QFrame(Form)
         self.frame.setGeometry(QtCore.QRect(150, 40, 871, 311))
         self.frame.setStyleSheet("#frame{\n"
@@ -77,6 +66,19 @@ class Ui_Form(object):
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
+        self.btn_vender = QtWidgets.QPushButton(self.frame)
+        self.btn_vender.setGeometry(QtCore.QRect(630, 210, 99, 31))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.btn_vender.setFont(font)
+        self.btn_vender.setStyleSheet("#btn_vender{\n"
+"background-color: rgb(0, 255, 0);\n"
+"}")
+        self.btn_vender.setObjectName("btn_vender")
+        self.qr_code = QtWidgets.QLabel(Form)
+        self.qr_code.setGeometry(QtCore.QRect(420, 450, 221, 201))
+        self.qr_code.setText("")
+        self.qr_code.setObjectName("qr_code")
         self.frame.raise_()
         self.ln_id_prod_venda.raise_()
         self.label.raise_()
@@ -87,7 +89,7 @@ class Ui_Form(object):
         self.sb_loja_venda.raise_()
         self.label_4.raise_()
         self.btn_voltar_vender.raise_()
-        self.btn_vender.raise_()
+        self.qr_code.raise_()
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)

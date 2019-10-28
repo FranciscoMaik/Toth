@@ -2,22 +2,18 @@
 
 # Form implementation generated from reading ui file 'CadastroProduto.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.1
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
-import socket
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_tela_cad_prod(object):
     def setupUi(self, tela_cad_prod):
         tela_cad_prod.setObjectName("tela_cad_prod")
         tela_cad_prod.resize(1180, 857)
         tela_cad_prod.setAutoFillBackground(False)
-        tela_cad_prod.setStyleSheet("#tela_cad_prod{\n"
-"background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));\n"
-"}")
+        tela_cad_prod.setStyleSheet("")
         self.frame_3 = QtWidgets.QFrame(tela_cad_prod)
         self.frame_3.setGeometry(QtCore.QRect(150, 50, 901, 581))
         self.frame_3.setStyleSheet("#frame_3{\n"
@@ -49,24 +45,18 @@ class Ui_tela_cad_prod(object):
         self.dsp_preco_prod.setMaximum(99999.99)
         self.dsp_preco_prod.setObjectName("dsp_preco_prod")
         self.btn_cad_prod = QtWidgets.QPushButton(self.frame_3)
-        self.btn_cad_prod.setGeometry(QtCore.QRect(550, 430, 98, 33))
+        self.btn_cad_prod.setGeometry(QtCore.QRect(550, 440, 111, 33))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.btn_cad_prod.setFont(font)
-        self.btn_cad_prod.setStyleSheet("#btn_cad_prod{\n"
-"background-color:rgb(0, 197, 0);\n"
-"color:#ffffff\n"
-"}")
+        self.btn_cad_prod.setStyleSheet("")
         self.btn_cad_prod.setObjectName("btn_cad_prod")
         self.btn_cancel_prod = QtWidgets.QPushButton(self.frame_3)
-        self.btn_cancel_prod.setGeometry(QtCore.QRect(280, 430, 89, 33))
+        self.btn_cancel_prod.setGeometry(QtCore.QRect(60, 440, 101, 33))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.btn_cancel_prod.setFont(font)
-        self.btn_cancel_prod.setStyleSheet("#btn_cancel_prod{\n"
-"background-color:rgb(208, 0, 0);\n"
-"color:#ffffff\n"
-"}")
+        self.btn_cancel_prod.setStyleSheet("")
         self.btn_cancel_prod.setObjectName("btn_cancel_prod")
         self.label_6 = QtWidgets.QLabel(self.frame_3)
         self.label_6.setGeometry(QtCore.QRect(60, 350, 151, 31))
@@ -82,6 +72,20 @@ class Ui_tela_cad_prod(object):
         self.txt_nome_prod_prod = QtWidgets.QTextEdit(self.frame_3)
         self.txt_nome_prod_prod.setGeometry(QtCore.QRect(310, 100, 371, 31))
         self.txt_nome_prod_prod.setObjectName("txt_nome_prod_prod")
+        self.btn_buscar_prod = QtWidgets.QPushButton(self.frame_3)
+        self.btn_buscar_prod.setGeometry(QtCore.QRect(220, 440, 91, 33))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.btn_buscar_prod.setFont(font)
+        self.btn_buscar_prod.setStyleSheet("")
+        self.btn_buscar_prod.setObjectName("btn_buscar_prod")
+        self.btn_alterar_prod = QtWidgets.QPushButton(self.frame_3)
+        self.btn_alterar_prod.setGeometry(QtCore.QRect(370, 440, 101, 33))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.btn_alterar_prod.setFont(font)
+        self.btn_alterar_prod.setStyleSheet("")
+        self.btn_alterar_prod.setObjectName("btn_alterar_prod")
         self.label_3 = QtWidgets.QLabel(tela_cad_prod)
         self.label_3.setGeometry(QtCore.QRect(210, 150, 151, 31))
         font = QtGui.QFont()
@@ -108,50 +112,19 @@ class Ui_tela_cad_prod(object):
         self.retranslateUi(tela_cad_prod)
         QtCore.QMetaObject.connectSlotsByName(tela_cad_prod)
 
-
     def retranslateUi(self, tela_cad_prod):
         _translate = QtCore.QCoreApplication.translate
         tela_cad_prod.setWindowTitle(_translate("tela_cad_prod", "Dialog"))
         self.label_4.setText(_translate("tela_cad_prod", "Quantidade"))
         self.label_5.setText(_translate("tela_cad_prod", "Preço"))
         self.btn_cad_prod.setText(_translate("tela_cad_prod", "Cadastrar"))
-        self.btn_cancel_prod.setText(_translate("tela_cad_prod", "Limpar"))
+        self.btn_cancel_prod.setText(_translate("tela_cad_prod", "Cancelar"))
         self.label_6.setText(_translate("tela_cad_prod", "Loja"))
+        self.btn_buscar_prod.setText(_translate("tela_cad_prod", "Buscar"))
+        self.btn_alterar_prod.setText(_translate("tela_cad_prod", "Alterar"))
         self.label_3.setText(_translate("tela_cad_prod", "Nome"))
         self.label_10.setText(_translate("tela_cad_prod", "Cadastro de Produto"))
         self.btn_voltar_prod.setText(_translate("tela_cad_prod", "Voltar"))
-
-        self.funcionalidades()
-
-    def funcionalidades(self):
-        #click de botões
-        self.btn_cad_prod.clicked.connect(self.conectarServer)
-        self.btn_cancel_prod.clicked.connect(self.limpar)
-
-    def limpar(self):
-        self.txt_nome_prod_prod.setText("")
-        self.sb_quant_prod.setValue(0)
-        self.dsp_preco_prod.setValue(0.00)
-
-    def conectarServer(self):
-        nome = self.txt_nome_prod_prod.toPlainText()
-        quantidade = self.sb_quant_prod.text()
-        valor = self.dsp_preco_prod.text()
-        ip = '127.0.0.1'
-        port = 7000
-        addr = ((ip,port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
-        a = "Produto"
-        mensagem_total = a + "," + nome + "," + quantidade + "," + valor
-        client_socket.send((mensagem_total.encode()))
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
-        client_socket.close()
-
-        self.txt_nome_prod_prod.setText("")
-        self.sb_quant_prod.setValue(0)
-        self.dsp_preco_prod.setValue(0.00)
 
 
 if __name__ == "__main__":
@@ -162,3 +135,4 @@ if __name__ == "__main__":
     ui.setupUi(tela_cad_prod)
     tela_cad_prod.show()
     sys.exit(app.exec_())
+

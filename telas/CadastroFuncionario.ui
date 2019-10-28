@@ -17,15 +17,13 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">#fundo_func{
-background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
-}</string>
+   <string notr="true"/>
   </property>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>240</y>
+     <y>250</y>
      <width>51</width>
      <height>21</height>
     </rect>
@@ -183,7 +181,7 @@ background-color:rgb(194, 194, 194);
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>150</y>
+     <y>110</y>
      <width>61</width>
      <height>31</height>
     </rect>
@@ -272,10 +270,7 @@ background-color:rgb(194, 194, 194);
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">#btn_cancel_func{
-background-color:rgb(208, 0, 0);
-color:#ffffff
-}</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>Cancelar</string>
@@ -296,10 +291,7 @@ color:#ffffff
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">#btn_cad_func{
-background-color:rgb(0, 197, 0);
-color:#ffffff
-}</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>Cadastrar</string>
@@ -371,7 +363,7 @@ border-radius:5px;
    <property name="geometry">
     <rect>
      <x>410</x>
-     <y>230</y>
+     <y>240</y>
      <width>371</width>
      <height>41</height>
     </rect>
@@ -381,7 +373,7 @@ border-radius:5px;
    <property name="geometry">
     <rect>
      <x>410</x>
-     <y>150</y>
+     <y>110</y>
      <width>371</width>
      <height>41</height>
     </rect>
@@ -390,6 +382,82 @@ border-radius:5px;
     <string notr="true">#txt_nome_func{
 border-radius:10px;
 }</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_buscar_funcionario">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>760</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>Buscar</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_editar_funcionario">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>760</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>Alterar</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txt_senha_fun">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>180</y>
+     <width>371</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#txt_nome_func{
+border-radius:10px;
+}</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>180</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Microsoft PhagsPa</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Senha</string>
    </property>
   </widget>
   <zorder>frame_3</zorder>
@@ -410,6 +478,10 @@ border-radius:10px;
   <zorder>txt_num_func</zorder>
   <zorder>txt_cpf_func</zorder>
   <zorder>txt_nome_func</zorder>
+  <zorder>btn_buscar_funcionario</zorder>
+  <zorder>btn_editar_funcionario</zorder>
+  <zorder>txt_senha_fun</zorder>
+  <zorder>label_13</zorder>
  </widget>
  <resources/>
  <connections/>

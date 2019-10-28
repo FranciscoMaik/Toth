@@ -2,23 +2,19 @@
 
 # Form implementation generated from reading ui file 'CadastroLoja.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.1
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import socket
-
 
 class Ui_ui_loja(object):
     def setupUi(self, ui_loja):
         ui_loja.setObjectName("ui_loja")
         ui_loja.resize(1180, 857)
         ui_loja.setAutoFillBackground(False)
-        ui_loja.setStyleSheet("#ui_loja{\n"
-"background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));\n"
-"}")
+        ui_loja.setStyleSheet("")
         self.label_8 = QtWidgets.QLabel(ui_loja)
         self.label_8.setGeometry(QtCore.QRect(190, 380, 71, 21))
         font = QtGui.QFont()
@@ -93,24 +89,18 @@ class Ui_ui_loja(object):
         self.label_7.setFont(font)
         self.label_7.setObjectName("label_7")
         self.btn_cad_loja = QtWidgets.QPushButton(ui_loja)
-        self.btn_cad_loja.setGeometry(QtCore.QRect(660, 580, 98, 33))
+        self.btn_cad_loja.setGeometry(QtCore.QRect(830, 580, 121, 33))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.btn_cad_loja.setFont(font)
-        self.btn_cad_loja.setStyleSheet("#btn_cad_loja{\n"
-"background-color:rgb(0, 197, 0);\n"
-"color:#ffffff\n"
-"}")
+        self.btn_cad_loja.setStyleSheet("")
         self.btn_cad_loja.setObjectName("btn_cad_loja")
         self.btn_cancel_loja = QtWidgets.QPushButton(ui_loja)
-        self.btn_cancel_loja.setGeometry(QtCore.QRect(321, 581, 89, 33))
+        self.btn_cancel_loja.setGeometry(QtCore.QRect(100, 580, 101, 33))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.btn_cancel_loja.setFont(font)
-        self.btn_cancel_loja.setStyleSheet("#btn_cancel_loja{\n"
-"background-color:rgb(208, 0, 0);\n"
-"color:#ffffff\n"
-"}")
+        self.btn_cancel_loja.setStyleSheet("")
         self.btn_cancel_loja.setObjectName("btn_cancel_loja")
         self.btn_voltar_loja = QtWidgets.QPushButton(ui_loja)
         self.btn_voltar_loja.setGeometry(QtCore.QRect(20, 30, 89, 25))
@@ -121,6 +111,20 @@ class Ui_ui_loja(object):
         self.txt_nome_loja = QtWidgets.QTextEdit(ui_loja)
         self.txt_nome_loja.setGeometry(QtCore.QRect(350, 140, 371, 41))
         self.txt_nome_loja.setObjectName("txt_nome_loja")
+        self.btn_buscar_loja = QtWidgets.QPushButton(ui_loja)
+        self.btn_buscar_loja.setGeometry(QtCore.QRect(320, 580, 101, 33))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.btn_buscar_loja.setFont(font)
+        self.btn_buscar_loja.setStyleSheet("")
+        self.btn_buscar_loja.setObjectName("btn_buscar_loja")
+        self.btn_alterar_loja = QtWidgets.QPushButton(ui_loja)
+        self.btn_alterar_loja.setGeometry(QtCore.QRect(580, 580, 101, 33))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.btn_alterar_loja.setFont(font)
+        self.btn_alterar_loja.setStyleSheet("")
+        self.btn_alterar_loja.setObjectName("btn_alterar_loja")
         self.frame_3.raise_()
         self.label_8.raise_()
         self.label_11.raise_()
@@ -133,9 +137,13 @@ class Ui_ui_loja(object):
         self.btn_cancel_loja.raise_()
         self.btn_voltar_loja.raise_()
         self.txt_nome_loja.raise_()
+        self.btn_buscar_loja.raise_()
+        self.btn_alterar_loja.raise_()
 
         self.retranslateUi(ui_loja)
         QtCore.QMetaObject.connectSlotsByName(ui_loja)
+
+
 
     def retranslateUi(self, ui_loja):
         _translate = QtCore.QCoreApplication.translate
@@ -148,51 +156,20 @@ class Ui_ui_loja(object):
         self.label_9.setText(_translate("ui_loja", "CEP"))
         self.label_7.setText(_translate("ui_loja", "Rua"))
         self.btn_cad_loja.setText(_translate("ui_loja", "Cadastrar"))
-        self.btn_cancel_loja.setText(_translate("ui_loja", "Limpar"))
+        self.btn_cancel_loja.setText(_translate("ui_loja", "Cancelar"))
         self.btn_voltar_loja.setText(_translate("ui_loja", "Voltar"))
-
-        self.funcionalidades()
+        self.btn_buscar_loja.setText(_translate("ui_loja", "Buscar"))
+        self.btn_alterar_loja.setText(_translate("ui_loja", "Alterar"))
 
     def funcionalidades(self):
-        #click de botões
-        self.btn_cad_loja.clicked.connect(self.conectarServer)
-        self.btn_cancel_loja.clicked.connect(self.limpar)
+        self.btn_cancel_loja.clicked(self.limparCampos)
 
-    def limpar(self):
+    def limparCampos(self):
         self.txt_nome_loja.setText("")
-        self.txt_rua_loja.setText("")
         self.txt_bairro_loja.setText("")
         self.txt_cep_loja.setText("")
         self.txt_num_loja.setText("")
-
-    def conectarServer(self):
-        #loja
-        nome = self.txt_nome_loja.toPlainText()
-
-        #endereço
-        rua_loja = self.txt_rua_loja.toPlainText()
-        bairro_loja = self.txt_bairro_loja.toPlainText()
-        cep_loja = self.txt_cep_loja.toPlainText()
-        num_end = self.txt_num_loja.toPlainText()
-
-        ip = '127.0.0.1'
-        port = 7000
-        addr = ((ip,port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
-        a = "Loja"
-        mensagem_total = a + "," + nome + "," + rua_loja + "," + bairro_loja + "," + cep_loja + "," + num_end
-        client_socket.send((mensagem_total.encode()))
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
-        client_socket.close()
-
-        self.txt_nome_loja.setText("")
         self.txt_rua_loja.setText("")
-        self.txt_bairro_loja.setText("")
-        self.txt_cep_loja.setText("")
-        self.txt_num_loja.setText("")
-
 
 if __name__ == "__main__":
     import sys
@@ -202,3 +179,4 @@ if __name__ == "__main__":
     ui.setupUi(ui_loja)
     ui_loja.show()
     sys.exit(app.exec_())
+

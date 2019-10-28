@@ -14,9 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#Form{
-background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
-}</string>
+   <string notr="true"/>
   </property>
   <widget class="QLineEdit" name="ln_id_prod_venda">
    <property name="geometry">
@@ -153,29 +151,6 @@ background-color: rgb(255, 0, 18);
     <string>Voltar</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_vender">
-   <property name="geometry">
-    <rect>
-     <x>780</x>
-     <y>240</y>
-     <width>99</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">#btn_vender{
-background-color: rgb(0, 255, 0);
-}</string>
-   </property>
-   <property name="text">
-    <string>Vender</string>
-   </property>
-  </widget>
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
@@ -196,6 +171,42 @@ background-color:rgb(194, 194, 194);
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
+   <widget class="QPushButton" name="btn_vender">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>210</y>
+      <width>99</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#btn_vender{
+background-color: rgb(0, 255, 0);
+}</string>
+    </property>
+    <property name="text">
+     <string>Vender</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="qr_code">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>450</y>
+     <width>221</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
   </widget>
   <zorder>frame</zorder>
   <zorder>ln_id_prod_venda</zorder>
@@ -207,7 +218,7 @@ background-color:rgb(194, 194, 194);
   <zorder>sb_loja_venda</zorder>
   <zorder>label_4</zorder>
   <zorder>btn_voltar_vender</zorder>
-  <zorder>btn_vender</zorder>
+  <zorder>qr_code</zorder>
  </widget>
  <resources/>
  <connections/>

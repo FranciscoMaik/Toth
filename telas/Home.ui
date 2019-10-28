@@ -41,7 +41,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="pagina_inicial">
     <property name="font">
@@ -51,9 +51,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">#pagina_inicial{
-background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
-}</string>
+     <string notr="true"/>
     </property>
     <attribute name="title">
      <string>Página Inicial</string>
@@ -85,7 +83,7 @@ background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0
       <rect>
        <x>80</x>
        <y>140</y>
-       <width>241</width>
+       <width>251</width>
        <height>41</height>
       </rect>
      </property>
@@ -99,13 +97,10 @@ background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0
       <bool>false</bool>
      </property>
      <property name="styleSheet">
-      <string notr="true">#btn_cadastrar_loja{
-background-color:#ffffff;
-border-radius: 5px;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="text">
-      <string>Cadastra Loja</string>
+      <string>Opções da Loja</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_cadastrar_funcionario">
@@ -113,7 +108,7 @@ border-radius: 5px;
       <rect>
        <x>80</x>
        <y>190</y>
-       <width>241</width>
+       <width>251</width>
        <height>41</height>
       </rect>
      </property>
@@ -124,13 +119,10 @@ border-radius: 5px;
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">#btn_cadastrar_funcionario{
-background-color:#ffffff;
-border-radius: 5px;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="text">
-      <string>Cadastrar Funcionário</string>
+      <string>Opções do Funcionário</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_cadastrar_produto">
@@ -138,7 +130,7 @@ border-radius: 5px;
       <rect>
        <x>80</x>
        <y>240</y>
-       <width>241</width>
+       <width>251</width>
        <height>41</height>
       </rect>
      </property>
@@ -149,13 +141,10 @@ border-radius: 5px;
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">#btn_cadastrar_produto{
-background-color:#ffffff;
-border-radius: 5px;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="text">
-      <string>Cadastrar Produto</string>
+      <string>Opções de Produto</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_2">
@@ -239,8 +228,8 @@ border-radius: 5px;
     <widget class="QWidget" name="gridLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>650</x>
-       <y>170</y>
+       <x>660</x>
+       <y>310</y>
        <width>471</width>
        <height>381</height>
       </rect>
@@ -260,330 +249,51 @@ border-radius: 5px;
       <string/>
      </property>
     </widget>
-   </widget>
-   <widget class="QWidget" name="buscar_produto">
-    <property name="styleSheet">
-     <string notr="true">#buscar_produto{
-background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
-}</string>
-    </property>
-    <attribute name="title">
-     <string>Buscar Produto</string>
-    </attribute>
-    <widget class="QLabel" name="label_12">
+    <widget class="QDateEdit" name="data_inicial">
      <property name="geometry">
       <rect>
-       <x>470</x>
-       <y>40</y>
-       <width>221</width>
-       <height>41</height>
+       <x>660</x>
+       <y>226</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QDateEdit" name="date_final">
+     <property name="geometry">
+      <rect>
+       <x>830</x>
+       <y>226</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>170</y>
+       <width>191</width>
+       <height>51</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Microsoft PhagsPa</family>
-       <pointsize>18</pointsize>
+       <family>DejaVu Sans</family>
+       <pointsize>14</pointsize>
        <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
      <property name="text">
-      <string>Buscar Produto</string>
+      <string>Período</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="txt_nome_produto">
-     <property name="geometry">
-      <rect>
-       <x>560</x>
-       <y>130</y>
-       <width>201</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Microsoft PhagsPa</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#txt_nome_produto{
-border-radius: 5px;
-}</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="txt_id_produto">
-     <property name="geometry">
-      <rect>
-       <x>560</x>
-       <y>220</y>
-       <width>201</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Microsoft PhagsPa</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#txt_id_produto{
-border-radius: 5px;
-}</string>
-     </property>
-    </widget>
-    <widget class="QFrame" name="frame_4">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>30</y>
-       <width>801</width>
-       <height>281</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#frame_4{
-background-color:rgb(194, 194, 194);
-}</string>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QPushButton" name="btn_buscar_produto">
-      <property name="geometry">
-       <rect>
-        <x>690</x>
-        <y>240</y>
-        <width>91</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#btn_buscar_produto{
-background-color:rgb(138, 226, 52);
-border-radius: 5px;
-}</string>
-      </property>
-      <property name="text">
-       <string>Buscar</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_13">
-      <property name="geometry">
-       <rect>
-        <x>160</x>
-        <y>100</y>
-        <width>191</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>DejaVu Sans</family>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Nome do Produto</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_14">
-      <property name="geometry">
-       <rect>
-        <x>160</x>
-        <y>190</y>
-        <width>161</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>DejaVu Sans</family>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Identificador</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="cb_nome_produto">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>110</y>
-        <width>16</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Microsoft PhagsPa</family>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="cb_id_produto">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>200</y>
-        <width>16</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Microsoft PhagsPa</family>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QColumnView" name="cv_mostrar_produtos">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>390</y>
-       <width>801</width>
-       <height>192</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#cv_mostrar_produtos{
-border-radius: 5px;
-}</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_16">
-     <property name="geometry">
-      <rect>
-       <x>401</x>
-       <y>350</y>
-       <width>196</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Microsoft PhagsPa</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Nome</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_15">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>350</y>
-       <width>195</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Microsoft PhagsPa</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Id</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_18">
-     <property name="geometry">
-      <rect>
-       <x>804</x>
-       <y>350</y>
-       <width>195</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Microsoft PhagsPa</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Preço Uni.</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_17">
-     <property name="geometry">
-      <rect>
-       <x>603</x>
-       <y>350</y>
-       <width>195</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Microsoft PhagsPa</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Quantidade</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btn_vender">
-     <property name="geometry">
-      <rect>
-       <x>890</x>
-       <y>650</y>
-       <width>99</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#btn_vender{
-background-color:rgb(138, 226, 52);
-border-radius: 5px;}</string>
-     </property>
-     <property name="text">
-      <string>Vender</string>
-     </property>
-    </widget>
-    <zorder>frame_4</zorder>
-    <zorder>label_12</zorder>
-    <zorder>txt_nome_produto</zorder>
-    <zorder>txt_id_produto</zorder>
-    <zorder>cv_mostrar_produtos</zorder>
-    <zorder>label_16</zorder>
-    <zorder>label_15</zorder>
-    <zorder>label_18</zorder>
-    <zorder>label_17</zorder>
-    <zorder>btn_vender</zorder>
    </widget>
    <widget class="QWidget" name="buscar_loja">
     <property name="styleSheet">
-     <string notr="true">#buscar_loja{
-background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
-}</string>
+     <string notr="true"/>
     </property>
     <attribute name="title">
      <string>Buscar Loja</string>
@@ -818,9 +528,7 @@ border-radius: 5px;
    </widget>
    <widget class="QWidget" name="ver_estoque">
     <property name="styleSheet">
-     <string notr="true">#ver_estoque{
-background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
-}</string>
+     <string notr="true"/>
     </property>
     <attribute name="title">
      <string>Ver Estoque</string>
@@ -998,7 +706,7 @@ border-radius: 5px;
        <x>170</x>
        <y>300</y>
        <width>931</width>
-       <height>411</height>
+       <height>321</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1042,7 +750,7 @@ border-radius: 5px;
       </font>
      </property>
      <property name="text">
-      <string>Nome</string>
+      <string>Nome Produto</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_23">
@@ -1080,7 +788,25 @@ border-radius: 5px;
       </font>
      </property>
      <property name="text">
-      <string>Id_loja</string>
+      <string>Nome Loja</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_vender_produto">
+     <property name="geometry">
+      <rect>
+       <x>960</x>
+       <y>660</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Vender</string>
      </property>
     </widget>
     <zorder>label_21</zorder>
@@ -1093,56 +819,15 @@ border-radius: 5px;
     <zorder>label_20</zorder>
     <zorder>cb_id_loja_estoque</zorder>
     <zorder>cv_estoque</zorder>
+    <zorder>btn_vender_produto</zorder>
    </widget>
    <widget class="QWidget" name="identificador_loja">
     <property name="styleSheet">
-     <string notr="true">#identificador_loja{
-background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
-}</string>
+     <string notr="true"/>
     </property>
     <attribute name="title">
      <string>Page</string>
     </attribute>
-    <widget class="QLabel" name="label_3">
-     <property name="geometry">
-      <rect>
-       <x>740</x>
-       <y>90</y>
-       <width>181</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>DejaVu Serif</family>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <italic>false</italic>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Loja Conectada</string>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="sb_loja_conectada">
-     <property name="geometry">
-      <rect>
-       <x>740</x>
-       <y>140</y>
-       <width>181</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#sb_loja_conectada{
-border-radius: 5px;
-}</string>
-     </property>
-     <property name="maximum">
-      <number>100000</number>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
@@ -1165,71 +850,13 @@ border-radius: 5px;
       <string>Funcionario Conetado</string>
      </property>
     </widget>
-    <widget class="QSpinBox" name="sb_func_conectado">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>140</y>
-       <width>261</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#sb_func_conectado{
-border-radius: 5px;
-}</string>
-     </property>
-     <property name="maximum">
-      <number>1000</number>
-     </property>
-     <property name="displayIntegerBase">
-      <number>10</number>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="txt_senha_conectada">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>220</y>
-       <width>261</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#txt_senha_conectada{
-border-radius: 5px;
-}</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>180</y>
-       <width>261</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>DejaVu Serif</family>
-       <pointsize>16</pointsize>
-       <weight>75</weight>
-       <italic>false</italic>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Senha</string>
-     </property>
-    </widget>
     <widget class="QFrame" name="frame_3">
      <property name="geometry">
       <rect>
        <x>210</x>
        <y>80</y>
        <width>771</width>
-       <height>231</height>
+       <height>301</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1243,12 +870,128 @@ background-color:rgb(194, 194, 194);
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
+     <widget class="QTextEdit" name="txt_senha_conectada">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>160</y>
+        <width>261</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#txt_senha_conectada{
+border-radius: 5px;
+}</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>120</y>
+        <width>261</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>DejaVu Serif</family>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Senha</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="sb_func_conectado">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>80</y>
+        <width>261</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#sb_func_conectado{
+border-radius: 5px;
+}</string>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="displayIntegerBase">
+       <number>10</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>40</y>
+        <width>261</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>DejaVu Serif</family>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>CPF</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>236</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>LOGIN</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>236</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>LOGOUT</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QFrame" name="frame_5">
      <property name="geometry">
       <rect>
        <x>210</x>
-       <y>380</y>
+       <y>440</y>
        <width>771</width>
        <height>231</height>
       </rect>
@@ -1324,7 +1067,7 @@ border-radius: 5px;
      <property name="geometry">
       <rect>
        <x>210</x>
-       <y>340</y>
+       <y>400</y>
        <width>261</width>
        <height>41</height>
       </rect>
@@ -1343,12 +1086,7 @@ border-radius: 5px;
      </property>
     </widget>
     <zorder>frame_3</zorder>
-    <zorder>label_3</zorder>
-    <zorder>sb_loja_conectada</zorder>
     <zorder>label_4</zorder>
-    <zorder>sb_func_conectado</zorder>
-    <zorder>txt_senha_conectada</zorder>
-    <zorder>label_5</zorder>
     <zorder>frame_5</zorder>
     <zorder>label_6</zorder>
    </widget>

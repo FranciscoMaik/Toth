@@ -17,9 +17,7 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">#tela_cad_prod{
-background-color: qlineargradient(spread:pad, x1:0.095, y1:0.903, x2:0.994, y2:0.0113636, stop:0 rgba(123, 91, 255, 255), stop:0.716418 rgba(22, 47, 168, 255));
-}</string>
+   <string notr="true"/>
   </property>
   <widget class="QFrame" name="frame_3">
    <property name="geometry">
@@ -109,8 +107,8 @@ background-color:rgb(194, 194, 194);
     <property name="geometry">
      <rect>
       <x>550</x>
-      <y>430</y>
-      <width>98</width>
+      <y>440</y>
+      <width>111</width>
       <height>33</height>
      </rect>
     </property>
@@ -120,10 +118,7 @@ background-color:rgb(194, 194, 194);
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">#btn_cad_prod{
-background-color:rgb(0, 197, 0);
-color:#ffffff
-}</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Cadastrar</string>
@@ -132,9 +127,9 @@ color:#ffffff
    <widget class="QPushButton" name="btn_cancel_prod">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>430</y>
-      <width>89</width>
+      <x>60</x>
+      <y>440</y>
+      <width>101</width>
       <height>33</height>
      </rect>
     </property>
@@ -144,10 +139,7 @@ color:#ffffff
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">#btn_cancel_prod{
-background-color:rgb(208, 0, 0);
-color:#ffffff
-}</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Cancelar</string>
@@ -193,6 +185,48 @@ color:#ffffff
       <width>371</width>
       <height>31</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_buscar_prod">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>440</y>
+      <width>91</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Buscar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_alterar_prod">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>440</y>
+      <width>101</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Alterar</string>
     </property>
    </widget>
   </widget>
