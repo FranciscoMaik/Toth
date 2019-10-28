@@ -73,6 +73,16 @@ def conectar():
             nmensagem = "Loja " + loja.nome_da_filial + " Cadastrada!"
             mensagem = nmensagem.encode()
 
+        elif opcao == "buscarLoja":
+            #retorno de valores da loja pelo banco
+            nmensagem = "Retorno da Loja"
+            mensagem = nmensagem.encode()
+
+        elif opcao == "valoresLojaAlterado":
+            #recebe os valores da loja para ser alterados
+            nmensagem = "Alterados"
+            mensagem = nmensagem.encode()
+
         #mensagem de conexão
         else:
             mensagem = "Cliente Conectado!".encode()
