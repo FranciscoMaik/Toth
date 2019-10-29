@@ -130,6 +130,17 @@ def conectar():
             nmensagem = "Loja Excluida!"
             mensagem = nmensagem.encode()
 
+        #buscar estoque no home
+        elif opcao == "buscarEstoqueHome":
+            #busca as instancias no banco e retorna
+            nmensagem = "Estoque home"
+            mensagem = nmensagem.encode()
+
+        #buscarLojaHome
+        elif opcao == "buscarLojaHome":
+            #busca a loja no banco de acordo com os parâmetros
+            nmensagem = "Loja home"
+            mensagem = nmensagem.encode()
         #mensagem de conexão
         else:
             mensagem = "Cliente Conectado!".encode()

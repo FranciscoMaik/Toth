@@ -503,10 +503,88 @@ class Ui_ui_home(object):
     def funcionalidades(self):
         # click de botões
         self.btn_conect_server.clicked.connect(self.conectarServer)
+        self.txt_nome_filial.setDisabled(True)
+        self.sb_id_loja.setDisabled(True)
+        self.txt_nome_produto_estoque.setDisabled(True)
+        self.sb_id_loja_estoque.setDisabled(True)
+        self.cb_id_loja_estoque.clicked.connect(self.estadoDoCheckBox4)
+        self.cb_nome_prod_estoque.clicked.connect(self.estadoDoCheckBox3)
+        self.cb_nome_filial.clicked.connect(self.estadoDoCheckBox1)
+        self.cb_id_loja.clicked.connect(self.estadoDoCheckBox2)
+        self.btn_buscar_loja.clicked.connect(self.buscarDadosDasLojas)
+        self.btn_ver_estoque.clicked.connect(self.buscarEstoqueProdutos)
+
+
+    def buscarEstoqueProdutos(self):
+        ip = "127.0.0.1"
+        port = 7000
+        addr = ((ip, port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+
+        nomeProdutoEstoque = ""
+        idLojaEstoque = ""
+
+        if self.cb_nome_prod_estoque.isChecked() == True:
+            nomeProdutoEstoque = self.txt_nome_produto_estoque.text()
+        if self.cb_id_loja_estoque.isChecked() == True:
+            idLojaEstoque = str(self.sb_id_loja_estoque.value())
+
+        a = "buscarEstoqueHome,"
+
+        client_socket.send((a.encode()))
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Home", mensagem_recebida)
+        client_socket.close()
+
+    def buscarDadosDasLojas(self):
+        ip = "127.0.0.1"
+        port = 7000
+        addr = ((ip, port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+
+        nomeFilialBuscarLoja = ""
+        identificadorLoja = ""
+
+        if self.cb_nome_filial.isChecked() == True:
+            nomeFilialBuscarLoja = self.txt_nome_filial.text()
+        if self.cb_id_loja.isChecked() == True:
+            identificadorLoja = str(self.sb_id_loja.value())
+
+        a = "buscarLojaHome,"
+
+        client_socket.send((a.encode()))
+        mensagem_recebida = client_socket.recv(1024).decode()
+        QtWidgets.QMessageBox.about(None, "Home", mensagem_recebida)
+        client_socket.close()
+
+    def estadoDoCheckBox4(self):
+        if self.cb_id_loja_estoque.isChecked() == True:
+            self.sb_id_loja_estoque.setDisabled(False)
+        else:
+            self.sb_id_loja_estoque.setDisabled(True)
+
+    def estadoDoCheckBox3(self):
+        if self.cb_nome_prod_estoque.isChecked() == True:
+            self.txt_nome_produto_estoque.setDisabled(False)
+        else:
+            self.txt_nome_produto_estoque.setDisabled(True)
+
+    def estadoDoCheckBox2(self):
+        if self.cb_id_loja.isChecked() == True:
+            self.sb_id_loja.setDisabled(False)
+        else:
+            self.sb_id_loja.setDisabled(True)
+
+    def estadoDoCheckBox1(self):
+        if self.cb_nome_filial.isChecked() == True:
+            self.txt_nome_filial.setDisabled(False)
+        else:
+            self.txt_nome_filial.setDisabled(True)
 
     def conectarServer(self):
         ip = self.txt_ip_server.toPlainText()
-        print(ip)
         port = 7000
         addr = ((ip, port))
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
