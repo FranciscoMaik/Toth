@@ -615,6 +615,6 @@ if __name__ == "__main__":
     ui_home = QtWidgets.QDialog()
     ui = Ui_ui_home()
     ui.setupUi(ui_home)
-    ui_home.show()
+    ui_home.showMaximized()
     sys.exit(app.exec_())
 

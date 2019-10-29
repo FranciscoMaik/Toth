@@ -7,6 +7,9 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QIcon, QPixmap
+import qrcode
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -76,7 +79,7 @@ class Ui_Form(object):
 "}")
         self.btn_vender.setObjectName("btn_vender")
         self.qr_code = QtWidgets.QLabel(Form)
-        self.qr_code.setGeometry(QtCore.QRect(420, 450, 221, 201))
+        self.qr_code.setGeometry(QtCore.QRect(450, 380, 221, 201))
         self.qr_code.setText("")
         self.qr_code.setObjectName("qr_code")
         self.frame.raise_()
@@ -104,6 +107,25 @@ class Ui_Form(object):
         self.btn_voltar_vender.setText(_translate("Form", "Voltar"))
         self.btn_vender.setText(_translate("Form", "Vender"))
 
+        self.funcionalidades()
+
+    def funcionalidades(self):
+        self.btn_vender.clicked.connect(self.venderProdutos)
+
+    def venderProdutos(self):
+        idProduto = self.ln_id_prod_venda.text()
+        nomeProduto = self.ln_nome_prod_venda.text()
+        idLoja = str(self.sb_loja_venda.value())
+        quantidade = str(self.sb_quan_prod_venda.value())
+
+        qr = qrcode.make('Id do Produto: ' + idProduto + '\nNome do Produto: ' + nomeProduto + '\nId da Loja: ' + idLoja + '\nQuantidade do Produto: ' + quantidade)
+        qr.save("qrvenda.png")
+
+        pixmap = QPixmap("qrvenda.png")
+        pixmap = pixmap.scaled(int(pixmap.width()*0.7), int(pixmap.height()*0.7))
+        self.qr_code.setPixmap(pixmap)
+        self.qr_code.resize(pixmap.width(), pixmap.height())
+
 
 if __name__ == "__main__":
     import sys
@@ -111,6 +133,6 @@ if __name__ == "__main__":
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
     ui.setupUi(Form)
-    Form.show()
+    Form.showMaximized()
     sys.exit(app.exec_())
 

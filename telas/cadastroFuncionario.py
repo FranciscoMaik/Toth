@@ -359,6 +359,6 @@ if __name__ == "__main__":
     fundo_func = QtWidgets.QDialog()
     ui = Ui_fundo_func()
     ui.setupUi(fundo_func)
-    fundo_func.show()
+    fundo_func.showMaximized()
     sys.exit(app.exec_())
 

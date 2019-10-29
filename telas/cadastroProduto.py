@@ -245,6 +245,6 @@ if __name__ == "__main__":
     tela_cad_prod = QtWidgets.QDialog()
     ui = Ui_tela_cad_prod()
     ui.setupUi(tela_cad_prod)
-    tela_cad_prod.show()
+    tela_cad_prod.showMaximized()
     sys.exit(app.exec_())
 
