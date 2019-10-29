@@ -384,7 +384,7 @@ class Ui_ui_home(object):
         self.sb_func_conectado.setStyleSheet("#sb_func_conectado{\n"
 "border-radius: 5px;\n"
 "}")
-        self.sb_func_conectado.setMaximum(1000)
+        self.sb_func_conectado.setMaximum(99999999999)
         self.sb_func_conectado.setDisplayIntegerBase(10)
         self.sb_func_conectado.setObjectName("sb_func_conectado")
         self.label_8 = QtWidgets.QLabel(self.frame_3)
@@ -496,7 +496,7 @@ class Ui_ui_home(object):
         self.label_7.setText(_translate("ui_home", "Informe o IP do Servidor"))
         self.btn_conect_server.setText(_translate("ui_home", "Conectar"))
         self.label_6.setText(_translate("ui_home", "Conectar ao Servidor"))
-        self.grafico.setTabText(self.grafico.indexOf(self.identificador_loja), _translate("ui_home", "Page"))
+        self.grafico.setTabText(self.grafico.indexOf(self.identificador_loja), _translate("ui_home", "Conexão"))
 
         self.funcionalidades()
 
