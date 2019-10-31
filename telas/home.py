@@ -384,7 +384,7 @@ class Ui_ui_home(object):
         self.sb_func_conectado.setStyleSheet("#sb_func_conectado{\n"
 "border-radius: 5px;\n"
 "}")
-        self.sb_func_conectado.setMaximum(99999999999)
+        self.sb_func_conectado.setMaximum(9999999)
         self.sb_func_conectado.setDisplayIntegerBase(10)
         self.sb_func_conectado.setObjectName("sb_func_conectado")
         self.label_8 = QtWidgets.QLabel(self.frame_3)

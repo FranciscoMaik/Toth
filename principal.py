@@ -11,7 +11,7 @@ serv_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1)
 serv_socket.bind(addr)
 serv_socket.listen(10)
 
-def cadastra_produto(lista_de_produto):
+"""def cadastra_produto(lista_de_produto):
     valor = int(input("Cadastrar produto:\n1 - para sim\n2 - para não\n>>>"))
 
     while (valor == 1):
@@ -29,7 +29,7 @@ def cadastra_produto(lista_de_produto):
     print('Produtos cadastrados:')
 
     for i in lista_de_produto:
-        i.mostra_produto()
+        i.mostra_produto()"""
 
 def conectar():
     while (True):
@@ -47,7 +47,7 @@ def conectar():
         elif opcao == "Produto":
             #cria produto
             #parametros que o produto recebe
-            #a = "Produto," + nome + "," + quantidade + "," + preco + "," + loja
+            #a = "id_prod(pk auto incremento)" + nome + "," + quantidade + "," + preco + "," + id_loja(fk)-> em outra tabela
             prod = Produto(recebe[1],int(recebe[2]),float(recebe[3]))
             nmensagem = prod.nome_do_produto + " foi adicionado!"
             mensagem = nmensagem.encode()
@@ -74,7 +74,7 @@ def conectar():
         elif opcao == "Funcionario":
             #cria endereço para funcionário
             #métodos de recebimento
-            # a = "Funcionario," + nome + "," + rua + "," + num + "," + bairro + "," + cep + "," + senha + "," + cpf + "," + loja + "," + numero_rua
+            # a = id_func(pk auto incremento) + nome + "," + rua + "," + num + "," + bairro + "," + cep + "," + senha + "," + cpf + "," + loja(fk em outra tabela fazendo a relação de relacionamento) + "," + numero_rua
 
             endereco_fun = Endereco(recebe[2],recebe[4],int(recebe[9]),recebe[5])
             #cria funcionário
@@ -103,7 +103,7 @@ def conectar():
         #cadastro de lojas
         elif opcao == "Loja":
             #sequencia de cadastro no banco
-            # a = "Loja," + nome + "," + rua + "," + num + "," + bairro + "," + cep
+            # a = id_loja(pk auto incremento) + nome + "," + rua + "," + num + "," + bairro + "," + cep
 
             #cria endereço da loja
             end_loja = Endereco(recebe[2],recebe[4],int(recebe[3]),recebe[5])

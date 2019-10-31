@@ -1,11 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow,QMessageBox,QApplication, QTableWidgetItem
 
-from telas.cadastroFuncionario import Ui_fundo_func
-from telas.cadastroProduto import Ui_tela_cad_prod
-from telas.cadastroLoja import Ui_ui_loja
-from telas.home import Ui_ui_home
-from telas.vender import Ui_Form
+from cadastroFuncionario import Ui_fundo_func
+from cadastroProduto import Ui_tela_cad_prod
+from cadastroLoja import Ui_ui_loja
+from home import Ui_ui_home
+from vender import Ui_Form
 from PyQt5.QtGui import QPixmap
 import PyQt5
 import sys

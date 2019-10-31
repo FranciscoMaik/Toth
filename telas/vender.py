@@ -8,7 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QPixmap
-import qrcode
+#import qrcode
 
 
 class Ui_Form(object):
