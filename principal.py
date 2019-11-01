@@ -3,6 +3,7 @@ from funcionario import Funcionario
 from endereço import Endereco
 from loja import Loja
 import socket
+from BancodeDados.Banco import Banco
 host = ''
 port = 7000
 addr = (host,port)
@@ -49,6 +50,7 @@ def conectar():
             #parametros que o produto recebe
             #a = "id_prod(pk auto incremento)" + nome + "," + quantidade + "," + preco + "," + id_loja(fk)-> em outra tabela
             prod = Produto(recebe[1],int(recebe[2]),float(recebe[3]))
+            Banco().Produto(recebe[1],int(recebe[2]),float(recebe[3]),recebe[4])
             nmensagem = prod.nome_do_produto + " foi adicionado!"
             mensagem = nmensagem.encode()
 
@@ -109,8 +111,9 @@ def conectar():
             end_loja = Endereco(recebe[2],recebe[4],int(recebe[3]),recebe[5])
             #cria loja
             loja = Loja(recebe[1],end_loja)
+            Banco().DadosDaLoja(recebe[1],recebe[2],recebe[4],int(recebe[3]),recebe[5])
             nmensagem = "Loja " + loja.nome_da_filial + " Cadastrada!"
-            mensagem = nmensagem.encode()
+            mensagem = nmensagem.encode(recebe[2],recebe[4],int(recebe[3]),recebe[5])
 
         #buscando Loja
         elif opcao == "buscarLoja":
