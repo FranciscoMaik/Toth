@@ -45,13 +45,25 @@ class Banco:
             conexao.close()
         except Exception as e:
             raise
-    def Produto(self):
+    def ProdutoConsulta(self,id_loja,NomeDoProduto):
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
-            sql = "INSERT INTO Produto VALUES ('{0}',{1},null,{2},{3})".format(NomeDoProduto,Quantidade,PrecoUnitario,id_loja)
-            print(sql)
-            executar.execute(sql)
+            if id_loja != None and NomeDoProduto == None:
+                sql = "SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial FROM Produto,DadosDaLoja ON DadosDaLoja.IdentificadorLoja = {0} GROUP BY SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(id_loja)
+                resultado = executar.execute(sql)
+                resultado = resultado.fetchall()
+                return resultado
+            if id_loja == None and NomeDoProduto != None:
+                sql = "SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial FROM Produto JOIN DadosDaLoja ON Produto.NomeDoProduto = {0} GROUP BY IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(NomeDoProduto)
+                resultado = executar.execute(sql)
+                resultado = resultado.fetchall()
+                return resultado
+            else:
+                sql = "SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial FROM Produto JOIN DadosDaLoja ON Produto.NomeDoProduto = {0} AND DadosDaLoja.IdentificadorLoja = {1} GROUP BY IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(NomeDoProduto,id_loja)
+                resultado = executar.execute(sql)
+                resultado = resultado.fetchall()
+                return resultado
             conexao.commit()
             conexao.close()
         except Exception as e:
