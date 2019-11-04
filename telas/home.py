@@ -522,8 +522,8 @@ class Ui_ui_home(object):
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect(addr)
 
-        nomeProdutoEstoque = ""
-        idLojaEstoque = ""
+        nomeProdutoEstoque = None
+        idLojaEstoque = None
 
         if self.cb_nome_prod_estoque.isChecked() == True:
             nomeProdutoEstoque = self.txt_nome_produto_estoque.text()

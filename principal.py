@@ -3,7 +3,9 @@ from funcionario import Funcionario
 from endereço import Endereco
 from loja import Loja
 import socket
-from BancodeDados.Banco import Banco
+
+from toth.Banco import Banco
+
 host = ''
 port = 7000
 addr = (host,port)
@@ -81,7 +83,7 @@ def conectar():
             endereco_fun = Endereco(recebe[2],recebe[4],int(recebe[9]),recebe[5])
             #cria funcionário
             new_func = Funcionario(recebe[1],recebe[7],recebe[3],endereco_fun,recebe[6])
-            print(new_func)
+            Banco().Funcionario(recebe[1],recebe[7],recebe[3],recebe[6],recebe[8],recebe[2],recebe[4],int(recebe[9]),recebe[5])
             nmensagem = "Funcionário " + new_func.nome_do_funcionario + " Cadastrado!"
             mensagem = nmensagem.encode()
 
@@ -111,9 +113,10 @@ def conectar():
             end_loja = Endereco(recebe[2],recebe[4],int(recebe[3]),recebe[5])
             #cria loja
             loja = Loja(recebe[1],end_loja)
+
             Banco().DadosDaLoja(recebe[1],recebe[2],recebe[4],int(recebe[3]),recebe[5])
             nmensagem = "Loja " + loja.nome_da_filial + " Cadastrada!"
-            mensagem = nmensagem.encode(recebe[2],recebe[4],int(recebe[3]),recebe[5])
+            mensagem = nmensagem.encode()
 
         #buscando Loja
         elif opcao == "buscarLoja":

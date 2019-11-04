@@ -8,10 +8,13 @@ class Banco:
             executar = conexao.cursor()
             sql = "INSERT INTO Funcionario VALUES ('{0}','{1}','{2}','{3}',{4})".format(NomeFuncionario,CPF,NumeroDeTelefone,Senha,id_loja)
             executar.execute(sql)
-            sql2 = "SELECT *FROM Funcionario WHERE CPF = (SELECT MAX(CPF) FROM Funcionario);"
+            sql2 = "SELECT *FROM Funcionario;"
             ultimoid = executar.execute(sql2)
             id_funcionario = ultimoid.fetchall()
-            sql3 = "INSERT INTO EnderecoFuncionario VALUES ('{0}','{1}',{2},'{3}',{4})".format(NomeDaRua,Bairro,Numero,CEP,id_funcionario[0][1])
+            contador = 0
+            for x in id_funcionario:
+                contador = contador + 1
+            sql3 = "INSERT INTO EnderecoFuncionario VALUES ('{0}','{1}',{2},'{3}',{4})".format(NomeDaRua,Bairro,Numero,CEP,id_funcionario[contador-1][1])
             executar.execute(sql3)
             conexao.commit()
             conexao.close()
