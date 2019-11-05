@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import socket
+import globalServer
 
 class Ui_fundo_func(object):
     def setupUi(self, fundo_func):
@@ -302,7 +303,7 @@ class Ui_fundo_func(object):
                                         'Número de Telefone Inválido, por favor colocar somente números!')
 
         if(validade == True and cep.isdecimal() == True and num.isdecimal() == True):
-            ip = "127.0.0.1"
+            ip = globalServer.ip
             port = 7000
             addr = ((ip, port))
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -382,7 +383,7 @@ class Ui_fundo_func(object):
             QtWidgets.QMessageBox.about(None, "Funcionário", "Por favor, preencher o campo CPF para buscá-lo!")
 
         if (cpfentrada != '' and validade == True):
-            ip = "127.0.0.1"
+            ip = globalServer.ip
             port = 7000
             addr = ((ip, port))
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -416,7 +417,7 @@ class Ui_fundo_func(object):
         cep = self.txt_cep_func.toPlainText()
         numero_rua = self.txt_num_end_func.toPlainText()
 
-        ip = "127.0.0.1"
+        ip = globalServer.ip
         port = 7000
         addr = ((ip, port))
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -482,7 +483,7 @@ class Ui_fundo_func(object):
             QtWidgets.QMessageBox.about(None, "Funcionário", "Por favor, preencher o campo CPF para exclui-lo!")
 
         if(cpfentrada != '' and validade == True):
-            ip = "127.0.0.1"
+            ip = globalServer.ip
             port = 7000
             addr = ((ip, port))
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

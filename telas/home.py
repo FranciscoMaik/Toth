@@ -8,7 +8,9 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import socket
-
+import time
+import globalServer
+import threading
 class Ui_ui_home(object):
     def setupUi(self, ui_home):
         ui_home.setObjectName("ui_home")
@@ -564,7 +566,7 @@ class Ui_ui_home(object):
 
 
         if(validade == True and senha != ''):
-            ip = "127.0.0.1"
+            ip = globalServer.ip
             port = 7000
             addr = ((ip, port))
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -582,7 +584,7 @@ class Ui_ui_home(object):
 
 
     def buscarEstoqueProdutos(self):
-        ip = "127.0.0.1"
+        ip = globalServer.ip
         port = 7000
         addr = ((ip, port))
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -604,7 +606,7 @@ class Ui_ui_home(object):
         client_socket.close()
 
     def buscarDadosDasLojas(self):
-        ip = "127.0.0.1"
+        ip = globalServer.ip
         port = 7000
         addr = ((ip, port))
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -667,28 +669,46 @@ class Ui_ui_home(object):
 
         if(ipentrada != '' and testado == True):
             ip = self.txt_ip_server.toPlainText()
+            globalServer.ip = ip
             port = 7000
-            addr = ((ip, port))
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.connect(addr)
-            print("Entrou!")
+            addr = ((globalServer.ip, port))
             a = "Criar Cliente,"
-            client_socket.send((a.encode()))
-            mensagem_recebida = client_socket.recv(1024).decode()
-            QtWidgets.QMessageBox.about(None, "Conectar", mensagem_recebida)
-            self.txt_ip_server.setText("")
-            client_socket.close()
+            result = [False]
+            mensagem_recebida = ['']
+            t = threading.Thread(target = self.funcConecta, args = (result,addr,mensagem_recebida,a))
+            t.start()
+            n = 5
+            while n>0 and result[0] == False:
+                time.sleep(1)
+                n -= 1
+                print(n)
 
-            # adicionar loja no produto
-            # adicionar o endereço
-            # tirar id da loja e colocar nome da filial
-            # retirar a tela de buscar produto
-            # colocar o botão vender no ver estoque
-            # colocar nome cpf para a conexão
-            # arquivo para ter o ip do server
-            # campo senha no cadastro de funcionário
-            # logar funcionário
-            # tratamento das entradas
+            if result[0]==True:
+                QtWidgets.QMessageBox.about(None, "Conectar", mensagem_recebida[0])
+                self.txt_ip_server.setText('')
+            else:
+                QtWidgets.QMessageBox.about(None, "Conectar", 'Erro')
+                self.txt_ip_server.setText("")
+
+    def funcConecta(self, result,addr, mensagem_recebida,msg='Criar Cliente'):
+          client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+          client_socket.connect(addr)
+          client_socket.send((msg.encode()))
+          msg_rec = client_socket.recv(1024).decode()
+          mensagem_recebida[0] = msg_rec
+          client_socket.close()
+          result[0] = True
+
+          # adicionar loja no produto
+          # adicionar o endereço
+          # tirar id da loja e colocar nome da filial
+          # retirar a tela de buscar produto
+          # colocar o botão vender no ver estoque
+          # colocar nome cpf para a conexão
+          # arquivo para ter o ip do server
+          # campo senha no cadastro de funcionário
+          # logar funcionário
+          # tratamento das entradas
 
 if __name__ == "__main__":
     import sys

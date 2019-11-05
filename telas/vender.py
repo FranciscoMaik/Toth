@@ -9,6 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QPixmap
 #import qrcode
+import globalServer
 import  socket
 
 
@@ -130,7 +131,7 @@ class Ui_Form(object):
 
 
         if(idProduto != '' and idProduto.isdecimal() == True and nomeProduto != '' and idLoja != '0' and quantidade != '0'):
-            ip = "127.0.0.1"
+            ip = globalServe.ip
             port = 7000
             addr = ((ip, port))
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -155,7 +156,6 @@ class Ui_Form(object):
             self.ln_nome_prod_venda.setText('')
             self.sb_loja_venda.setValue(0)
             self.sb_quan_prod_venda.setValue(0)
-
 
 
 if __name__ == "__main__":

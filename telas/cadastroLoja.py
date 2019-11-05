@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import socket
+import globalServer
 
 class Ui_ui_loja(object):
     def setupUi(self, ui_loja):
@@ -188,7 +189,7 @@ class Ui_ui_loja(object):
             QtWidgets.QMessageBox.about(None,"Cadastro de Loja", "CEP inválido, por favor colocar somente números")
 
         else:
-            ip = "127.0.0.1"
+            ip = globalServer.ip
             port = 7000
             addr = ((ip, port))
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -217,7 +218,7 @@ class Ui_ui_loja(object):
             QtWidgets.QMessageBox.about(None,'Loja','Por favor, preencher o nome da filial para buscá-la!')
 
         else:
-            ip = "127.0.0.1"
+            ip = globalServer.ip
             port = 7000
             addr = ((ip, port))
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -241,7 +242,7 @@ class Ui_ui_loja(object):
             client_socket.close()
 
     def alterarValores(self):
-        ip = "127.0.0.1"
+        ip = globalServer.ip
         port = 7000
         addr = ((ip, port))
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -269,7 +270,7 @@ class Ui_ui_loja(object):
             QtWidgets.QMessageBox.about(None, 'Loja', 'Por favor, preencher o nome da filial para exclui-la!')
 
         else:
-            ip = "127.0.0.1"
+            ip = globalServer.ip
             port = 7000
             addr = ((ip, port))
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

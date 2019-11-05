@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import socket
+import globalServer
 
 class Ui_tela_cad_prod(object):
     def setupUi(self, tela_cad_prod):
@@ -150,7 +151,7 @@ class Ui_tela_cad_prod(object):
         preco = str(self.dsp_preco_prod.value())
         loja = str(self.sb_id_loja_prod.value())
 
-        ip = "127.0.0.1"
+        ip = globalServer.ip
         port = 7000
         addr = ((ip, port))
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -179,7 +180,7 @@ class Ui_tela_cad_prod(object):
             QtWidgets.QMessageBox.about(None,'Produto','Por favor preencher o nome e Id da Loja para buscar o Produto')
 
         if(nome != '' and loja != '0'):
-            ip = "127.0.0.1"
+            ip = globalServer.ip
             port = 7000
             addr = ((ip, port))
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -203,7 +204,7 @@ class Ui_tela_cad_prod(object):
         preco = str(self.dsp_preco_prod.value())
         loja = str(self.sb_id_loja_prod.value())
 
-        ip = "127.0.0.1"
+        ip = globalServer.ip
         port = 7000
         addr = ((ip, port))
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -226,13 +227,13 @@ class Ui_tela_cad_prod(object):
             QtWidgets.QMessageBox.about(None, 'Produto',
                                         'Por favor preencher o nome e Id da Loja para excluir o Produto')
         if(nome != '' and loja != '0'):
-            ip = "127.0.0.1"
+            ip = globalServer.ip
             port = 7000
             addr = ((ip, port))
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client_socket.connect(addr)
 
-            a = "excluirProduto,"
+            a = "excluirProduto,"+nome + ',' + loja
 
             client_socket.send(a.encode())
             mensagem_recebida = client_socket.recv(1024).decode()
