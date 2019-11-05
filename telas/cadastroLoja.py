@@ -228,16 +228,15 @@ class Ui_ui_loja(object):
 
             client_socket.send(a.encode())
             mensagem_recebida = client_socket.recv(1024).decode()
-            QtWidgets.QMessageBox.about(None, "Loja", mensagem_recebida)
-
-            # recebimento das mensagens e setar os campos
-            mensagem_recebida = mensagem_recebida.split()
-
-            self.txt_nome_loja.setText("Nome")
-            self.txt_bairro_loja.setText("Bairro")
-            self.txt_cep_loja.setText("Cep")
-            self.txt_num_loja.setText("Num")
-            self.txt_rua_loja.setText("Rua")
+            verificacao = mensagem_recebida.split(',')
+            if verificacao[0] == "False":
+                QtWidgets.QMessageBox.about(None, "Loja", "O loja não foi encontrada!")
+            if verificacao[0] != "False":
+                self.txt_nome_loja.setText(nome)
+                self.txt_bairro_loja.setText(str(verificacao[1]))
+                self.txt_cep_loja.setText(str(verificacao[3]))
+                self.txt_num_loja.setText(str(verificacao[2]))
+                self.txt_rua_loja.setText(str(verificacao[0]))
 
             client_socket.close()
 
