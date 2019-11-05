@@ -122,13 +122,14 @@ def conectar():
         elif opcao == "buscarLoja":
             #retorno de valores da loja pelo banco
             verificacao = Banco().LojaConsulta(recebe[1])
-            if verificacao == False:
-                nmensagem = str(verificacao) + ","
+            print('verificacao',verificacao)
+            if verificacao == []:
+                nmensagem = str(False) + ","
                 mensagem = nmensagem.encode()
             else:
-                for i in verificacao:
-                    for j in i:
-                        outra = str(j) + ","
+                outra = ''
+                for i in verificacao[0]:
+                    outra += str(i) + ","
                 mensagem = outra.encode()
 
         #alterando valores da loja

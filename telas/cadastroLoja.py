@@ -231,6 +231,10 @@ class Ui_ui_loja(object):
             verificacao = mensagem_recebida.split(',')
             if verificacao[0] == "False":
                 QtWidgets.QMessageBox.about(None, "Loja", "O loja não foi encontrada!")
+                self.txt_bairro_loja.setText(" ")
+                self.txt_cep_loja.setText(" ")
+                self.txt_num_loja.setText(" ")
+                self.txt_rua_loja.setText(" ")
             if verificacao[0] != "False":
                 self.txt_nome_loja.setText(nome)
                 self.txt_bairro_loja.setText(str(verificacao[1]))
