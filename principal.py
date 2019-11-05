@@ -113,10 +113,14 @@ def conectar():
             end_loja = Endereco(recebe[2],recebe[4],recebe[3],int(recebe[5]))
             #cria loja
             loja = Loja(recebe[1],end_loja)
-
-            Banco().DadosDaLoja(recebe[1],recebe[2],recebe[4],recebe[3],recebe[5])
-            nmensagem = "Loja " + loja.nome_da_filial + " Cadastrada!"
-            mensagem = nmensagem.encode()
+            validacao = Banco().LojaConsulta(recebe[1])
+            if validacao == []:
+                Banco().DadosDaLoja(recebe[1],recebe[2],recebe[4],recebe[3],recebe[5])
+                nmensagem = "Loja " + loja.nome_da_filial + " Cadastrada!"
+                mensagem = nmensagem.encode()
+            elif validacao != []:
+                nmensagem = "Loja Não pode ser Cadastrada, há uma filial com o mesmo nome!"
+                mensagem = nmensagem.encode()
 
         #buscando Loja
         elif opcao == "buscarLoja":
