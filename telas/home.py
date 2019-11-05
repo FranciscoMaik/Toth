@@ -513,12 +513,18 @@ class Ui_ui_home(object):
     def fazLogin(self):
         cpfentrada = self.txt_cpf_home_login.toPlainText()
         senha = self.txt_senha_conectada.toPlainText()
+        message = ''
 
         try:
             soma = 0
             dgit = 0
             index = 0
-            validade = True
+            if cpfentrada=='' and senha=='':
+                message = 'Informe os campos.'
+                raise ValueError
+            if len(cpfentrada)<11:
+                message = "CPF Inválido"
+                raise ValueError
             a = cpfentrada
             cpf = list()
             for x in a:
@@ -536,8 +542,8 @@ class Ui_ui_home(object):
                 dgit = 0
 
             if dgit != cpf[9]:
-                validade = False
-                exit(1)
+                message = "CPF Inválido"
+                raise ValueError
 
             index = 0
             soma = 0
@@ -551,21 +557,13 @@ class Ui_ui_home(object):
                 dgit1 = 0
 
             if dgit != cpf[10]:
-                validade = False
-                exit(1)
+                message = "CPF Inválido"
+                raise ValueError
 
+            if senha == '':
+                message += "Por favor, informar a senha!"
+                raise ValueError
 
-
-        except:
-            QtWidgets.QMessageBox.about(None, "Home", "CPF Inválido")
-            self.txt_senha_conectada.setText('')
-            self.txt_cpf_home_login.setText('')
-
-        if senha == '':
-            QtWidgets.QMessageBox.about(None, "Home", "Por favor, informar a senha!")
-
-
-        if(validade == True and senha != ''):
             ip = globalServer.ip
             port = 7000
             addr = ((ip, port))
@@ -581,6 +579,12 @@ class Ui_ui_home(object):
 
             self.txt_cpf_home_login.setText("")
             self.txt_senha_conectada.setText('')
+
+        except ValueError:
+
+            QtWidgets.QMessageBox.about(None, "Home", message)
+            self.txt_senha_conectada.setText('')
+            self.txt_cpf_home_login.setText('')
 
 
     def buscarEstoqueProdutos(self):
