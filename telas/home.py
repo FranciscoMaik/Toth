@@ -186,12 +186,6 @@ class Ui_ui_home(object):
 "}")
         self.sb_id_loja.setMaximum(1000)
         self.sb_id_loja.setObjectName("sb_id_loja")
-        self.cv_mostrar_loja = QtWidgets.QColumnView(self.buscar_loja)
-        self.cv_mostrar_loja.setGeometry(QtCore.QRect(230, 480, 741, 192))
-        self.cv_mostrar_loja.setStyleSheet("#cv_mostrar_loja{\n"
-"border-radius: 5px;\n"
-"}")
-        self.cv_mostrar_loja.setObjectName("cv_mostrar_loja")
         self.label_28 = QtWidgets.QLabel(self.buscar_loja)
         self.label_28.setGeometry(QtCore.QRect(231, 431, 251, 31))
         font = QtGui.QFont()
@@ -206,6 +200,9 @@ class Ui_ui_home(object):
         font.setPointSize(14)
         self.label_29.setFont(font)
         self.label_29.setObjectName("label_29")
+        self.tableLojas = QtWidgets.QTableView(self.buscar_loja)
+        self.tableLojas.setGeometry(QtCore.QRect(230, 490, 741, 192))
+        self.tableLojas.setObjectName("tableLojas")
         self.label_28.raise_()
         self.label_29.raise_()
         self.frame.raise_()
@@ -215,7 +212,7 @@ class Ui_ui_home(object):
         self.cb_nome_filial.raise_()
         self.cb_id_loja.raise_()
         self.txt_nome_filial.raise_()
-        self.cv_mostrar_loja.raise_()
+        self.tableLojas.raise_()
         self.grafico.addTab(self.buscar_loja, "")
         self.ver_estoque = QtWidgets.QWidget()
         self.ver_estoque.setStyleSheet("")
@@ -290,12 +287,6 @@ class Ui_ui_home(object):
 "border-radius: 5px;\n"
 "}")
         self.btn_ver_estoque.setObjectName("btn_ver_estoque")
-        self.cv_estoque = QtWidgets.QColumnView(self.ver_estoque)
-        self.cv_estoque.setGeometry(QtCore.QRect(170, 300, 931, 321))
-        self.cv_estoque.setStyleSheet("#cv_estoque{\n"
-"border-radius: 5px;\n"
-"}")
-        self.cv_estoque.setObjectName("cv_estoque")
         self.label_21 = QtWidgets.QLabel(self.ver_estoque)
         self.label_21.setGeometry(QtCore.QRect(171, 251, 231, 25))
         font = QtGui.QFont()
@@ -330,6 +321,10 @@ class Ui_ui_home(object):
         font.setPointSize(14)
         self.btn_vender_produto.setFont(font)
         self.btn_vender_produto.setObjectName("btn_vender_produto")
+        self.tableEstoque = QtWidgets.QTableView(self.ver_estoque)
+        self.tableEstoque.setGeometry(QtCore.QRect(170, 290, 931, 341))
+        self.tableEstoque.setObjectName("tableEstoque")
+        self.tableEstoque.horizontalHeader().setCascadingSectionResizes(False)
         self.label_21.raise_()
         self.label_22.raise_()
         self.label_23.raise_()
@@ -339,8 +334,8 @@ class Ui_ui_home(object):
         self.cb_nome_prod_estoque.raise_()
         self.label_20.raise_()
         self.cb_id_loja_estoque.raise_()
-        self.cv_estoque.raise_()
         self.btn_vender_produto.raise_()
+        self.tableEstoque.raise_()
         self.grafico.addTab(self.ver_estoque, "")
         self.identificador_loja = QtWidgets.QWidget()
         self.identificador_loja.setStyleSheet("")
@@ -379,14 +374,6 @@ class Ui_ui_home(object):
         font.setWeight(75)
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
-        self.sb_func_conectado = QtWidgets.QSpinBox(self.frame_3)
-        self.sb_func_conectado.setGeometry(QtCore.QRect(70, 80, 261, 41))
-        self.sb_func_conectado.setStyleSheet("#sb_func_conectado{\n"
-"border-radius: 5px;\n"
-"}")
-        self.sb_func_conectado.setMaximum(9999999)
-        self.sb_func_conectado.setDisplayIntegerBase(10)
-        self.sb_func_conectado.setObjectName("sb_func_conectado")
         self.label_8 = QtWidgets.QLabel(self.frame_3)
         self.label_8.setGeometry(QtCore.QRect(70, 40, 261, 41))
         font = QtGui.QFont()
@@ -409,6 +396,12 @@ class Ui_ui_home(object):
         font.setPointSize(14)
         self.pushButton_2.setFont(font)
         self.pushButton_2.setObjectName("pushButton_2")
+        self.txt_cpf_home_login = QtWidgets.QTextEdit(self.frame_3)
+        self.txt_cpf_home_login.setGeometry(QtCore.QRect(70, 80, 261, 41))
+        self.txt_cpf_home_login.setStyleSheet("#txt_senha_conectada{\n"
+"border-radius: 5px;\n"
+"}")
+        self.txt_cpf_home_login.setObjectName("txt_cpf_home_login")
         self.frame_5 = QtWidgets.QFrame(self.identificador_loja)
         self.frame_5.setGeometry(QtCore.QRect(210, 440, 771, 231))
         self.frame_5.setStyleSheet("#frame_5{\n"
@@ -456,7 +449,7 @@ class Ui_ui_home(object):
         self.grafico.addTab(self.identificador_loja, "")
 
         self.retranslateUi(ui_home)
-        self.grafico.setCurrentIndex(0)
+        self.grafico.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(ui_home)
 
     def retranslateUi(self, ui_home):
@@ -496,7 +489,7 @@ class Ui_ui_home(object):
         self.label_7.setText(_translate("ui_home", "Informe o IP do Servidor"))
         self.btn_conect_server.setText(_translate("ui_home", "Conectar"))
         self.label_6.setText(_translate("ui_home", "Conectar ao Servidor"))
-        self.grafico.setTabText(self.grafico.indexOf(self.identificador_loja), _translate("ui_home", "Conexão"))
+        self.grafico.setTabText(self.grafico.indexOf(self.identificador_loja), _translate("ui_home", "Acesso"   ))
 
         self.funcionalidades()
 
@@ -513,6 +506,79 @@ class Ui_ui_home(object):
         self.cb_id_loja.clicked.connect(self.estadoDoCheckBox2)
         self.btn_buscar_loja.clicked.connect(self.buscarDadosDasLojas)
         self.btn_ver_estoque.clicked.connect(self.buscarEstoqueProdutos)
+        self.pushButton.clicked.connect(self.fazLogin)
+
+    def fazLogin(self):
+        cpfentrada = self.txt_cpf_home_login.toPlainText()
+        senha = self.txt_senha_conectada.toPlainText()
+
+        try:
+            soma = 0
+            dgit = 0
+            index = 0
+            validade = True
+            a = cpfentrada
+            cpf = list()
+            for x in a:
+                if x != '.' and x != '-':
+                    b = int(x)
+                    cpf.append(b)
+
+            for x in range(10, 1, -1):
+                soma += x * cpf[index]
+                index += 1
+
+            dgit = (soma * 10) % 11
+
+            if dgit == 10:
+                dgit = 0
+
+            if dgit != cpf[9]:
+                validade = False
+                exit(1)
+
+            index = 0
+            soma = 0
+            for x in range(11, 1, -1):
+                soma += x * cpf[index]
+                index += 1
+
+            dgit = (soma * 10) % 11
+
+            if dgit == 10:
+                dgit1 = 0
+
+            if dgit != cpf[10]:
+                validade = False
+                exit(1)
+
+
+
+        except:
+            QtWidgets.QMessageBox.about(None, "Home", "CPF Inválido")
+            self.txt_senha_conectada.setText('')
+            self.txt_cpf_home_login.setText('')
+
+        if senha == '':
+            QtWidgets.QMessageBox.about(None, "Home", "Por favor, informar a senha!")
+
+
+        if(validade == True and senha != ''):
+            ip = "127.0.0.1"
+            port = 7000
+            addr = ((ip, port))
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect(addr)
+
+            a = "Login," + cpfentrada + "," + senha
+
+            client_socket.send((a.encode()))
+            mensagem_recebida = client_socket.recv(1024).decode()
+            QtWidgets.QMessageBox.about(None, "Home", mensagem_recebida)
+            client_socket.close()
+
+            self.txt_cpf_home_login.setText("")
+            self.txt_senha_conectada.setText('')
 
 
     def buscarEstoqueProdutos(self):
@@ -522,8 +588,8 @@ class Ui_ui_home(object):
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect(addr)
 
-        nomeProdutoEstoque = None
-        idLojaEstoque = None
+        nomeProdutoEstoque = ""
+        idLojaEstoque = ""
 
         if self.cb_nome_prod_estoque.isChecked() == True:
             nomeProdutoEstoque = self.txt_nome_produto_estoque.text()
@@ -584,30 +650,45 @@ class Ui_ui_home(object):
             self.txt_nome_filial.setDisabled(True)
 
     def conectarServer(self):
-        ip = self.txt_ip_server.toPlainText()
-        port = 7000
-        addr = ((ip, port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
-        print("Entrou!")
-        a = "Criar Cliente,"
-        client_socket.send((a.encode()))
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Conectar", mensagem_recebida)
-        self.txt_ip_server.setText("")
-        client_socket.close()
+        ipentrada = self.txt_ip_server.toPlainText()
 
-        #adicionar loja no produto
-        #adicionar o endereço
-        #tirar id da loja e colocar nome da filial
-        #retirar a tela de buscar produto
-        #colocar o botão vender no ver estoque
-        #colocar nome cpf para a conexão
-        #arquivo para ter o ip do server
-        #campo senha no cadastro de funcionário
-        #logar funcionário
-        #tratamento das entradas
+        if ipentrada == '':
+            QtWidgets.QMessageBox.about(None, "Home", "Informar IP do Servidor!")
 
+        ipentrada2 = ipentrada.split('.')
+        testado = True
+        for i in ipentrada2:
+            if i.isdecimal() == True:
+                pass
+            else:
+                testado = False
+        if testado == False and ipentrada != '':
+            QtWidgets.QMessageBox.about(None, "Home", "informar um IP válido!")
+
+        if(ipentrada != '' and testado == True):
+            ip = self.txt_ip_server.toPlainText()
+            port = 7000
+            addr = ((ip, port))
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect(addr)
+            print("Entrou!")
+            a = "Criar Cliente,"
+            client_socket.send((a.encode()))
+            mensagem_recebida = client_socket.recv(1024).decode()
+            QtWidgets.QMessageBox.about(None, "Conectar", mensagem_recebida)
+            self.txt_ip_server.setText("")
+            client_socket.close()
+
+            # adicionar loja no produto
+            # adicionar o endereço
+            # tirar id da loja e colocar nome da filial
+            # retirar a tela de buscar produto
+            # colocar o botão vender no ver estoque
+            # colocar nome cpf para a conexão
+            # arquivo para ter o ip do server
+            # campo senha no cadastro de funcionário
+            # logar funcionário
+            # tratamento das entradas
 
 if __name__ == "__main__":
     import sys

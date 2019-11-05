@@ -83,7 +83,7 @@ def conectar():
             endereco_fun = Endereco(recebe[2],recebe[4],int(recebe[9]),recebe[5])
             #cria funcionário
             new_func = Funcionario(recebe[1],recebe[7],recebe[3],endereco_fun,recebe[6])
-            Banco().Funcionario(recebe[1],recebe[7],recebe[3],recebe[6],recebe[8],recebe[2],recebe[4],int(recebe[9]),recebe[5])
+            Banco().Funcionario(recebe[1],recebe[7],recebe[3],recebe[6],recebe[8],recebe[2],recebe[4],recebe[9],recebe[5])
             nmensagem = "Funcionário " + new_func.nome_do_funcionario + " Cadastrado!"
             mensagem = nmensagem.encode()
 
@@ -110,11 +110,11 @@ def conectar():
             # a = id_loja(pk auto incremento) + nome + "," + rua + "," + num + "," + bairro + "," + cep
 
             #cria endereço da loja
-            end_loja = Endereco(recebe[2],recebe[4],int(recebe[3]),recebe[5])
+            end_loja = Endereco(recebe[2],recebe[4],recebe[3],int(recebe[5]))
             #cria loja
             loja = Loja(recebe[1],end_loja)
 
-            Banco().DadosDaLoja(recebe[1],recebe[2],recebe[4],int(recebe[3]),recebe[5])
+            Banco().DadosDaLoja(recebe[1],recebe[2],recebe[4],recebe[3],recebe[5])
             nmensagem = "Loja " + loja.nome_da_filial + " Cadastrada!"
             mensagem = nmensagem.encode()
 
@@ -147,6 +147,18 @@ def conectar():
             #busca a loja no banco de acordo com os parâmetros
             nmensagem = "Loja home"
             mensagem = nmensagem.encode()
+
+        #login
+        elif opcao == "Login":
+            #a = "Login," + cpfentrada + "," + senha
+            nmensagem = "Login efetuado!"
+            mensagem = nmensagem.encode()
+
+        #vender
+        elif opcao == 'Vender':
+            nmensagem = "Produto vendido!"
+            mensagem = nmensagem.encode()
+
         #mensagem de conexão
         else:
             mensagem = "Cliente Conectado!".encode()

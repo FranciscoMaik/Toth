@@ -241,7 +241,7 @@ class Ui_fundo_func(object):
     def cadastrarFuncionario(self):
         nome = self.txt_nome_func.toPlainText()
         senha = self.txt_senha_fun.toPlainText()
-        cpf = self.txt_cpf_func.toPlainText()
+        cpfentrada = self.txt_cpf_func.toPlainText()
         num = self.txt_num_func.toPlainText()
         loja = str(self.sb_id_loja_func.value())
         rua = self.txt_rua_func.toPlainText()
@@ -249,20 +249,76 @@ class Ui_fundo_func(object):
         cep = self.txt_cep_func.toPlainText()
         numero_rua = self.txt_num_end_func.toPlainText()
 
-        ip = "127.0.0.1"
-        port = 7000
-        addr = ((ip, port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
 
-        a = "Funcionario," + nome + "," + rua + "," + num + "," + bairro + "," + cep + "," + senha + "," + cpf + "," + loja + "," + numero_rua
+        try:
+            soma = 0
+            dgit = 0
+            index = 0
+            validade = True
+            a = cpfentrada
+            cpf = list()
+            for x in a:
+                if x != '.' and x != '-':
+                    b = int(x)
+                    cpf.append(b)
 
-        client_socket.send(a.encode())
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
-        client_socket.close()
+            for x in range(10, 1, -1):
+                soma += x * cpf[index]
+                index += 1
 
-        self.cancelarFuncionario()
+            dgit = (soma * 10) % 11
+
+            if dgit == 10:
+                dgit = 0
+
+            if dgit != cpf[9]:
+                validade = False
+                exit(1)
+
+            index = 0
+            soma = 0
+            for x in range(11, 1, -1):
+                soma += x * cpf[index]
+                index += 1
+
+            dgit = (soma * 10) % 11
+
+            if dgit == 10:
+                dgit1 = 0
+
+            if dgit != cpf[10]:
+                validade = False
+                exit(1)
+
+
+
+        except:
+            QtWidgets.QMessageBox.about(None, "Funcionário", "CPF Inválido")
+
+        if(cep.isdecimal() == False):
+            QtWidgets.QMessageBox.about(None,'Cadastro de Funcionário', 'CEP Inválido, por favor colocar somente números!')
+        if(num.isdecimal() == False):
+            QtWidgets.QMessageBox.about(None, 'Cadastro de Funcionário',
+                                        'Número de Telefone Inválido, por favor colocar somente números!')
+
+        if(validade == True and cep.isdecimal() == True and num.isdecimal() == True):
+            ip = "127.0.0.1"
+            port = 7000
+            addr = ((ip, port))
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect(addr)
+
+            a = "Funcionario," + nome + "," + rua + "," + num + "," + bairro + "," + cep + "," + senha + "," + cpfentrada + "," + loja + "," + numero_rua
+
+            client_socket.send(a.encode())
+            mensagem_recebida = client_socket.recv(1024).decode()
+            QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
+            client_socket.close()
+
+            self.cancelarFuncionario()
+        else:
+            QtWidgets.QMessageBox.about(None, 'Cadastro de Funcionário',
+                                        'Algum campo está inválido!')
 
     def cancelarFuncionario(self):
         self.txt_num_end_func.setText("")
@@ -276,28 +332,78 @@ class Ui_fundo_func(object):
         self.sb_id_loja_func.setValue(0)
 
     def buscarFuncionario(self):
-        ip = "127.0.0.1"
-        port = 7000
-        addr = ((ip, port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
+        cpfentrada = self.txt_cpf_func.toPlainText()
 
-        a = "buscarFuncionaio,"
+        try:
+            soma = 0
+            dgit = 0
+            index = 0
+            validade = True
+            a = cpfentrada
+            cpf = list()
+            for x in a:
+                if x != '.' and x != '-':
+                    b = int(x)
+                    cpf.append(b)
 
-        client_socket.send(a.encode())
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
-        client_socket.close()
+            for x in range(10, 1, -1):
+                soma += x * cpf[index]
+                index += 1
 
-        self.txt_num_end_func.setText("111")
-        self.txt_cep_func.setText("2415")
-        self.txt_bairro_func.setText("centro")
-        self.txt_rua_func.setText("tals")
-        self.txt_num_func.setText("89988020693")
-        self.txt_cpf_func.setText("06121129344")
-        self.txt_senha_fun.setText("estaeasenha")
-        self.txt_nome_func.setText("maik")
-        self.sb_id_loja_func.setValue(32)
+            dgit = (soma * 10) % 11
+
+            if dgit == 10:
+                dgit = 0
+
+            if dgit != cpf[9]:
+                validade = False
+                exit(1)
+
+            index = 0
+            soma = 0
+            for x in range(11, 1, -1):
+                soma += x * cpf[index]
+                index += 1
+
+            dgit = (soma * 10) % 11
+
+            if dgit == 10:
+                dgit1 = 0
+
+            if dgit != cpf[10]:
+                validade = False
+                exit(1)
+
+        except:
+            if(cpfentrada != ''):
+                QtWidgets.QMessageBox.about(None, "Funcionário", "CPF Inválido")
+
+        if cpfentrada == '':
+            QtWidgets.QMessageBox.about(None, "Funcionário", "Por favor, preencher o campo CPF para buscá-lo!")
+
+        if (cpfentrada != '' and validade == True):
+            ip = "127.0.0.1"
+            port = 7000
+            addr = ((ip, port))
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect(addr)
+
+            a = "buscarFuncionaio," +cpfentrada
+
+            client_socket.send(a.encode())
+            mensagem_recebida = client_socket.recv(1024).decode()
+            QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
+            client_socket.close()
+
+            self.txt_num_end_func.setText("111")
+            self.txt_cep_func.setText("2415")
+            self.txt_bairro_func.setText("centro")
+            self.txt_rua_func.setText("tals")
+            self.txt_num_func.setText("89988020693")
+            self.txt_cpf_func.setText("06121129344")
+            self.txt_senha_fun.setText("estaeasenha")
+            self.txt_nome_func.setText("maik")
+            self.sb_id_loja_func.setValue(32)
 
     def alterarValores(self):
         nome = self.txt_nome_func.toPlainText()
@@ -326,30 +432,70 @@ class Ui_fundo_func(object):
         self.cancelarFuncionario()
 
     def excluirFuncionario(self):
-        nome = self.txt_nome_func.toPlainText()
-        senha = self.txt_senha_fun.toPlainText()
-        cpf = self.txt_cpf_func.toPlainText()
-        num = self.txt_num_func.toPlainText()
-        loja = str(self.sb_id_loja_func.value())
-        rua = self.txt_rua_func.toPlainText()
-        bairro = self.txt_bairro_func.toPlainText()
-        cep = self.txt_cep_func.toPlainText()
-        numero_rua = self.txt_num_end_func.toPlainText()
+        cpfentrada = self.txt_cpf_func.toPlainText()
 
-        ip = "127.0.0.1"
-        port = 7000
-        addr = ((ip, port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
+        try:
+            soma = 0
+            dgit = 0
+            index = 0
+            validade = True
+            a = cpfentrada
+            cpf = list()
+            for x in a:
+                if x != '.' and x != '-':
+                    b = int(x)
+                    cpf.append(b)
 
-        a = "excluirFuncionario,"
+            for x in range(10, 1, -1):
+                soma += x * cpf[index]
+                index += 1
 
-        client_socket.send(a.encode())
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
-        client_socket.close()
+            dgit = (soma * 10) % 11
 
-        self.cancelarFuncionario()
+            if dgit == 10:
+                dgit = 0
+
+            if dgit != cpf[9]:
+                validade = False
+                exit(1)
+
+            index = 0
+            soma = 0
+            for x in range(11, 1, -1):
+                soma += x * cpf[index]
+                index += 1
+
+            dgit = (soma * 10) % 11
+
+            if dgit == 10:
+                dgit1 = 0
+
+            if dgit != cpf[10]:
+                validade = False
+                exit(1)
+
+        except:
+            if (cpfentrada != ''):
+                QtWidgets.QMessageBox.about(None, "Funcionário", "CPF Inválido")
+
+        if cpfentrada == '':
+            QtWidgets.QMessageBox.about(None, "Funcionário", "Por favor, preencher o campo CPF para exclui-lo!")
+
+        if(cpfentrada != '' and validade == True):
+            ip = "127.0.0.1"
+            port = 7000
+            addr = ((ip, port))
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect(addr)
+
+            a = "excluirFuncionario,"
+
+            client_socket.send(a.encode())
+            mensagem_recebida = client_socket.recv(1024).decode()
+            QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
+            client_socket.close()
+
+            self.cancelarFuncionario()
 
 
 

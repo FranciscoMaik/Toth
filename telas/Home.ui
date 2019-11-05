@@ -41,7 +41,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="pagina_inicial">
     <property name="font">
@@ -462,21 +462,6 @@ border-radius: 5px;
       </property>
      </widget>
     </widget>
-    <widget class="QColumnView" name="cv_mostrar_loja">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>480</y>
-       <width>741</width>
-       <height>192</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#cv_mostrar_loja{
-border-radius: 5px;
-}</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_28">
      <property name="geometry">
       <rect>
@@ -515,6 +500,16 @@ border-radius: 5px;
       <string>Nome</string>
      </property>
     </widget>
+    <widget class="QTableView" name="tableLojas">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>490</y>
+       <width>741</width>
+       <height>192</height>
+      </rect>
+     </property>
+    </widget>
     <zorder>label_28</zorder>
     <zorder>label_29</zorder>
     <zorder>frame</zorder>
@@ -524,7 +519,7 @@ border-radius: 5px;
     <zorder>cb_nome_filial</zorder>
     <zorder>cb_id_loja</zorder>
     <zorder>txt_nome_filial</zorder>
-    <zorder>cv_mostrar_loja</zorder>
+    <zorder>tableLojas</zorder>
    </widget>
    <widget class="QWidget" name="ver_estoque">
     <property name="styleSheet">
@@ -700,21 +695,6 @@ border-radius: 5px;
       </property>
      </widget>
     </widget>
-    <widget class="QColumnView" name="cv_estoque">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>300</y>
-       <width>931</width>
-       <height>321</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#cv_estoque{
-border-radius: 5px;
-}</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_21">
      <property name="geometry">
       <rect>
@@ -809,6 +789,19 @@ border-radius: 5px;
       <string>Vender</string>
      </property>
     </widget>
+    <widget class="QTableView" name="tableEstoque">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>290</y>
+       <width>931</width>
+       <height>341</height>
+      </rect>
+     </property>
+     <attribute name="horizontalHeaderCascadingSectionResizes">
+      <bool>false</bool>
+     </attribute>
+    </widget>
     <zorder>label_21</zorder>
     <zorder>label_22</zorder>
     <zorder>label_23</zorder>
@@ -818,8 +811,8 @@ border-radius: 5px;
     <zorder>cb_nome_prod_estoque</zorder>
     <zorder>label_20</zorder>
     <zorder>cb_id_loja_estoque</zorder>
-    <zorder>cv_estoque</zorder>
     <zorder>btn_vender_produto</zorder>
+    <zorder>tableEstoque</zorder>
    </widget>
    <widget class="QWidget" name="identificador_loja">
     <property name="styleSheet">
@@ -907,27 +900,6 @@ border-radius: 5px;
        <string>Senha</string>
       </property>
      </widget>
-     <widget class="QSpinBox" name="sb_func_conectado">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>80</y>
-        <width>261</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#sb_func_conectado{
-border-radius: 5px;
-}</string>
-      </property>
-      <property name="maximum">
-       <number>1000</number>
-      </property>
-      <property name="displayIntegerBase">
-       <number>10</number>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_8">
       <property name="geometry">
        <rect>
@@ -984,6 +956,21 @@ border-radius: 5px;
       </property>
       <property name="text">
        <string>LOGOUT</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="txt_cpf_home_login">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>80</y>
+        <width>261</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#txt_senha_conectada{
+border-radius: 5px;
+}</string>
       </property>
      </widget>
     </widget>

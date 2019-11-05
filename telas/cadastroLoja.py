@@ -184,20 +184,24 @@ class Ui_ui_loja(object):
         bairro = self.txt_bairro_loja.toPlainText()
         cep = self.txt_cep_loja.toPlainText()
 
-        ip = "127.0.0.1"
-        port = 7000
-        addr = ((ip, port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
+        if(cep.isdecimal() == False):
+            QtWidgets.QMessageBox.about(None,"Cadastro de Loja", "CEP inválido, por favor colocar somente números")
 
-        a = "Loja," + nome + "," + rua + "," + num + "," + bairro + "," + cep
+        else:
+            ip = "127.0.0.1"
+            port = 7000
+            addr = ((ip, port))
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect(addr)
 
-        client_socket.send(a.encode())
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Loja", mensagem_recebida)
-        client_socket.close()
+            a = "Loja," + nome + "," + rua + "," + num + "," + bairro + "," + cep
 
-        self.limparCampos()
+            client_socket.send(a.encode())
+            mensagem_recebida = client_socket.recv(1024).decode()
+            QtWidgets.QMessageBox.about(None, "Loja", mensagem_recebida)
+            client_socket.close()
+
+            self.limparCampos()
 
     def limparCampos(self):
         self.txt_nome_loja.setText("")
@@ -208,33 +212,33 @@ class Ui_ui_loja(object):
 
     def buscarLoja(self):
         nome = self.txt_nome_loja.toPlainText()
-        rua = self.txt_rua_loja.toPlainText()
-        num = self.txt_num_loja.toPlainText()
-        bairro = self.txt_bairro_loja.toPlainText()
-        cep = self.txt_cep_loja.toPlainText()
 
-        ip = "127.0.0.1"
-        port = 7000
-        addr = ((ip, port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
+        if(nome == ''):
+            QtWidgets.QMessageBox.about(None,'Loja','Por favor, preencher o nome da filial para buscá-la!')
 
-        a = "buscarLoja,"
+        else:
+            ip = "127.0.0.1"
+            port = 7000
+            addr = ((ip, port))
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect(addr)
 
-        client_socket.send(a.encode())
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Loja", mensagem_recebida)
+            a = "buscarLoja," + nome
 
-        # recebimento das mensagens e setar os campos
-        mensagem_recebida = mensagem_recebida.split()
+            client_socket.send(a.encode())
+            mensagem_recebida = client_socket.recv(1024).decode()
+            QtWidgets.QMessageBox.about(None, "Loja", mensagem_recebida)
 
-        self.txt_nome_loja.setText("Nome")
-        self.txt_bairro_loja.setText("Bairro")
-        self.txt_cep_loja.setText("Cep")
-        self.txt_num_loja.setText("Num")
-        self.txt_rua_loja.setText("Rua")
+            # recebimento das mensagens e setar os campos
+            mensagem_recebida = mensagem_recebida.split()
 
-        client_socket.close()
+            self.txt_nome_loja.setText("Nome")
+            self.txt_bairro_loja.setText("Bairro")
+            self.txt_cep_loja.setText("Cep")
+            self.txt_num_loja.setText("Num")
+            self.txt_rua_loja.setText("Rua")
+
+            client_socket.close()
 
     def alterarValores(self):
         ip = "127.0.0.1"
@@ -260,25 +264,25 @@ class Ui_ui_loja(object):
 
     def excluirLoja(self):
         nome = self.txt_nome_loja.toPlainText()
-        rua = self.txt_rua_loja.toPlainText()
-        num = self.txt_num_loja.toPlainText()
-        bairro = self.txt_bairro_loja.toPlainText()
-        cep = self.txt_cep_loja.toPlainText()
 
-        ip = "127.0.0.1"
-        port = 7000
-        addr = ((ip, port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
+        if (nome == ''):
+            QtWidgets.QMessageBox.about(None, 'Loja', 'Por favor, preencher o nome da filial para exclui-la!')
 
-        a = "excluirLoja,"
+        else:
+            ip = "127.0.0.1"
+            port = 7000
+            addr = ((ip, port))
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect(addr)
 
-        client_socket.send(a.encode())
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Loja", mensagem_recebida)
-        client_socket.close()
+            a = "excluirLoja," + nome
 
-        self.limparCampos()
+            client_socket.send(a.encode())
+            mensagem_recebida = client_socket.recv(1024).decode()
+            QtWidgets.QMessageBox.about(None, "Loja", mensagem_recebida)
+            client_socket.close()
+
+            self.limparCampos()
 
 
 if __name__ == "__main__":

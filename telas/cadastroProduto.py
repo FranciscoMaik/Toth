@@ -173,27 +173,29 @@ class Ui_tela_cad_prod(object):
 
     def buscarProduto(self):
         nome = self.txt_nome_prod_prod.toPlainText()
-        quantidade = str(self.sb_quant_prod.value())
-        preco = str(self.dsp_preco_prod.value())
         loja = str(self.sb_id_loja_prod.value())
 
-        ip = "127.0.0.1"
-        port = 7000
-        addr = ((ip, port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
+        if(nome == '' or loja =='0'):
+            QtWidgets.QMessageBox.about(None,'Produto','Por favor preencher o nome e Id da Loja para buscar o Produto')
 
-        a = "buscarProduto,"
+        if(nome != '' and loja != '0'):
+            ip = "127.0.0.1"
+            port = 7000
+            addr = ((ip, port))
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect(addr)
 
-        client_socket.send(a.encode())
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
-        client_socket.close()
+            a = "buscarProduto," + nome + "," + loja
 
-        self.txt_nome_prod_prod.setText("tals produto")
-        self.sb_quant_prod.setValue(2)
-        self.sb_id_loja_prod.setValue(13)
-        self.dsp_preco_prod.setValue(0.80)
+            client_socket.send(a.encode())
+            mensagem_recebida = client_socket.recv(1024).decode()
+            QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
+            client_socket.close()
+
+            self.txt_nome_prod_prod.setText("tals produto")
+            self.sb_quant_prod.setValue(2)
+            self.sb_id_loja_prod.setValue(13)
+            self.dsp_preco_prod.setValue(0.80)
 
     def alterarValoresProduto(self):
         nome = self.txt_nome_prod_prod.toPlainText()
@@ -207,7 +209,7 @@ class Ui_tela_cad_prod(object):
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect(addr)
 
-        a = "alterarValoresdoProduto,"
+        a = "alterarValoresdoProduto," + nome + "," + quantidade + "," + preco + "," + loja
 
         client_socket.send(a.encode())
         mensagem_recebida = client_socket.recv(1024).decode()
@@ -218,24 +220,26 @@ class Ui_tela_cad_prod(object):
 
     def excluirProduto(self):
         nome = self.txt_nome_prod_prod.toPlainText()
-        quantidade = str(self.sb_quant_prod.value())
-        preco = str(self.dsp_preco_prod.value())
         loja = str(self.sb_id_loja_prod.value())
 
-        ip = "127.0.0.1"
-        port = 7000
-        addr = ((ip, port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
+        if (nome == '' or loja == '0'):
+            QtWidgets.QMessageBox.about(None, 'Produto',
+                                        'Por favor preencher o nome e Id da Loja para excluir o Produto')
+        if(nome != '' and loja != '0'):
+            ip = "127.0.0.1"
+            port = 7000
+            addr = ((ip, port))
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect(addr)
 
-        a = "excluirProduto,"
+            a = "excluirProduto,"
 
-        client_socket.send(a.encode())
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
-        client_socket.close()
+            client_socket.send(a.encode())
+            mensagem_recebida = client_socket.recv(1024).decode()
+            QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
+            client_socket.close()
 
-        self.cancelarProduto()
+            self.cancelarProduto()
 
 
 

@@ -9,6 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QPixmap
 #import qrcode
+import  socket
 
 
 class Ui_Form(object):
@@ -118,13 +119,43 @@ class Ui_Form(object):
         idLoja = str(self.sb_loja_venda.value())
         quantidade = str(self.sb_quan_prod_venda.value())
 
-        qr = qrcode.make('Id do Produto: ' + idProduto + '\nNome do Produto: ' + nomeProduto + '\nId da Loja: ' + idLoja + '\nQuantidade do Produto: ' + quantidade)
-        qr.save("qrvenda.png")
+        if(idProduto == '' or idProduto.isdecimal() == False):
+            QtWidgets.QMessageBox.about(None, 'Venda','Por favor informar um ID_Produto númerico!')
+        if(nomeProduto == ''):
+            QtWidgets.QMessageBox.about(None, 'Venda','Por favor informar o Nome do Produto!')
+        if(idLoja == '0'):
+            QtWidgets.QMessageBox.about(None, 'Venda','Por favor informar um ID_Loja válido!')
+        if quantidade == '0':
+            QtWidgets.QMessageBox.about(None, 'Venda','Por favor informar uma Quantidade do Produto superior a 0!')
 
-        pixmap = QPixmap("qrvenda.png")
-        pixmap = pixmap.scaled(int(pixmap.width()*0.7), int(pixmap.height()*0.7))
-        self.qr_code.setPixmap(pixmap)
-        self.qr_code.resize(pixmap.width(), pixmap.height())
+
+        if(idProduto != '' and idProduto.isdecimal() == True and nomeProduto != '' and idLoja != '0' and quantidade != '0'):
+            ip = "127.0.0.1"
+            port = 7000
+            addr = ((ip, port))
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect(addr)
+
+            #qr = qrcode.make('Id do Produto: ' + idProduto + '\nNome do Produto: ' + nomeProduto + '\nId da Loja: ' + idLoja + '\nQuantidade do Produto: ' + quantidade)
+            #qr.save("qrvenda.png")
+
+            pixmap = QPixmap("qrvenda.png")
+            pixmap = pixmap.scaled(int(pixmap.width()*0.7), int(pixmap.height()*0.7))
+            self.qr_code.setPixmap(pixmap)
+            self.qr_code.resize(pixmap.width(), pixmap.height())
+
+            a = "Vender," + idProduto + "," + nomeProduto + "," + idLoja + "," + quantidade
+
+            client_socket.send(a.encode())
+            mensagem_recebida = client_socket.recv(1024).decode()
+            QtWidgets.QMessageBox.about(None, "Venda", mensagem_recebida)
+            client_socket.close()
+
+            self.ln_id_prod_venda.setText('')
+            self.ln_nome_prod_venda.setText('')
+            self.sb_loja_venda.setValue(0)
+            self.sb_quan_prod_venda.setValue(0)
+
 
 
 if __name__ == "__main__":
