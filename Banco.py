@@ -53,7 +53,7 @@ class Banco:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             if id_loja != None and NomeDoProduto == None:
-                sql = "SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial FROM Produto,DadosDaLoja ON DadosDaLoja.IdentificadorLoja = {0} GROUP BY SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(id_loja)
+                sql = "SELECT IdentificadorProduto,NomeDoProduto,QuantomeDaFilidade,Nial FROM Produto,DadosDaLoja ON DadosDaLoja.IdentificadorLoja = {0} GROUP BY SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(id_loja)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
                 return resultado
@@ -72,4 +72,40 @@ class Banco:
         except Exception as e:
             print(e)
             raise
+    def LojaConsultaHome(self,id_loja,NomeDaFilial):
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            if id_loja != None and NomeDaFilial == None:
+                sql = "SELECT IdentificadorLoja,NomeDaFilial FROM DadosDaLoja WHERE IdentificadorLoja = {0}".format(id_loja)
+                resultado = executar.execute(sql)
+                resultado = resultado.fetchall()
+                return resultado
+            if id_loja == None and NomeDaFilial!= None:
+                sql = "SELECT IdentificadorLoja,NomeDaFilial FROM DadosDaLoja WHERE NomeDaFilial = '{0}' ".format(NomeDaFilial)
+                resultado = executar.execute(sql)
+                resultado = resultado.fetchall()
+                return resultado
+            else:
+                sql = "SELECT IdentificadorLoja,NomeDaFilial FROM DadosDaLoja WHERE NomeDaFilial = '{0}' AND IdentificadorLoja = {1}".format(NomeDaFilial,id_loja)
+                resultado = executar.execute(sql)
+                resultado = resultado.fetchall()
+                return resultado
+            conexao.commit()
+            conexao.close()
+        except Exception as e:
+            print(e)
+            raise
+    def LojaConsulta(self,NomeDaFilial):
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            sql = "SELECT NomeDaRua,Bairro,Numero,CEP FROM EnderecoLoja WHERE EnderecoLoja.IdentificadorLoja IN (SELECT DadosDaLoja.IdentificadorLoja FROM DadosDaLoja WHERE DadosDaLoja.NomeDaFilial = '{0}')".format(NomeDaFilial)
+            resultado = executar.execute(sql)
+            resultado = resultado.fetchall()
+            conexao.commit()
+            conexao.close()
+            return resultado
+        except Exception as e:
+            return False
 
