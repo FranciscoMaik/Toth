@@ -72,6 +72,4 @@ class Banco:
         except Exception as e:
             print(e)
             raise
-#Banco().Funcionario("Nathanael","58555","45558985","senha",17,"Rua 0","Junco",855,"Ceep da rua")
-#Banco().DadosDaLoja("Perdigao","Rua 0","Junco",855,"Ceep da rua")
-#Banco().Produto("Leite",50,55.2,17)
+

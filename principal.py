@@ -4,7 +4,7 @@ from endereço import Endereco
 from loja import Loja
 import socket
 
-from toth.Banco import Banco
+from Banco import Banco
 
 host = ''
 port = 7000
