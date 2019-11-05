@@ -126,7 +126,7 @@ def conectar():
             if verificacao == []:
                 nmensagem = str(False) + ","
                 mensagem = nmensagem.encode()
-            else:
+            elif verificacao != []:
                 outra = ''
                 for i in verificacao[0]:
                     outra += str(i) + ","
