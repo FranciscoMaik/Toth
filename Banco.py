@@ -53,19 +53,25 @@ class Banco:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             if id_loja != None and NomeDoProduto == None:
-                sql = "SELECT IdentificadorProduto,NomeDoProduto,QuantomeDaFilidade,Nial FROM Produto,DadosDaLoja ON DadosDaLoja.IdentificadorLoja = {0} GROUP BY SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(id_loja)
+                sql = "SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial,PrecoUnitario,Quantidade FROM Produto,DadosDaLoja ON DadosDaLoja.IdentificadorLoja = {0} GROUP BY SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(id_loja)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
+                conexao.commit()
+                conexao.close()
                 return resultado
             if id_loja == None and NomeDoProduto != None:
-                sql = "SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial FROM Produto JOIN DadosDaLoja ON Produto.NomeDoProduto = {0} GROUP BY IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(NomeDoProduto)
+                sql = "SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial,PrecoUnitario,Quantidade FROM Produto JOIN DadosDaLoja ON Produto.NomeDoProduto = {0} GROUP BY IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(NomeDoProduto)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
+                conexao.commit()
+                conexao.close()
                 return resultado
             else:
-                sql = "SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial FROM Produto JOIN DadosDaLoja ON Produto.NomeDoProduto = {0} AND DadosDaLoja.IdentificadorLoja = {1} GROUP BY IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(NomeDoProduto,id_loja)
+                sql = "SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial,PrecoUnitario,Quantidade FROM Produto JOIN DadosDaLoja ON Produto.NomeDoProduto = {0} AND DadosDaLoja.IdentificadorLoja = {1} GROUP BY IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(NomeDoProduto,id_loja)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
+                conexao.commit()
+                conexao.close()
                 return resultado
             conexao.commit()
             conexao.close()
@@ -108,4 +114,102 @@ class Banco:
             return resultado
         except Exception as e:
             return False
-
+    def ExcluiLoja(self,NomeDaFilial):
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            sql = "DELETE FROM DadosDaLoja WHERE NomeDaFilial = '{0}'".format(NomeDaFilial)
+            resultado = executar.execute(sql)
+            conexao.commit()
+            conexao.close()
+            return NomeDaFilial
+        except Exception as e:
+            return False
+    def AlterarDadosDaLoja(self,NomeDaFilial,id_loja,NomeDaRua,Bairro,Numero,CEP):
+        self.ExcluiLoja(NomeDaFilial)
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            sql1 = "UPDATE DadosDaLoja SET NomeDaFilial = '{0}' WHERE IdentificadorLoja = '{1}'".format(NomeDaFilial,id_loja)
+            executar.execute(sql1)
+            sql2 = "UPDATE EnderecoLoja SET NomeDaRua = '{0}', Bairro = '{1}', Numero = {2}, CEP = '{3}' WHERE IdentificadorLoja = '{4}'".format(NomeDaRua,Bairro,Numero,CEP,id_loja)
+            executar.execute(sql2)
+            conexao.commit()
+            conexao.close()
+        except Exception as e:
+            raise
+    def ExcluiProduto(self,NomeDoProduto):
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            sql = "DELETE FROM Produto WHERE NomeDoProduto = '{0}'".format(NomeDoProduto)
+            resultado = executar.execute(sql)
+            conexao.commit()
+            conexao.close()
+            return NomeDaFilial
+        except Exception as e:
+            return False
+    def AlterarDadosDoProduto(self,NomeDoProduto,Quantidade,PrecoUnitario,IdentificadorProduto):
+        self.ExcluiLoja(NomeDaFilial)
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            sql1 = "UPDATE Produto SET NomeDoProduto = '{0}',Quantidade = {1}, PrecoUnitario = {2} WHERE IdentificadorProduto = {3}".format(NomeDoProduto,Quantidade,PrecoUnitario,IdentificadorProduto)
+            executar.execute(sql1)
+            conexao.commit()
+            conexao.close()
+        except Exception as e:
+            raise
+    def BuscaFuncionario(self,CPF):
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            sql = "SELECT *FROM Funcionario WHERE CPF = '{0}'".format(CPF)
+            resultado = executar.execute(sql)
+            conexao.commit()
+            conexao.close()
+            return resultado.fetchall()
+        except Exception as e:
+            return False
+    def AlteraFuncionario(self,NomeDoFuncionario,CPF,NumeroDeTelefone,Senha,IdentificadorLoja):
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            sql = "UPDATE Funcionario SET NomeDoFuncionario = '{0}', NumeroDeTelefone = '{1}', Senha = '{2}', IdentificadorLoja = {3} WHERE CPF = '{4}'".format(NomeDoFuncionario,NumeroDeTelefone,Senha,IdentificadorLoja,CPF)
+            resultado = executar.execute(sql)
+            conexao.commit()
+            conexao.close()
+        except Exception as e:
+            return False
+    def ExcluiFuncionario(self,CPF):
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            sql = "DELETE FROM Funcionario WHERE CPF = '{0}'".format(CPF)
+            resultado = executar.execute(sql)
+            conexao.commit()
+            conexao.close()
+        except Exception as e:
+            return False
+    def Login(self,CPF,Senha):
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            sql = "SELECT *FROM Funcionario WHERE CPF = '{0}', Senha = '{1}'".format(CPF,Senha)
+            resultado = executar.execute(sql)
+            teste = resultado.fetchall()
+            conexao.commit()
+            conexao.close()
+            return teste[0][0]
+        except Exception as e:
+            return False
+    def Vender(self,CPF):
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            sql = ""
+            resultado = executar.execute(sql)
+            conexao.commit()
+            conexao.close()
+        except Exception as e:
+            return False
