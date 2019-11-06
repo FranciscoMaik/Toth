@@ -53,22 +53,22 @@ class Banco:
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
-            if id_loja != None and NomeDoProduto == None:
-                sql = "SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial,PrecoUnitario,Quantidade FROM Produto,DadosDaLoja ON DadosDaLoja.IdentificadorLoja = {0} GROUP BY SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(id_loja)
+            if ((id_loja != '') and (NomeDoProduto == '')):
+                sql = "SELECT IdentificadorProduto,NomeDoProduto,NomeDaFilial,PrecoUnitario,Quantidade FROM Produto,DadosDaLoja ON DadosDaLoja.IdentificadorLoja = {0} GROUP BY SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(id_loja)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
                 conexao.commit()
                 conexao.close()
                 return resultado
-            if id_loja == None and NomeDoProduto != None:
-                sql = "SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial,PrecoUnitario,Quantidade FROM Produto JOIN DadosDaLoja ON Produto.NomeDoProduto = {0} GROUP BY IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(NomeDoProduto)
+            elif ((id_loja == '') and (NomeDoProduto != '')):
+                sql = "SELECT IdentificadorProduto,NomeDoProduto,NomeDaFilial,PrecoUnitario,Quantidade FROM Produto JOIN DadosDaLoja ON Produto.NomeDoProduto = '{0}' GROUP BY IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(NomeDoProduto)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
                 conexao.commit()
                 conexao.close()
                 return resultado
-            else:
-                sql = "SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial,PrecoUnitario,Quantidade FROM Produto JOIN DadosDaLoja ON Produto.NomeDoProduto = {0} AND DadosDaLoja.IdentificadorLoja = {1} GROUP BY IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(NomeDoProduto,id_loja)
+            elif ((id_loja != "") and (NomeDoProduto != "")):
+                sql = "SELECT IdentificadorProduto,NomeDoProduto,NomeDaFilial,PrecoUnitario,Quantidade FROM Produto JOIN DadosDaLoja ON Produto.NomeDoProduto = '{0}' AND DadosDaLoja.IdentificadorLoja = {1} GROUP BY IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(NomeDoProduto,id_loja)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
                 conexao.commit()
@@ -115,14 +115,16 @@ class Banco:
             return resultado
         except Exception as e:
             return False
-    def ExcluiLoja(self,NomeDaFilial):
-        #Não está excluindo o endereço
+    def ExcluiLoja(self,NomeDaFilial,id_loja):
+        #mandar o identificador da loja
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             sql = "DELETE FROM DadosDaLoja WHERE NomeDaFilial = '{0}'".format(NomeDaFilial)
             resultado = executar.execute(sql)
+            sql = "DELETE FROM EnderecoLoja WHERE IdentificadorLoja = {0}".format(id_loja)
             conexao.commit()
+            resultado = executar.execute(sql)
             conexao.close()
             return NomeDaFilial
         except Exception as e:
