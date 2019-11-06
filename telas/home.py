@@ -685,10 +685,10 @@ class Ui_ui_home(object):
             while n>0 and result[0] == False:
                 time.sleep(1)
                 n -= 1
-                print(n)
 
             if result[0]==True:
                 QtWidgets.QMessageBox.about(None, "Conectar", mensagem_recebida[0])
+                globalServer.conectado = True
                 self.txt_ip_server.setText('')
             else:
                 QtWidgets.QMessageBox.about(None, "Conectar", 'Erro')

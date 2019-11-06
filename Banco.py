@@ -30,9 +30,10 @@ class Banco:
             executar.execute(sql)
             conexao.commit()
             conexao.close()
+            return NomeDoProduto
         except Exception as e:
-            print(e)
-            raise
+            return False
+
     def DadosDaLoja(self,NomeDaFilial,NomeDaRua,Bairro,Numero,CEP):
         try:
             conexao = sqlite3.connect("Loja")
@@ -73,11 +74,10 @@ class Banco:
                 conexao.commit()
                 conexao.close()
                 return resultado
-            conexao.commit()
-            conexao.close()
+
         except Exception as e:
-            print(e)
-            raise
+            return False
+
     def LojaConsultaHome(self,id_loja,NomeDaFilial):
         try:
             conexao = sqlite3.connect("Loja")
@@ -102,11 +102,12 @@ class Banco:
         except Exception as e:
             print(e)
             raise
+
     def LojaConsulta(self,NomeDaFilial):
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
-            sql = "SELECT NomeDaRua,Bairro,Numero,CEP FROM EnderecoLoja WHERE EnderecoLoja.IdentificadorLoja IN (SELECT DadosDaLoja.IdentificadorLoja FROM DadosDaLoja WHERE DadosDaLoja.NomeDaFilial = '{0}')".format(NomeDaFilial)
+            sql = "SELECT NomeDaRua,Bairro,Numero,CEP,IdentificadorLoja FROM EnderecoLoja WHERE EnderecoLoja.IdentificadorLoja IN (SELECT DadosDaLoja.IdentificadorLoja FROM DadosDaLoja WHERE DadosDaLoja.NomeDaFilial = '{0}')".format(NomeDaFilial)
             resultado = executar.execute(sql)
             resultado = resultado.fetchall()
             conexao.commit()
@@ -115,6 +116,7 @@ class Banco:
         except Exception as e:
             return False
     def ExcluiLoja(self,NomeDaFilial):
+        #Não está excluindo o endereço
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -125,8 +127,10 @@ class Banco:
             return NomeDaFilial
         except Exception as e:
             return False
+
     def AlterarDadosDaLoja(self,NomeDaFilial,id_loja,NomeDaRua,Bairro,Numero,CEP):
         self.ExcluiLoja(NomeDaFilial)
+        #só exclui os dados, não está funcionando!
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -136,8 +140,10 @@ class Banco:
             executar.execute(sql2)
             conexao.commit()
             conexao.close()
+            return NomeDaFilial
         except Exception as e:
             raise
+
     def ExcluiProduto(self,NomeDoProduto):
         try:
             conexao = sqlite3.connect("Loja")
@@ -146,11 +152,12 @@ class Banco:
             resultado = executar.execute(sql)
             conexao.commit()
             conexao.close()
-            return NomeDaFilial
+            return NomeDoProduto
         except Exception as e:
             return False
+
     def AlterarDadosDoProduto(self,NomeDoProduto,Quantidade,PrecoUnitario,IdentificadorProduto):
-        self.ExcluiLoja(NomeDaFilial)
+        self.ExcluiLoja(NomeDoProduto)
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -160,6 +167,7 @@ class Banco:
             conexao.close()
         except Exception as e:
             raise
+
     def BuscaFuncionario(self,CPF):
         try:
             conexao = sqlite3.connect("Loja")
@@ -171,6 +179,7 @@ class Banco:
             return resultado.fetchall()
         except Exception as e:
             return False
+
     def AlteraFuncionario(self,NomeDoFuncionario,CPF,NumeroDeTelefone,Senha,IdentificadorLoja):
         try:
             conexao = sqlite3.connect("Loja")
@@ -181,6 +190,7 @@ class Banco:
             conexao.close()
         except Exception as e:
             return False
+
     def ExcluiFuncionario(self,CPF):
         try:
             conexao = sqlite3.connect("Loja")
@@ -191,6 +201,7 @@ class Banco:
             conexao.close()
         except Exception as e:
             return False
+
     def Login(self,CPF,Senha):
         try:
             conexao = sqlite3.connect("Loja")
@@ -203,6 +214,7 @@ class Banco:
             return teste[0][0]
         except Exception as e:
             return False
+
     def Vender(self,CPF):
         try:
             conexao = sqlite3.connect("Loja")

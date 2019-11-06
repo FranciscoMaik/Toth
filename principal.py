@@ -51,11 +51,38 @@ def conectar():
             #cria produto
             #parametros que o produto recebe
             #a = "id_prod(pk auto incremento)" + nome + "," + quantidade + "," + preco + "," + id_loja(fk)-> em outra tabela
-            prod = Produto(recebe[1],int(recebe[2]),float(recebe[3]))
-            Banco().Produto(recebe[1],int(recebe[2]),float(recebe[3]),recebe[4])
-            nmensagem = prod.nome_do_produto + " foi adicionado!"
-            mensagem = nmensagem.encode()
+            verificacao2 = Banco().ProdutoConsulta(recebe[4],recebe[1])
+            #IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial,PrecoUnitario,Quantidade
+            #não está cadastrando produto!
+            outra = outra2 = ''
 
+            if verificacao2 == False:
+                pass
+            else:
+                for i in verificacao2[0]:
+                    outra += str(i) + ','
+                outra2 = outra.split(',')
+
+            if outra2 != '':
+                verificacao3 = Banco().LojaConsulta(outra2[3])
+                # NomeDaRua,Bairro,Numero,CEP,IdentificadorLoja
+                outra3 = ''
+                for i in verificacao3[0]:
+                    outra3 += str(i) + ","
+
+                outra4 = outra3.split(',')
+
+
+                if(recebe[1] == outra2[1] and recebe[4] == outra4[4]):
+                    nmensagem = "Não é possivel cadastrar o mesmo produto na loja"
+                    mensagem = nmensagem.encode()
+                else:
+                    resp = Produto(recebe[1],recebe[2],recebe[3],recebe[3])
+                    nmensagem = "Produto" + resp + " cadastrado"
+                    mensagem = nmensagem.encode()
+            else:
+                nmensagem = "Erro!"
+                mensagem = nmensagem.encode()
         #buscar produto para a tela
         elif opcao == "buscarProduto":
             #pegar valores no banco
@@ -139,14 +166,30 @@ def conectar():
         #alterando valores da loja
         elif opcao == "valoresLojaAlterado":
             #recebe os valores da loja para ser alterados
-            nmensagem = "Alterados"
-            mensagem = nmensagem.encode()
+            verificacao = Banco().LojaConsulta(recebe[1])
+            if verificacao != []:
+                outra = ''
+                for i in verificacao[0]:
+                    outra += outra + ","
+                outra = outra.split(',')
+                verificacao2 = Banco().AlterarDadosDaLoja(recebe[1], outra[4], recebe[2], recebe[4], recebe[3], recebe[5])
+                verificacao2 = verificacao2 + ","
+                mensagem = verificacao2.encode()
+            elif verificacao == []:
+                nmensagem = "Loja não encontrada, informe uma loja para alterar seus dados!"
+                mensagem = nmensagem.encode()
 
         #exclusão da loja
         elif opcao == "excluirLoja":
             #exclui a loja do banco
-            nmensagem = "Loja Excluida!"
-            mensagem = nmensagem.encode()
+            verificacao = Banco().LojaConsulta(recebe[1])
+            if verificacao != []:
+                verificacao2 = Banco().ExcluiLoja(recebe[1])
+                verificacao2 = verificacao2 + ","
+                mensagem = verificacao2.encode()
+            elif verificacao == []:
+                nmensagem = "Não é possível excluir a Loja pois a mesma não se encontra no banco!"
+                mensagem = nmensagem.encode()
 
         #buscar estoque no home
         elif opcao == "buscarEstoqueHome":

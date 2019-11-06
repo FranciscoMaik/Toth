@@ -156,13 +156,18 @@ class Ui_tela_cad_prod(object):
         addr = ((ip, port))
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect(addr)
-
-        a = "Produto," + nome + "," + quantidade + "," + preco + "," + loja
-
-        client_socket.send(a.encode())
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
-        client_socket.close()
+        if globalServer.conectado == False:
+            QtWidgets.QMessageBox.about(None, 'Produto', "Servidor não conectado, por favor vá a página Acesso e para conecá-lo!")
+        else:
+            if (nome == "" or quantidade == '0' or preco == '0.0' or loja == '0'):
+                QtWidgets.QMessageBox.about(None, "Produto", "Algum campo está vazio, por favor preencher para cadastrar o produto!")
+            else:
+                a = "Produto," + nome + "," + quantidade + "," + preco + "," + loja
+                client_socket.send(a.encode())
+                mensagem_recebida = client_socket.recv(1024).decode()
+                rec = mensagem_recebida.split()
+                QtWidgets.QMessageBox.about(None, "Produto",mensagem_recebida)
+            client_socket.close()
 
         self.cancelarProduto()
 

@@ -184,25 +184,29 @@ class Ui_ui_loja(object):
         num = self.txt_num_loja.toPlainText()
         bairro = self.txt_bairro_loja.toPlainText()
         cep = self.txt_cep_loja.toPlainText()
-
-        if(cep.isdecimal() == False):
-            QtWidgets.QMessageBox.about(None,"Cadastro de Loja", "CEP inválido, por favor colocar somente números")
-
+        if globalServer.conectado == False:
+            QtWidgets.QMessageBox.about(None, "Cadastro de Loja", "Servidor não conectado por favor ir a página Acesso e conecte!")
         else:
-            ip = globalServer.ip
-            port = 7000
-            addr = ((ip, port))
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.connect(addr)
+            if(nome == '' or rua == '' or num == '' or bairro == '' or cep == ''):
+                QtWidgets.QMessageBox.about(None, "Cadastro de Loja", "Algum campo de entrada está vazio, por favor preencher")
+            if(cep.isdecimal() == False):
+                QtWidgets.QMessageBox.about(None,"Cadastro de Loja", "CEP inválido, por favor colocar somente números")
 
-            a = "Loja," + nome + "," + rua + "," + num + "," + bairro + "," + cep
+            else:
+                ip = globalServer.ip
+                port = 7000
+                addr = ((ip, port))
+                client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                client_socket.connect(addr)
 
-            client_socket.send(a.encode())
-            mensagem_recebida = client_socket.recv(1024).decode()
-            QtWidgets.QMessageBox.about(None, "Loja", mensagem_recebida)
-            client_socket.close()
+                a = "Loja," + nome + "," + rua + "," + num + "," + bairro + "," + cep
 
-            self.limparCampos()
+                client_socket.send(a.encode())
+                mensagem_recebida = client_socket.recv(1024).decode()
+                QtWidgets.QMessageBox.about(None, "Loja", mensagem_recebida)
+                client_socket.close()
+
+                self.limparCampos()
 
     def limparCampos(self):
         self.txt_nome_loja.setText("")
@@ -214,35 +218,38 @@ class Ui_ui_loja(object):
     def buscarLoja(self):
         nome = self.txt_nome_loja.toPlainText()
 
-        if(nome == ''):
-            QtWidgets.QMessageBox.about(None,'Loja','Por favor, preencher o nome da filial para buscá-la!')
-
+        if globalServer.conectado == False:
+            QtWidgets.QMessageBox.about(None, 'Loja',"Servidor não conectado por favor ir a página Acesso e conecte!")
         else:
-            ip = globalServer.ip
-            port = 7000
-            addr = ((ip, port))
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.connect(addr)
+            if(nome == ''):
+                QtWidgets.QMessageBox.about(None,'Loja','Por favor, preencher o nome da filial para buscá-la!')
 
-            a = "buscarLoja," + nome
+            else:
+                ip = globalServer.ip
+                port = 7000
+                addr = ((ip, port))
+                client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                client_socket.connect(addr)
 
-            client_socket.send(a.encode())
-            mensagem_recebida = client_socket.recv(1024).decode()
-            verificacao = mensagem_recebida.split(',')
-            if verificacao[0] == "False":
-                QtWidgets.QMessageBox.about(None, "Loja", "O loja não foi encontrada!")
-                self.txt_bairro_loja.setText(" ")
-                self.txt_cep_loja.setText(" ")
-                self.txt_num_loja.setText(" ")
-                self.txt_rua_loja.setText(" ")
-            if verificacao[0] != "False":
-                self.txt_nome_loja.setText(nome)
-                self.txt_bairro_loja.setText(str(verificacao[1]))
-                self.txt_cep_loja.setText(str(verificacao[3]))
-                self.txt_num_loja.setText(str(verificacao[2]))
-                self.txt_rua_loja.setText(str(verificacao[0]))
+                a = "buscarLoja," + nome
 
-            client_socket.close()
+                client_socket.send(a.encode())
+                mensagem_recebida = client_socket.recv(1024).decode()
+                verificacao = mensagem_recebida.split(',')
+                if verificacao[0] == "False":
+                    QtWidgets.QMessageBox.about(None, "Loja", "O loja não foi encontrada!")
+                    self.txt_bairro_loja.setText(" ")
+                    self.txt_cep_loja.setText(" ")
+                    self.txt_num_loja.setText(" ")
+                    self.txt_rua_loja.setText(" ")
+                if verificacao[0] != "False":
+                    self.txt_nome_loja.setText(nome)
+                    self.txt_bairro_loja.setText(str(verificacao[1]))
+                    self.txt_cep_loja.setText(str(verificacao[3]))
+                    self.txt_num_loja.setText(str(verificacao[2]))
+                    self.txt_rua_loja.setText(str(verificacao[0]))
+
+                client_socket.close()
 
     def alterarValores(self):
         ip = globalServer.ip
@@ -257,36 +264,53 @@ class Ui_ui_loja(object):
         bairro = self.txt_bairro_loja.toPlainText()
         cep = self.txt_cep_loja.toPlainText()
 
-        a = "valoresLojaAlterado," + nome + "," + rua + "," + num + "," + bairro + "," + cep
+        if globalServer.conectado == False:
+            QtWidgets.QMessageBox.about(None, 'Loja',"Servidor não conectado por favor ir a página Acesso e conecte!")
+        else:
+            if (nome == '' or rua == '' or num == '' or bairro == '' or cep == ''):
+                QtWidgets.QMessageBox.about(None,"Loja",'Algum campo de entrada está vazio, por favor preencher')
+            else:
+                a = "valoresLojaAlterado," + nome + "," + rua + "," + num + "," + bairro + "," + cep
 
-        client_socket.send(a.encode())
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Loja", mensagem_recebida)
-        client_socket.close()
+                client_socket.send(a.encode())
+                mensagem_recebida = client_socket.recv(1024).decode()
+                rec = mensagem_recebida.split(',')
+                if rec[0] != []:
+                    QtWidgets.QMessageBox.about(None, "Loja",'Valor da loja ' + rec[0] + ' alterados!')
+                else:
+                    QtWidgets.QMessageBox.about(None, "Loja", mensagem_recebida)
 
-        self.limparCampos()
+                client_socket.close()
+
+                self.limparCampos()
 
     def excluirLoja(self):
         nome = self.txt_nome_loja.toPlainText()
-
-        if (nome == ''):
-            QtWidgets.QMessageBox.about(None, 'Loja', 'Por favor, preencher o nome da filial para exclui-la!')
-
+        if globalServer.conectado == False:
+            QtWidgets.QMessageBox.about(None, 'Loja',"Servidor não conectado por favor ir a página Acesso e conecte!")
         else:
-            ip = globalServer.ip
-            port = 7000
-            addr = ((ip, port))
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.connect(addr)
+            if (nome == ''):
+                QtWidgets.QMessageBox.about(None, 'Loja', 'Por favor, preencher o nome da filial para exclui-la!')
 
-            a = "excluirLoja," + nome
+            else:
+                ip = globalServer.ip
+                port = 7000
+                addr = ((ip, port))
+                client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                client_socket.connect(addr)
 
-            client_socket.send(a.encode())
-            mensagem_recebida = client_socket.recv(1024).decode()
-            QtWidgets.QMessageBox.about(None, "Loja", mensagem_recebida)
-            client_socket.close()
+                a = "excluirLoja," + nome
 
-            self.limparCampos()
+                client_socket.send(a.encode())
+                mensagem_recebida = client_socket.recv(1024).decode()
+                ver = mensagem_recebida.split(',')
+                if ver[0] != []:
+                    QtWidgets.QMessageBox.about(None, "Loja","Loja excluida")
+                elif ver[0] == []:
+                    QtWidgets.QMessageBox.about(None, "Loja", mensagem_recebida)
+                client_socket.close()
+
+                self.limparCampos()
 
 
 if __name__ == "__main__":
