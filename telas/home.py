@@ -427,6 +427,7 @@ class Ui_ui_home(object):
         self.txt_ip_server.setStyleSheet("#txt_senha_conectada{\n"
 "border-radius: 5px;\n"
 "}")
+        self.txt_ip_server.setText("0.0.0.0")
         self.txt_ip_server.setObjectName("txt_ip_server")
         self.btn_conect_server = QtWidgets.QPushButton(self.frame_5)
         self.btn_conect_server.setGeometry(QtCore.QRect(510, 80, 99, 41))
@@ -511,10 +512,12 @@ class Ui_ui_home(object):
         self.pushButton.clicked.connect(self.fazLogin)
 
     def fazLogin(self):
+        #pega os campos de entrada
         cpfentrada = self.txt_cpf_home_login.toPlainText()
         senha = self.txt_senha_conectada.toPlainText()
         message = ''
 
+        #validação do cpf
         try:
             soma = 0
             dgit = 0
@@ -569,6 +572,7 @@ class Ui_ui_home(object):
             addr = ((ip, port))
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client_socket.connect(addr)
+
 
             a = "Login," + cpfentrada + "," + senha
 

@@ -26,7 +26,6 @@ class Banco:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             sql = "INSERT INTO Produto VALUES ('{0}',{1},null,{2},{3})".format(NomeDoProduto,Quantidade,PrecoUnitario,id_loja)
-            print(sql)
             executar.execute(sql)
             conexao.commit()
             conexao.close()
@@ -49,7 +48,9 @@ class Banco:
             conexao.close()
         except Exception as e:
             raise
-    def ProdutoConsulta(self,id_loja,NomeDoProduto):
+    def ProdutoConsulta(self,id_loja = " ",NomeDoProduto = " "):
+        #DBA esta função está me retornando uma junção de produtos com tabelas de forma erronea, se eu mandar um produto que existe em uma loja e mandar um Id de uma loja existente que
+        #não possui o produto ele me retorna a junção dos dados da loja com os dados do produto de outra loja
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -78,30 +79,34 @@ class Banco:
         except Exception as e:
             return False
 
-    def LojaConsultaHome(self,id_loja,NomeDaFilial):
+    def LojaConsultaHome(self,id_loja = "",NomeDaFilial = ""):
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
-            if id_loja != None and NomeDaFilial == None:
+            if id_loja != '' and NomeDaFilial == '':
                 sql = "SELECT IdentificadorLoja,NomeDaFilial FROM DadosDaLoja WHERE IdentificadorLoja = {0}".format(id_loja)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
+                conexao.commit()
+                conexao.close()
                 return resultado
-            if id_loja == None and NomeDaFilial!= None:
+            if id_loja == '' and NomeDaFilial!= '':
                 sql = "SELECT IdentificadorLoja,NomeDaFilial FROM DadosDaLoja WHERE NomeDaFilial = '{0}' ".format(NomeDaFilial)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
+                conexao.commit()
+                conexao.close()
                 return resultado
             else:
                 sql = "SELECT IdentificadorLoja,NomeDaFilial FROM DadosDaLoja WHERE NomeDaFilial = '{0}' AND IdentificadorLoja = {1}".format(NomeDaFilial,id_loja)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
+                conexao.commit()
+                conexao.close()
                 return resultado
-            conexao.commit()
-            conexao.close()
+
         except Exception as e:
-            print(e)
-            raise
+            return False
 
     def LojaConsulta(self,NomeDaFilial):
         try:

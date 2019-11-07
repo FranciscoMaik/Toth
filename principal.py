@@ -48,41 +48,34 @@ def conectar():
             return
         #cadastro de produtos
         elif opcao == "Produto":
-            #cria produto
-            #parametros que o produto recebe
-            #a = "id_prod(pk auto incremento)" + nome + "," + quantidade + "," + preco + "," + id_loja(fk)-> em outra tabela
+            #Buscar se aquele produto já está cadastrado na loja
             verificacao2 = Banco().ProdutoConsulta(recebe[4],recebe[1])
-            #IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial,PrecoUnitario,Quantidade
-            #não está cadastrando produto!
-            outra = outra2 = ''
+            print(verificacao2)
 
-            if verificacao2 == False:
-                pass
-            else:
-                for i in verificacao2[0]:
-                    outra += str(i) + ','
-                outra2 = outra.split(',')
-
-            if outra2 != '':
-                verificacao3 = Banco().LojaConsulta(outra2[3])
-                # NomeDaRua,Bairro,Numero,CEP,IdentificadorLoja
-                outra3 = ''
-                for i in verificacao3[0]:
-                    outra3 += str(i) + ","
-
-                outra4 = outra3.split(',')
-
-
-                if(recebe[1] == outra2[1] and recebe[4] == outra4[4]):
-                    nmensagem = "Não é possivel cadastrar o mesmo produto na loja"
+            #verifica se o retorno é falso, caso seja falso aquele produto não foi cadastrado naquela loja
+            if verificacao2 == []:
+                #verificar se a loja existe
+                ver_existe_loja = Banco().LojaConsultaHome(recebe[4], " ")
+                print(ver_existe_loja)
+                #Se ver_existe_loja retornar falso a loja não existe
+                if ver_existe_loja == []:
+                    nmensagem = "Loja não existe, por favor cadastre em uma loja existente!"
                     mensagem = nmensagem.encode()
                 else:
-                    resp = Produto(recebe[1],recebe[2],recebe[3],recebe[3])
-                    nmensagem = "Produto" + resp + " cadastrado"
-                    mensagem = nmensagem.encode()
+                    #Se a loja existe, cadastra o produto
+                    verificacao3 = Banco().Produto(recebe[1],recebe[2],recebe[3],recebe[4])
+                    print(verificacao3)
+                    # Verificação se o produto foi realmente cadastrado
+                    if verificacao3 != False:
+                        #trasforma em String para mandar para o cliente
+                        nmensagem = "Produto cadastrado com Sucesso!"
+                        mensagem = nmensagem.encode()
+
+            #caso contraio o produto já foi cadastrado naquela loja
             else:
-                nmensagem = "Erro!"
+                nmensagem = "Este produto já foi cadastrado nesta loja!"
                 mensagem = nmensagem.encode()
+
         #buscar produto para a tela
         elif opcao == "buscarProduto":
             #pegar valores no banco
@@ -153,7 +146,6 @@ def conectar():
         elif opcao == "buscarLoja":
             #retorno de valores da loja pelo banco
             verificacao = Banco().LojaConsulta(recebe[1])
-            print('verificacao',verificacao)
             if verificacao == []:
                 nmensagem = str(False) + ","
                 mensagem = nmensagem.encode()
@@ -193,7 +185,7 @@ def conectar():
 
         #buscar estoque no home
         elif opcao == "buscarEstoqueHome":
-            #busca as instancias no banco e retorna
+            #busca as instancias no banco e retorna eles
             nmensagem = "Estoque home"
             mensagem = nmensagem.encode()
 
