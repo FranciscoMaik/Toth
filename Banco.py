@@ -49,8 +49,7 @@ class Banco:
         except Exception as e:
             raise
     def ProdutoConsulta(self,id_loja = " ",NomeDoProduto = " "):
-        #DBA esta função está me retornando uma junção de produtos com tabelas de forma erronea, se eu mandar um produto que existe em uma loja e mandar um Id de uma loja existente que
-        #não possui o produto ele me retorna a junção dos dados da loja com os dados do produto de outra loja
+        #Corrigido!
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -69,7 +68,7 @@ class Banco:
                 conexao.close()
                 return resultado
             elif ((id_loja != "") and (NomeDoProduto != "")):
-                sql = "SELECT IdentificadorProduto,NomeDoProduto,NomeDaFilial,PrecoUnitario,Quantidade FROM Produto JOIN DadosDaLoja ON Produto.NomeDoProduto = '{0}' AND DadosDaLoja.IdentificadorLoja = {1} GROUP BY IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(NomeDoProduto,id_loja)
+                sql = "SELECT IdentificadorProduto,NomeDoProduto,NomeDaFilial,PrecoUnitario,Quantidade FROM DadosDaLoja INNER JOIN Produto ON Produto.NomeDoProduto = '{0}' AND Produto.IdentificadorLoja = {1} AND DadosDaLoja.NomeDaFilial IN (SELECT DadosDaLoja.NomeDaFilial FROM DadosDaLoja WHERE DadosDaLoja.IdentificadorLoja = {2}) GROUP BY IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(NomeDoProduto,id_loja,id_loja)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
                 conexao.commit()
@@ -121,23 +120,21 @@ class Banco:
         except Exception as e:
             return False
     def ExcluiLoja(self,NomeDaFilial,id_loja):
-        #mandar o identificador da loja
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             sql = "DELETE FROM DadosDaLoja WHERE NomeDaFilial = '{0}'".format(NomeDaFilial)
             resultado = executar.execute(sql)
             sql = "DELETE FROM EnderecoLoja WHERE IdentificadorLoja = {0}".format(id_loja)
-            conexao.commit()
             resultado = executar.execute(sql)
+            conexao.commit()
             conexao.close()
             return NomeDaFilial
         except Exception as e:
             return False
 
     def AlterarDadosDaLoja(self,NomeDaFilial,id_loja,NomeDaRua,Bairro,Numero,CEP):
-        self.ExcluiLoja(NomeDaFilial)
-        #só exclui os dados, não está funcionando!
+        #Corrigido!
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
