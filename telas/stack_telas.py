@@ -26,7 +26,7 @@ class Ui_Main(QtWidgets.QWidget):
         self.stack4 = QtWidgets.QMainWindow()
 
         self.cadastroFuncionario = Ui_fundo_func()
-        self.cadastroFuncionario.setupUi(self.stack3);
+        self.cadastroFuncionario.setupUi(self.stack3)
 
         self.cadastroProduto = Ui_tela_cad_prod()
         self.cadastroProduto.setupUi(self.stack1)

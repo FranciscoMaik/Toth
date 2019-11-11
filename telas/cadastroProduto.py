@@ -150,6 +150,7 @@ class Ui_tela_cad_prod(object):
         quantidade = str(self.sb_quant_prod.value())
         preco = str(self.dsp_preco_prod.value())
         loja = str(self.sb_id_loja_prod.value())
+        print(loja,type(loja))
 
         ip = globalServer.ip
         port = 7000
@@ -181,27 +182,34 @@ class Ui_tela_cad_prod(object):
         nome = self.txt_nome_prod_prod.toPlainText()
         loja = str(self.sb_id_loja_prod.value())
 
-        if(nome == '' or loja =='0'):
-            QtWidgets.QMessageBox.about(None,'Produto','Por favor preencher o nome e Id da Loja para buscar o Produto')
+        if globalServer.conectado == False:
+            QtWidgets.QMessageBox.about(None, 'Produto', "Servidor não conectado, por favor vá a página Acesso e para conecá-lo!")
+        else:
+            if(nome == '' or loja =='0'):
+                QtWidgets.QMessageBox.about(None,'Produto','Por favor preencher o nome e Id da Loja para buscar o Produto')
 
-        if(nome != '' and loja != '0'):
-            ip = globalServer.ip
-            port = 7000
-            addr = ((ip, port))
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.connect(addr)
+            elif(nome != '' and loja != '0'):
+                ip = globalServer.ip
+                port = 7000
+                addr = ((ip, port))
+                client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                client_socket.connect(addr)
 
-            a = "buscarProduto," + nome + "," + loja
+                a = "buscarProduto," + nome + "," + loja
 
-            client_socket.send(a.encode())
-            mensagem_recebida = client_socket.recv(1024).decode()
-            QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
-            client_socket.close()
-
-            self.txt_nome_prod_prod.setText("tals produto")
-            self.sb_quant_prod.setValue(2)
-            self.sb_id_loja_prod.setValue(13)
-            self.dsp_preco_prod.setValue(0.80)
+                client_socket.send(a.encode())
+                mensagem_recebida = client_socket.recv(1024).decode()
+                rec = mensagem_recebida.split(',')
+                if "prodexiste" == str(rec[0]):
+                    #IdentificadorProduto,NomeDoProduto,NomeDaFilial,PrecoUnitario,Quantidade
+                    self.txt_nome_prod_prod.setText(rec[2])
+                    self.sb_quant_prod.setValue(int(rec[5]))
+                    self.dsp_preco_prod.setValue(float(rec[4]))
+                elif "prodnoexiste" == str(rec[0]):
+                    QtWidgets.QMessageBox.about(None, "Produto", "O produto solicitado não foi encontrado nesta loja")
+                elif "lojanoexiste" == str(rec[0]):
+                    QtWidgets.QMessageBox.about(None, "Produto", "A loja na qual buscou o produto não existe, por favor pesquise em uma loja existente")
+                client_socket.close()
 
     def alterarValoresProduto(self):
         nome = self.txt_nome_prod_prod.toPlainText()

@@ -50,13 +50,11 @@ def conectar():
         elif opcao == "Produto":
             #Buscar se aquele produto já está cadastrado na loja
             verificacao2 = Banco().ProdutoConsulta(recebe[4],recebe[1])
-            print(verificacao2)
 
             #verifica se o retorno é falso, caso seja falso aquele produto não foi cadastrado naquela loja
             if verificacao2 == []:
                 #verificar se a loja existe
-                ver_existe_loja = Banco().LojaConsultaHome(recebe[4], " ")
-                print(ver_existe_loja)
+                ver_existe_loja = Banco().LojaConsultaHome(int(recebe[4]), None)
                 #Se ver_existe_loja retornar falso a loja não existe
                 if ver_existe_loja == []:
                     nmensagem = "Loja não existe, por favor cadastre em uma loja existente!"
@@ -64,7 +62,6 @@ def conectar():
                 else:
                     #Se a loja existe, cadastra o produto
                     verificacao3 = Banco().Produto(recebe[1],recebe[2],recebe[3],recebe[4])
-                    print(verificacao3)
                     # Verificação se o produto foi realmente cadastrado
                     if verificacao3 != False:
                         #trasforma em String para mandar para o cliente
@@ -78,9 +75,21 @@ def conectar():
 
         #buscar produto para a tela
         elif opcao == "buscarProduto":
-            #pegar valores no banco
-            nmensagem = "Valores do produto"
-            mensagem = nmensagem.encode()
+            #verifica se a loja onde se esta buscando o produto realmente existe
+            verificacao1 = Banco().LojaConsultaHome(int(recebe[2]), None)
+            if verificacao1 != []:
+                verificacao = Banco().ProdutoConsulta(recebe[2], recebe[1])
+                if verificacao != []:
+                    outra = "prodexiste,"
+                    for i in verificacao[0]:
+                        outra += str(i) + ","
+                    mensagem = outra.encode()
+                else:
+                    nmensagem = "prodnoexiste"
+                    mensagem = nmensagem.encode()
+            else:
+                nmensagem = "lojanoexiste"
+                mensagem = nmensagem.encode()
 
         #alterando os valores do produto
         elif opcao == "alterarValoresdoProduto":
@@ -126,9 +135,6 @@ def conectar():
             mensagem = nmensagem.encode()
         #cadastro de lojas
         elif opcao == "Loja":
-            #sequencia de cadastro no banco
-            # a = id_loja(pk auto incremento) + nome + "," + rua + "," + num + "," + bairro + "," + cep
-
             #cria endereço da loja
             end_loja = Endereco(recebe[2],recebe[4],recebe[3],int(recebe[5]))
             #cria loja
@@ -142,7 +148,7 @@ def conectar():
                 nmensagem = "Loja Não pode ser Cadastrada, há uma filial com o mesmo nome!"
                 mensagem = nmensagem.encode()
 
-        #buscando Loja
+        #Buscando Loja
         elif opcao == "buscarLoja":
             #retorno de valores da loja pelo banco
             verificacao = Banco().LojaConsulta(recebe[1])
@@ -155,15 +161,18 @@ def conectar():
                     outra += str(i) + ","
                 mensagem = outra.encode()
 
-        #alterando valores da loja
+        #Alterando valores da loja
         elif opcao == "valoresLojaAlterado":
             #recebe os valores da loja para ser alterados
+            #verifica se a loja existe
             verificacao = Banco().LojaConsulta(recebe[1])
             if verificacao != []:
                 outra = ''
+                #for para pegar o id_loja da tabela LojaConsulta
                 for i in verificacao[0]:
                     outra += outra + ","
                 outra = outra.split(',')
+
                 verificacao2 = Banco().AlterarDadosDaLoja(recebe[1], outra[4], recebe[2], recebe[4], recebe[3], recebe[5])
                 verificacao2 = verificacao2 + ","
                 mensagem = verificacao2.encode()

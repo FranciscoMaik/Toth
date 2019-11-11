@@ -48,19 +48,21 @@ class Banco:
             conexao.close()
         except Exception as e:
             raise
-    def ProdutoConsulta(self,id_loja = " ",NomeDoProduto = " "):
+
+    #Função que busca o produto na loja
+    def ProdutoConsulta(self,id_loja,NomeDoProduto):
         #Corrigido!
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
-            if ((id_loja != '') and (NomeDoProduto == '')):
+            if ((id_loja != '') and (NomeDoProduto == None)):
                 sql = "SELECT IdentificadorProduto,NomeDoProduto,NomeDaFilial,PrecoUnitario,Quantidade FROM Produto,DadosDaLoja ON DadosDaLoja.IdentificadorLoja = {0} GROUP BY SELECT IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(id_loja)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
                 conexao.commit()
                 conexao.close()
                 return resultado
-            elif ((id_loja == '') and (NomeDoProduto != '')):
+            elif ((id_loja == None) and (NomeDoProduto != '')):
                 sql = "SELECT IdentificadorProduto,NomeDoProduto,NomeDaFilial,PrecoUnitario,Quantidade FROM Produto JOIN DadosDaLoja ON Produto.NomeDoProduto = '{0}' GROUP BY IdentificadorProduto,NomeDoProduto,Quantidade,NomeDaFilial".format(NomeDoProduto)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
@@ -78,25 +80,26 @@ class Banco:
         except Exception as e:
             return False
 
-    def LojaConsultaHome(self,id_loja = "",NomeDaFilial = ""):
+    #Função que retorna dados da loja
+    def LojaConsultaHome(self,id_loja,NomeDaFilial):
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
-            if id_loja != '' and NomeDaFilial == '':
+            if ((id_loja != '') and (NomeDaFilial == None)):
                 sql = "SELECT IdentificadorLoja,NomeDaFilial FROM DadosDaLoja WHERE IdentificadorLoja = {0}".format(id_loja)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
                 conexao.commit()
                 conexao.close()
                 return resultado
-            if id_loja == '' and NomeDaFilial!= '':
+            elif ((id_loja == None) and (NomeDaFilial!= '')):
                 sql = "SELECT IdentificadorLoja,NomeDaFilial FROM DadosDaLoja WHERE NomeDaFilial = '{0}' ".format(NomeDaFilial)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
                 conexao.commit()
                 conexao.close()
                 return resultado
-            else:
+            elif(id_loja != "") and (NomeDaFilial != ""):
                 sql = "SELECT IdentificadorLoja,NomeDaFilial FROM DadosDaLoja WHERE NomeDaFilial = '{0}' AND IdentificadorLoja = {1}".format(NomeDaFilial,id_loja)
                 resultado = executar.execute(sql)
                 resultado = resultado.fetchall()
@@ -107,6 +110,7 @@ class Banco:
         except Exception as e:
             return False
 
+    #função que retorna dados de uma unica loja
     def LojaConsulta(self,NomeDaFilial):
         try:
             conexao = sqlite3.connect("Loja")
@@ -119,6 +123,8 @@ class Banco:
             return resultado
         except Exception as e:
             return False
+
+    #função de exclusão de loja
     def ExcluiLoja(self,NomeDaFilial,id_loja):
         try:
             conexao = sqlite3.connect("Loja")
@@ -133,8 +139,10 @@ class Banco:
         except Exception as e:
             return False
 
+    #função de alteração dos dados do produto
+    #Função não está funcionando
     def AlterarDadosDaLoja(self,NomeDaFilial,id_loja,NomeDaRua,Bairro,Numero,CEP):
-        #Corrigido!
+        print(id_loja)
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -148,6 +156,8 @@ class Banco:
         except Exception as e:
             raise
 
+    #função de exclusão de um produto
+    #tem que alterar essa função para receber o id da loja para excluir o produto somente naquela loja! Caso contrario ira excluir todos os produtos com esse nome em todas as loja!
     def ExcluiProduto(self,NomeDoProduto):
         try:
             conexao = sqlite3.connect("Loja")
@@ -159,7 +169,7 @@ class Banco:
             return NomeDoProduto
         except Exception as e:
             return False
-
+    
     def AlterarDadosDoProduto(self,NomeDoProduto,Quantidade,PrecoUnitario,IdentificadorProduto):
         self.ExcluiLoja(NomeDoProduto)
         try:
