@@ -105,22 +105,46 @@ def conectar():
 
         #cadastro de funcionarios
         elif opcao == "Funcionario":
-            #cria endereço para funcionário
-            #métodos de recebimento
-            # a = id_func(pk auto incremento) + nome + "," + rua + "," + num + "," + bairro + "," + cep + "," + senha + "," + cpf + "," + loja(fk em outra tabela fazendo a relação de relacionamento) + "," + numero_rua
-
-            endereco_fun = Endereco(recebe[2],recebe[4],int(recebe[9]),recebe[5])
-            #cria funcionário
-            new_func = Funcionario(recebe[1],recebe[7],recebe[3],endereco_fun,recebe[6])
-            Banco().Funcionario(recebe[1],recebe[7],recebe[3],recebe[6],recebe[8],recebe[2],recebe[4],recebe[9],recebe[5])
-            nmensagem = "Funcionário " + new_func.nome_do_funcionario + " Cadastrado!"
-            mensagem = nmensagem.encode()
+            #verifica se existe a loja na qual está tentando cadastrar o funcionário
+            verificacao = Banco().LojaConsultaHome(recebe[8],None)
+            if verificacao != []:
+                #verifica se o funcionário já está cadastrado
+                verificacao1 = Banco().BuscaFuncionario(recebe[7])
+                print(verificacao1)
+                if verificacao1 != []:
+                    nmensagem = "Este funcionário já está cadastrado em alguma filial!"
+                    mensagem = nmensagem.encode()
+                else:
+                    #cadastra o funcionário caso o mesmo não esteja cadastrado
+                    verificacao2 = Banco().Funcionario(recebe[1],recebe[7],recebe[3],recebe[6],recebe[8],recebe[2],recebe[4],recebe[9],recebe[5])
+                    if verificacao2 != []:
+                        nmensagem = "Funcionário cadastrado com sucesso!"
+                        mensagem = nmensagem.encode()
+                    else:
+                        #caso dê algum problema no cadastro do funcionário
+                        nmensagem = "Não foi possivel cadastrar o funcionário tente novamente!"
+                        mensagem = nmensagem.encode()
+            else:
+                #Caso esteja tentando um cadastro em uma loja que não existe!
+                nmensagem = "A loja na qual está tentando cadastrar o funcionário não existe, tente em uma loja existente!"
+                mensagem = nmensagem.encode()
 
         #buscar funcionario
-        elif opcao == "buscarFuncionaio":
-            #retona os valores do banco
-            nmensagem = "Esses são os valores do funcionario"
-            mensagem = nmensagem.encode()
+        #função de busca não está funcionando aqui!
+        elif opcao == "buscarFuncionario":
+            #Verifica se o funcionário existe!
+            verificacao = Banco().BuscaFuncionario(recebe[1])
+            #Caso o funcionário exista é retornado os valores do funcionário
+            if verificacao != []:
+                outra = "existe,"
+                for i in verificacao[0]:
+                    outra += str(i) + ","
+                mensagem = outra.encode()
+                print(outra)
+            #Caso ele não esteja cadastrado no banco é retornado vazio!
+            elif verificacao == []:
+                nmensagem = "noexiste,"
+                mensagem = nmensagem.encode()
 
         #alterar valores do funcionário
         elif opcao == "alterarDadosFuncionario":

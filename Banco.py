@@ -2,6 +2,7 @@ import sqlite3
 class Banco:
     def __init__(self):
         pass
+    #Função de cadastro de Funcionário
     def Funcionario(self,NomeFuncionario,CPF,NumeroDeTelefone,Senha,id_loja,NomeDaRua,Bairro,Numero,CEP):
         try:
             conexao = sqlite3.connect("Loja")
@@ -15,12 +16,14 @@ class Banco:
             for x in id_funcionario:
                 contador = contador + 1
             sql3 = "INSERT INTO EnderecoFuncionario VALUES ('{0}','{1}',{2},'{3}',{4})".format(NomeDaRua,Bairro,Numero,CEP,id_funcionario[contador-1][1])
-            executar.execute(sql3)
+            resultado = executar.execute(sql3)
             conexao.commit()
             conexao.close()
+            return resultado
         except Exception as e:
-            print(e)
-            raise
+            return []
+
+    #Função de cadastro de produtos
     def Produto(self,NomeDoProduto,Quantidade,PrecoUnitario,id_loja):
         try:
             conexao = sqlite3.connect("Loja")
@@ -51,7 +54,6 @@ class Banco:
 
     #Função que busca o produto na loja
     def ProdutoConsulta(self,id_loja,NomeDoProduto):
-        #Corrigido!
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -182,6 +184,8 @@ class Banco:
         except Exception as e:
             raise
 
+    #Função de Busca de Funcionário
+    #Função não está retornando o endereço do funcionário!
     def BuscaFuncionario(self,CPF):
         try:
             conexao = sqlite3.connect("Loja")
@@ -192,7 +196,7 @@ class Banco:
             conexao.close()
             return resultado.fetchall()
         except Exception as e:
-            return False
+            return []
 
     def AlteraFuncionario(self,NomeDoFuncionario,CPF,NumeroDeTelefone,Senha,IdentificadorLoja):
         try:
