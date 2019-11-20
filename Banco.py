@@ -159,12 +159,11 @@ class Banco:
             raise
 
     #função de exclusão de um produto
-    #tem que alterar essa função para receber o id da loja para excluir o produto somente naquela loja! Caso contrario ira excluir todos os produtos com esse nome em todas as loja!
-    def ExcluiProduto(self,NomeDoProduto):
+    def ExcluiProduto(self,NomeDoProduto,id_loja):
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
-            sql = "DELETE FROM Produto WHERE NomeDoProduto = '{0}'".format(NomeDoProduto)
+            sql = "DELETE FROM Produto WHERE NomeDoProduto = '{0}' AND IdentificadorLoja = {0}".format(NomeDoProduto.id_loja)
             resultado = executar.execute(sql)
             conexao.commit()
             conexao.close()
@@ -185,16 +184,20 @@ class Banco:
             raise
 
     #Função de Busca de Funcionário
-    #Função não está retornando o endereço do funcionário!
     def BuscaFuncionario(self,CPF):
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             sql = "SELECT *FROM Funcionario WHERE CPF = '{0}'".format(CPF)
             resultado = executar.execute(sql)
+            sql = "SELECT *FROM EnderecoFuncionario WHERE IdentificadorFuncionario = '{0}'".format(CPF)
+            resultado2 = executar.execute(sql)
             conexao.commit()
             conexao.close()
-            return resultado.fetchall()
+            lista = []
+            lista.append(resultado.fetchall())
+            lista.append(resultado2.fetchall())
+            return lista
         except Exception as e:
             return []
 
