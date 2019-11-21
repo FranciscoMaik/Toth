@@ -71,7 +71,7 @@ def conectar():
                 nmensagem = "lojanoexiste"
                 mensagem = nmensagem.encode()
 
-        #alterando os valores do produto
+        #Alterando os valores do produto
         elif opcao == "alterarValoresdoProduto":
             #altera os valores no banco
             nmensagem = "Valores Alterador"

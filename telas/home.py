@@ -497,7 +497,10 @@ class Ui_ui_home(object):
         self.funcionalidades()
 
     def funcionalidades(self):
-        # click de botões
+        """
+        Função responsável pela ação do click dos botões e campos de textos.
+        :return: Não possuí retorno
+        """
         self.btn_conect_server.clicked.connect(self.conectarServer)
         self.txt_nome_filial.setDisabled(True)
         self.sb_id_loja.setDisabled(True)
