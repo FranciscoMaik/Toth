@@ -236,24 +236,28 @@ class Ui_tela_cad_prod(object):
         nome = self.txt_nome_prod_prod.toPlainText()
         loja = str(self.sb_id_loja_prod.value())
 
-        if (nome == '' or loja == '0'):
-            QtWidgets.QMessageBox.about(None, 'Produto',
-                                        'Por favor preencher o nome e Id da Loja para excluir o Produto')
-        if(nome != '' and loja != '0'):
-            ip = globalServer.ip
-            port = 7000
-            addr = ((ip, port))
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.connect(addr)
+        if globalServer.conectado == False:
+            QtWidgets.QMessageBox.about(None, 'Produto', "Servidor não conectado, por favor vá a página Acesso e para conecá-lo!")
 
-            a = "excluirProduto,"+nome + ',' + loja
+        else:
+            if (nome == '' or loja == '0'):
+                QtWidgets.QMessageBox.about(None, 'Produto',
+                                            'Por favor preencher o nome e Id da Loja para excluir o Produto')
+            if(nome != '' and loja != '0'):
+                ip = globalServer.ip
+                port = 7000
+                addr = ((ip, port))
+                client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                client_socket.connect(addr)
 
-            client_socket.send(a.encode())
-            mensagem_recebida = client_socket.recv(1024).decode()
-            QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
-            client_socket.close()
+                a = "excluirProduto,"+nome + ',' + loja
 
-            self.cancelarProduto()
+                client_socket.send(a.encode())
+                mensagem_recebida = client_socket.recv(1024).decode()
+                QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
+                client_socket.close()
+
+                self.cancelarProduto()
 
 
 

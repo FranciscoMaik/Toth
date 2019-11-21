@@ -112,7 +112,7 @@ class Banco:
         except Exception as e:
             return False
 
-    #função que retorna dados de uma unica loja
+    #Função que retorna dados de uma unica loja
     def LojaConsulta(self,NomeDaFilial):
         try:
             conexao = sqlite3.connect("Loja")
@@ -124,16 +124,15 @@ class Banco:
             conexao.close()
             return resultado
         except Exception as e:
-            return False
+            return []
 
-    #função de exclusão de loja
-    def ExcluiLoja(self,NomeDaFilial,id_loja):
+    #Função de exclusão de loja
+    #Precisa excluir o endereço da loja também
+    def ExcluiLoja(self,NomeDaFilial):
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             sql = "DELETE FROM DadosDaLoja WHERE NomeDaFilial = '{0}'".format(NomeDaFilial)
-            resultado = executar.execute(sql)
-            sql = "DELETE FROM EnderecoLoja WHERE IdentificadorLoja = {0}".format(id_loja)
             resultado = executar.execute(sql)
             conexao.commit()
             conexao.close()
@@ -141,7 +140,7 @@ class Banco:
         except Exception as e:
             return False
 
-    #função de alteração dos dados do produto
+    #Função de alteração dos dados do produto
     #Função não está funcionando
     def AlterarDadosDaLoja(self,NomeDaFilial,id_loja,NomeDaRua,Bairro,Numero,CEP):
         print(id_loja)
@@ -158,18 +157,18 @@ class Banco:
         except Exception as e:
             raise
 
-    #função de exclusão de um produto
+    #Função de exclusão de um produto
     def ExcluiProduto(self,NomeDoProduto,id_loja):
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
-            sql = "DELETE FROM Produto WHERE NomeDoProduto = '{0}' AND IdentificadorLoja = {0}".format(NomeDoProduto.id_loja)
+            sql = "DELETE FROM Produto WHERE NomeDoProduto = '{0}' AND IdentificadorLoja = '{0}'".format(NomeDoProduto,id_loja)
             resultado = executar.execute(sql)
             conexao.commit()
             conexao.close()
-            return NomeDoProduto
+            return "Exclusao"
         except Exception as e:
-            return False
+            return None
     
     def AlterarDadosDoProduto(self,NomeDoProduto,Quantidade,PrecoUnitario,IdentificadorProduto):
         self.ExcluiLoja(NomeDoProduto)
@@ -225,16 +224,18 @@ class Banco:
 
     def Login(self,CPF,Senha):
         try:
+            print(CPF,Senha)
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
-            sql = "SELECT *FROM Funcionario WHERE CPF = '{0}', Senha = '{1}'".format(CPF,Senha)
+            sql = "SELECT *FROM Funcionario WHERE CPF = '{0}' AND Senha = '{1}'".format(CPF,Senha)
             resultado = executar.execute(sql)
             teste = resultado.fetchall()
+            print(teste)
             conexao.commit()
             conexao.close()
-            return teste[0][0]
+            return teste
         except Exception as e:
-            return False
+            return []
 
     def Vender(self,CPF):
         try:

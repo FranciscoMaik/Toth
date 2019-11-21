@@ -14,26 +14,6 @@ serv_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1)
 serv_socket.bind(addr)
 serv_socket.listen(10)
 
-"""def cadastra_produto(lista_de_produto):
-    valor = int(input("Cadastrar produto:\n1 - para sim\n2 - para não\n>>>"))
-
-    while (valor == 1):
-        nome = input("Informe o Nome do Produto: ")
-        valor = float(input("informe o Preço do Produto: "))
-        quantidade = int(input("Informe a quantidade do Produto: "))
-
-        produto = Produto(nome, valor, quantidade)
-
-        lista_de_produto.append(produto)
-        print("O produto cadastrado possuí ID: {}".format(produto.identificador))
-
-        valor = int(input("Cadastrar um novo produto:\n1 - para sim\n2 - para não\n>>>"))
-
-    print('Produtos cadastrados:')
-
-    for i in lista_de_produto:
-        i.mostra_produto()"""
-
 def conectar():
     while (True):
         print("Servidor está aguardando Conexão!")
@@ -97,13 +77,22 @@ def conectar():
             nmensagem = "Valores Alterador"
             mensagem = nmensagem.encode()
 
-        #excluir produto
+        #Excluir produto
         elif opcao == "excluirProduto":
-            #exclui produto do banco
-            nmensagem = "Produto excluido!"
-            mensagem = nmensagem.encode()
+            verificacao = Banco().ProdutoConsulta(recebe[2],recebe[1])
+            if verificacao != []:
+                verificacao1 = Banco().ExcluiProduto(recebe[1],recebe[2])
+                if verificacao1 != None:
+                    nmensagem = "Produto excluido!"
+                    mensagem = nmensagem.encode()
+                else:
+                    nmensagem = "Não foi possivel excluir o produto"
+                    mensagem = nmensagem.encode()
+            else:
+                nmensagem = "O produto não existe nesta loja! Ou a loja não é cadastrada!"
+                mensagem = nmensagem.encode()
 
-        #cadastro de funcionarios
+        #Cadastro de funcionarios
         elif opcao == "Funcionario":
             #verifica se existe a loja na qual está tentando cadastrar o funcionário
             verificacao = Banco().LojaConsultaHome(recebe[8],None)
@@ -129,7 +118,7 @@ def conectar():
                 nmensagem = "A loja na qual está tentando cadastrar o funcionário não existe, tente em uma loja existente!"
                 mensagem = nmensagem.encode()
 
-        #buscar funcionario
+        #Buscar funcionario
         #função de busca não está funcionando aqui!
         elif opcao == "buscarFuncionario":
             #Verifica se o funcionário existe!
@@ -146,18 +135,19 @@ def conectar():
                 nmensagem = "noexiste,"
                 mensagem = nmensagem.encode()
 
-        #alterar valores do funcionário
+        #Alterar valores do funcionário
         elif opcao == "alterarDadosFuncionario":
             #recebe e altera os valores de um funcionario
             nmensagem = "Valores alterados"
             mensagem = nmensagem.encode()
 
-        #exclusão de funcionário
+        #Exclusão de funcionário
         elif opcao == "excluirFuncionario":
             #excluir funcionário do banco
             nmensagem = "Funcionário excluido"
             mensagem = nmensagem.encode()
-        #cadastro de lojas
+
+        #Cadastro de lojas
         elif opcao == "Loja":
             #cria endereço da loja
             end_loja = Endereco(recebe[2],recebe[4],recebe[3],int(recebe[5]))
@@ -177,7 +167,7 @@ def conectar():
             #retorno de valores da loja pelo banco
             verificacao = Banco().LojaConsulta(recebe[1])
             if verificacao == []:
-                nmensagem = str(False) + ","
+                nmensagem = "naoencontrada,"
                 mensagem = nmensagem.encode()
             elif verificacao != []:
                 outra = ''
@@ -204,9 +194,9 @@ def conectar():
                 nmensagem = "Loja não encontrada, informe uma loja para alterar seus dados!"
                 mensagem = nmensagem.encode()
 
-        #exclusão da loja
+        #Exclusão da loja
         elif opcao == "excluirLoja":
-            #exclui a loja do banco
+            #Exclui a loja do banco
             verificacao = Banco().LojaConsulta(recebe[1])
             if verificacao != []:
                 verificacao2 = Banco().ExcluiLoja(recebe[1])
@@ -216,66 +206,40 @@ def conectar():
                 nmensagem = "Não é possível excluir a Loja pois a mesma não se encontra no banco!"
                 mensagem = nmensagem.encode()
 
-        #buscar estoque no home
+        #Buscar estoque no home
         elif opcao == "buscarEstoqueHome":
             #busca as instancias no banco e retorna eles
             nmensagem = "Estoque home"
             mensagem = nmensagem.encode()
 
-        #buscarLojaHome
+        #BuscarLojaHome
         elif opcao == "buscarLojaHome":
             #busca a loja no banco de acordo com os parâmetros
             nmensagem = "Loja home"
             mensagem = nmensagem.encode()
 
-        #login
+        #Login
         elif opcao == "Login":
             #a = "Login," + cpfentrada + "," + senha
-            nmensagem = "Login efetuado!"
-            mensagem = nmensagem.encode()
+            verificacao = Banco().Login(recebe[1],recebe[2])
+            if verificacao != []:
+                outra = ""
+                for i in verificacao[0]:
+                    outra += str(i) + ","
+                mensagem = outra.encode()
+            else:
+                nmensagem = "naoencontrado,"
+                mensagem = nmensagem.encode()
 
-        #vender
+        #Vender
         elif opcao == 'Vender':
             nmensagem = "Produto vendido!"
             mensagem = nmensagem.encode()
 
-        #mensagem de conexão
+        #Mensagem de conexão
         else:
             mensagem = "Cliente Conectado!".encode()
         con.send(mensagem)
-
-    """lista_de_produto = []
-    while (True):
-        print(10 * '_' + 'MENU' + 10 * '_')
-        print("1 - OPÇÔES DOS PRODUTOS")
-        print("2 - OPÇÔES DE FUNCIONÁRIOS")
-        print("3 - OPÇÔES DA LOJA")
-        print('4 - SAIR')
-        opcao = int(input('Opção: '))
-
-        if opcao == 1:
-            print('1 - CADASTRAR UM PRODUTO')
-            print('2 - PARA MOSTRAR PRODUTOS')
-            print('3 - BUSCAR UM PRODUTO')
-            print('4 - EXLUIR UM PRODUTO')
-            opcao2 = int(input('Opção: '))
-
-            if opcao2 == 1:
-                cadastra_produto(lista_de_produto)
-            elif opcao2 == 2:
-                for i in lista_de_produto:
-                    i.mostra_produto()
-            elif opcao2 == 3:
-                iden = int(input("Informe o identificador do produto: "))
-                valor = list(filter(lambda elemento: elemento.identificador == iden, lista_de_produto))
-                if valor:
-                    valor[0].mostra_produto()
-                else:
-                    print("Produto não encontrado")
-
-        elif opcao == 4:
-            break"""
-
 
 if __name__ == '__main__':
     conectar()

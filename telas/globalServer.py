@@ -1,3 +1,3 @@
 ip = ''
-Funcionario = ''
+Funcionario = False
 conectado = False

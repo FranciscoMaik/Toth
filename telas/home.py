@@ -510,6 +510,17 @@ class Ui_ui_home(object):
         self.btn_buscar_loja.clicked.connect(self.buscarDadosDasLojas)
         self.btn_ver_estoque.clicked.connect(self.buscarEstoqueProdutos)
         self.pushButton.clicked.connect(self.fazLogin)
+        self.pushButton_2.clicked.connect(self.fazLogout)
+
+    def fazLogout(self):
+        if globalServer.Funcionario == False:
+            QtWidgets.QMessageBox.about(None,'Home',"Não há nenhum funcionário logado!")
+        else:
+            nome = globalServer.Funcionario
+            globalServer.Funcionario = False
+            QtWidgets.QMessageBox.about(None,"Home","Funcionário do CPF "+nome+" desconectado!")
+            self.txt_cpf_home_login.setText(" ")
+            self.txt_senha_conectada.setText(" ")
 
     def fazLogin(self):
         #pega os campos de entrada
@@ -517,78 +528,90 @@ class Ui_ui_home(object):
         senha = self.txt_senha_conectada.toPlainText()
         message = ''
 
-        #validação do cpf
-        try:
-            soma = 0
-            dgit = 0
-            index = 0
-            if cpfentrada=='' and senha=='':
-                message = 'Informe os campos.'
-                raise ValueError
-            if len(cpfentrada)<11:
-                message = "CPF Inválido"
-                raise ValueError
-            a = cpfentrada
-            cpf = list()
-            for x in a:
-                if x != '.' and x != '-':
-                    b = int(x)
-                    cpf.append(b)
+        if globalServer.Funcionario != False:
+            QtWidgets.QMessageBox.about(None,'Home','Há um funcionário conectado!')
+        else:
+            if globalServer.conectado == False:
+                QtWidgets.QMessageBox.about(None,"Home","Servidor não conectado, por favor se conectar ao servidor!")
 
-            for x in range(10, 1, -1):
-                soma += x * cpf[index]
-                index += 1
+            else:
+                #validação do cpf
+                try:
+                    soma = 0
+                    dgit = 0
+                    index = 0
+                    if cpfentrada=='' and senha=='':
+                        message = 'Informe os campos.'
+                        raise ValueError
+                    if len(cpfentrada)<11:
+                        message = "CPF Inválido"
+                        raise ValueError
+                    a = cpfentrada
+                    cpf = list()
+                    for x in a:
+                        if x != '.' and x != '-':
+                            b = int(x)
+                            cpf.append(b)
 
-            dgit = (soma * 10) % 11
+                    for x in range(10, 1, -1):
+                        soma += x * cpf[index]
+                        index += 1
 
-            if dgit == 10:
-                dgit = 0
+                    dgit = (soma * 10) % 11
 
-            if dgit != cpf[9]:
-                message = "CPF Inválido"
-                raise ValueError
+                    if dgit == 10:
+                        dgit = 0
 
-            index = 0
-            soma = 0
-            for x in range(11, 1, -1):
-                soma += x * cpf[index]
-                index += 1
+                    if dgit != cpf[9]:
+                        message = "CPF Inválido"
+                        raise ValueError
 
-            dgit = (soma * 10) % 11
+                    index = 0
+                    soma = 0
+                    for x in range(11, 1, -1):
+                        soma += x * cpf[index]
+                        index += 1
 
-            if dgit == 10:
-                dgit1 = 0
+                    dgit = (soma * 10) % 11
 
-            if dgit != cpf[10]:
-                message = "CPF Inválido"
-                raise ValueError
+                    if dgit == 10:
+                        dgit1 = 0
 
-            if senha == '':
-                message += "Por favor, informar a senha!"
-                raise ValueError
+                    if dgit != cpf[10]:
+                        message = "CPF Inválido"
+                        raise ValueError
 
-            ip = globalServer.ip
-            port = 7000
-            addr = ((ip, port))
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.connect(addr)
+                    if senha == '':
+                        message += "Por favor, informar a senha!"
+                        raise ValueError
+
+                    ip = globalServer.ip
+                    port = 7000
+                    addr = ((ip, port))
+                    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    client_socket.connect(addr)
 
 
-            a = "Login," + cpfentrada + "," + senha
+                    a = "Login," + cpfentrada + "," + senha
 
-            client_socket.send((a.encode()))
-            mensagem_recebida = client_socket.recv(1024).decode()
-            QtWidgets.QMessageBox.about(None, "Home", mensagem_recebida)
-            client_socket.close()
+                    client_socket.send((a.encode()))
+                    mensagem_recebida = client_socket.recv(1024).decode()
+                    ver = mensagem_recebida.split(",")
+                    if ver[0] == "naoencontrado":
+                        QtWidgets.QMessageBox.about(None, "Home", "CPF e Senha não correspondem!")
+                    else:
+                        globalServer.Funcionario = str(ver[1])
+                        QtWidgets.QMessageBox.about(None,"Home","Funcionário Conectado!")
+                        self.txt_cpf_home_login.setText("")
+                        self.txt_senha_conectada.setText('')
 
-            self.txt_cpf_home_login.setText("")
-            self.txt_senha_conectada.setText('')
+                    client_socket.close()
 
-        except ValueError:
+                except ValueError:
 
-            QtWidgets.QMessageBox.about(None, "Home", message)
-            self.txt_senha_conectada.setText('')
-            self.txt_cpf_home_login.setText('')
+                    QtWidgets.QMessageBox.about(None, "Home", message)
+                    self.txt_senha_conectada.setText('')
+                    self.txt_cpf_home_login.setText('')
 
 
     def buscarEstoqueProdutos(self):

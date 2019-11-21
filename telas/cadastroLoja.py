@@ -236,13 +236,13 @@ class Ui_ui_loja(object):
                 client_socket.send(a.encode())
                 mensagem_recebida = client_socket.recv(1024).decode()
                 verificacao = mensagem_recebida.split(',')
-                if verificacao[0] == "False":
-                    QtWidgets.QMessageBox.about(None, "Loja", "O loja não foi encontrada!")
+                if verificacao[0] == "naoencontrada":
+                    QtWidgets.QMessageBox.about(None, "Loja", "A loja não foi encontrada!")
                     self.txt_bairro_loja.setText(" ")
                     self.txt_cep_loja.setText(" ")
                     self.txt_num_loja.setText(" ")
                     self.txt_rua_loja.setText(" ")
-                if verificacao[0] != "False":
+                if verificacao[0] != "naoencontrada":
                     self.txt_nome_loja.setText(nome)
                     self.txt_bairro_loja.setText(str(verificacao[1]))
                     self.txt_cep_loja.setText(str(verificacao[3]))
