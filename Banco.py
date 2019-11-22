@@ -23,8 +23,20 @@ class Banco:
         except Exception as e:
             return []
 
-    #Função de cadastro de produtos
-    def Produto(self,NomeDoProduto,Quantidade,PrecoUnitario,id_loja):
+
+    def Produto(self,NomeDoProduto:str,Quantidade:str,PrecoUnitario:str,id_loja:str):
+        """
+        Função de cadastro de produtos no banco.
+
+        :param NomeDoProduto: Nome do produto para ser cadastrado -> type(str)
+        :param Quantidade: Quantidade do produto cadastrado -> type(str)
+        :param PrecoUnitario: Preço unitario do produto -> type(str)
+        :param id_loja: Identificador da loja onde será cadastrado o produto -> type(str)
+
+
+        :return: A função retorna o nome do produto quando o produto foi cadastrado, caso contrario
+        o retorno é uma lista vazia.
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -32,9 +44,11 @@ class Banco:
             executar.execute(sql)
             conexao.commit()
             conexao.close()
+            print("Eu estou aqui")
             return NomeDoProduto
         except Exception as e:
-            return False
+            print(e)
+            return []
 
     def DadosDaLoja(self,NomeDaFilial,NomeDaRua,Bairro,Numero,CEP):
         try:
@@ -52,8 +66,16 @@ class Banco:
         except Exception as e:
             raise
 
-    #Função que busca o produto na loja
-    def ProdutoConsulta(self,id_loja,NomeDoProduto):
+    def ProdutoConsulta(self,id_loja:str,NomeDoProduto:str):
+        """
+        Função responsavel pela busca dos dados do produto no banco.
+        A função pode receber o nome e o identificador da loja ou somente o nome ou somente o identificador da loja.
+
+        :param id_loja: Identificador da loja -> type(str)
+        :param NomeDoProduto: Nome do produto -> type(str)
+
+        :return: A função retorna uma lista com os dados do produto cadastrado, caso contrario retorna um lista vazia.
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -80,7 +102,7 @@ class Banco:
                 return resultado
 
         except Exception as e:
-            return False
+            return []
 
     #Função que retorna dados da loja
     def LojaConsultaHome(self,id_loja,NomeDaFilial):
@@ -175,9 +197,7 @@ class Banco:
         except Exception as e:
             return []
 
-    #Função de exclusão de um produto, Natan em relação a essa função o problema está que quando tento excluir um produto de uma loja
-    #a exclusão quando  utilizada no DB Browser SQLite funciona de forma correta, só que quando utilizada aqui o produto não é excluído
-    #do banco.
+    
     def ExcluiProduto(self,NomeDoProduto:str,id_loja:str):
         """
         Função responsável por exclusão de um produto em uma loja determinada.
@@ -191,8 +211,8 @@ class Banco:
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
-            sql = "DELETE FROM Produto WHERE NomeDoProduto = '{0}' AND IdentificadorLoja = '{0}'".format(NomeDoProduto,id_loja)
-            resultado = executar.execute(sql)
+            sql = "DELETE FROM Produto WHERE NomeDoProduto = '{0}' AND IdentificadorLoja = '{1}'".format(NomeDoProduto,id_loja)
+            executar.execute(sql)
             conexao.commit()
             conexao.close()
             return "Exclusao"
@@ -211,20 +231,26 @@ class Banco:
         except Exception as e:
             raise
 
-    #Função de Busca de Funcionário
-    def BuscaFuncionario(self,CPF):
+    def BuscaFuncionario(self,CPF:str):
+        """
+        Função responsavel por retornar dados dos funcionários dos funcionários buscados apartir do CPF.
+
+        :param CPF: CPF do funcionário -> type(str)
+
+        :return: A função retorna uma lista com os dados do funcionário.
+        """
         try:
+            lista = []
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             sql = "SELECT *FROM Funcionario WHERE CPF = '{0}'".format(CPF)
             resultado = executar.execute(sql)
-            sql = "SELECT *FROM EnderecoFuncionario WHERE IdentificadorFuncionario = '{0}'".format(CPF)
-            resultado2 = executar.execute(sql)
+            lista.append(resultado.fetchall())
+            sql1 = "SELECT *FROM EnderecoFuncionario WHERE IdentificadorFuncionario = '{0}'".format(CPF)
+            resultado2 = executar.execute(sql1)
+            lista.append(resultado2.fetchall())
             conexao.commit()
             conexao.close()
-            lista = []
-            lista.append(resultado.fetchall())
-            lista.append(resultado2.fetchall())
             return lista
         except Exception as e:
             return []
@@ -234,7 +260,7 @@ class Banco:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             sql = "UPDATE Funcionario SET NomeDoFuncionario = '{0}', NumeroDeTelefone = '{1}', Senha = '{2}', IdentificadorLoja = {3} WHERE CPF = '{4}'".format(NomeDoFuncionario,NumeroDeTelefone,Senha,IdentificadorLoja,CPF)
-            resultado = executar.execute(sql)
+            executar.execute(sql)
             conexao.commit()
             conexao.close()
         except Exception as e:

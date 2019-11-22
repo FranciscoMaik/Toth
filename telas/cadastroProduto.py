@@ -166,7 +166,6 @@ class Ui_tela_cad_prod(object):
                 a = "Produto," + nome + "," + quantidade + "," + preco + "," + loja
                 client_socket.send(a.encode())
                 mensagem_recebida = client_socket.recv(1024).decode()
-                rec = mensagem_recebida.split()
                 QtWidgets.QMessageBox.about(None, "Produto",mensagem_recebida)
             client_socket.close()
 

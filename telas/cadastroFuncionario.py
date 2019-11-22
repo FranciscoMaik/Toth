@@ -401,16 +401,18 @@ class Ui_fundo_func(object):
 
                 rec = mensagem_recebida.split(",")
                 print(mensagem_recebida)
+
+
                 if rec[0] == "existe":
-                    self.txt_num_end_func.setText("111")
-                    self.txt_cep_func.setText("2415")
-                    self.txt_bairro_func.setText("centro")
-                    self.txt_rua_func.setText("tals")
-                    self.txt_num_func.setText("89988020693")
-                    self.txt_cpf_func.setText("06121129344")
-                    self.txt_senha_fun.setText("estaeasenha")
-                    self.txt_nome_func.setText("maik")
-                    self.sb_id_loja_func.setValue(32)
+                    self.txt_num_end_func.setText(rec[8])
+                    self.txt_cep_func.setText(rec[9])
+                    self.txt_bairro_func.setText(rec[7])
+                    self.txt_rua_func.setText(rec[6])
+                    self.txt_num_func.setText(rec[3])
+                    self.txt_cpf_func.setText(rec[2])
+                    self.txt_senha_fun.setText(rec[4])
+                    self.txt_nome_func.setText(rec[1])
+                    self.sb_id_loja_func.setValue(int(rec[5]))
 
                 elif rec[0] == "noexiste":
                     QtWidgets.QMessageBox.about(None, "Funcionário", "Não foi possivel encontrar o funcionário!")

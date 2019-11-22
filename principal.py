@@ -30,11 +30,13 @@ def conectar():
         elif opcao == "Produto":
             #Buscar se aquele produto já está cadastrado na loja
             verificacao2 = Banco().ProdutoConsulta(recebe[4],recebe[1])
+            print('verificacao2',verificacao2)
 
             #verifica se o retorno é falso, caso seja falso aquele produto não foi cadastrado naquela loja
             if verificacao2 == []:
                 #verificar se a loja existe
-                ver_existe_loja = Banco().LojaConsultaHome(int(recebe[4]), None)
+                ver_existe_loja = Banco().LojaConsultaHome(recebe[4], None)
+                print('ver_existe', ver_existe_loja)
                 #Se ver_existe_loja retornar falso a loja não existe
                 if ver_existe_loja == []:
                     nmensagem = "Loja não existe, por favor cadastre em uma loja existente!"
@@ -42,8 +44,9 @@ def conectar():
                 else:
                     #Se a loja existe, cadastra o produto
                     verificacao3 = Banco().Produto(recebe[1],recebe[2],recebe[3],recebe[4])
+                    print("Adiciona produto",verificacao3)
                     # Verificação se o produto foi realmente cadastrado
-                    if verificacao3 != False:
+                    if verificacao3 != []:
                         #trasforma em String para mandar para o cliente
                         nmensagem = "Produto cadastrado com Sucesso!"
                         mensagem = nmensagem.encode()
@@ -80,6 +83,7 @@ def conectar():
         #Excluir produto
         elif opcao == "excluirProduto":
             verificacao = Banco().ProdutoConsulta(recebe[2],recebe[1])
+            print(verificacao)
             if verificacao != []:
                 verificacao1 = Banco().ExcluiProduto(recebe[1],recebe[2])
                 if verificacao1 != None:
@@ -99,8 +103,7 @@ def conectar():
             if verificacao != []:
                 #verifica se o funcionário já está cadastrado
                 verificacao1 = Banco().BuscaFuncionario(recebe[7])
-                print(verificacao1)
-                if verificacao1 != []:
+                if verificacao1 != [] and verificacao1 != [[],[]]:
                     nmensagem = "Este funcionário já está cadastrado em alguma filial!"
                     mensagem = nmensagem.encode()
                 else:
@@ -119,19 +122,19 @@ def conectar():
                 mensagem = nmensagem.encode()
 
         #Buscar funcionario
-        #função de busca não está funcionando aqui!
         elif opcao == "buscarFuncionario":
             #Verifica se o funcionário existe!
             verificacao = Banco().BuscaFuncionario(recebe[1])
             #Caso o funcionário exista é retornado os valores do funcionário
-            if verificacao != []:
+            if verificacao != [] and verificacao != [[],[]]:
                 outra = "existe,"
-                for i in verificacao[0]:
-                    outra += str(i) + ","
+                for i in verificacao:
+                    for j in i[0]:
+                        outra += str(j) + ","
                 mensagem = outra.encode()
                 print(outra)
             #Caso ele não esteja cadastrado no banco é retornado vazio!
-            elif verificacao == []:
+            else:
                 nmensagem = "noexiste,"
                 mensagem = nmensagem.encode()
 
