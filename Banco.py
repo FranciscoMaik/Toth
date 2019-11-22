@@ -168,9 +168,6 @@ class Banco:
         except Exception as e:
             return False
 
-    #Função de alteração dos dados do produto
-    #Função não está funcionando, Natan está função não está sobscrevendo os antigos dados da loja, apesar de termos visto
-    #que a alteração foi feita quando utilizamos o DB Browser SQLite, quando utilizado aqui ela não funcionou.
     def AlterarDadosDaLoja(self,NomeDaFilial:str,id_loja:str,NomeDaRua:str,Bairro:str,Numero:str,CEP:str):
         """
         Função responsavel pela alteração dos dados da loja, é recebido os novos paramentros para sobescrever os antigos dados.
@@ -187,9 +184,10 @@ class Banco:
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
+            print("Entrou 1")
             sql1 = "UPDATE DadosDaLoja SET NomeDaFilial = '{0}' WHERE IdentificadorLoja = '{1}'".format(NomeDaFilial,id_loja)
             executar.execute(sql1)
-            sql2 = "UPDATE EnderecoLoja SET NomeDaRua = '{0}', Bairro = '{1}', Numero = {2}, CEP = '{3}' WHERE IdentificadorLoja = '{4}'".format(NomeDaRua,Bairro,Numero,CEP,id_loja)
+            sql2 = "UPDATE EnderecoLoja SET NomeDaRua = '{0}', Bairro = '{1}', Numero = '{2}', CEP = '{3}' WHERE IdentificadorLoja = '{4}'".format(NomeDaRua,Bairro,Numero,CEP,id_loja)
             executar.execute(sql2)
             conexao.commit()
             conexao.close()
@@ -197,7 +195,7 @@ class Banco:
         except Exception as e:
             return []
 
-    
+
     def ExcluiProduto(self,NomeDoProduto:str,id_loja:str):
         """
         Função responsável por exclusão de um produto em uma loja determinada.
@@ -220,7 +218,7 @@ class Banco:
             return None
     
     def AlterarDadosDoProduto(self,NomeDoProduto,Quantidade,PrecoUnitario,IdentificadorProduto):
-        self.ExcluiLoja(NomeDoProduto)
+        #self.ExcluiLoja(NomeDoProduto)
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()

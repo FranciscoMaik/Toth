@@ -30,13 +30,11 @@ def conectar():
         elif opcao == "Produto":
             #Buscar se aquele produto já está cadastrado na loja
             verificacao2 = Banco().ProdutoConsulta(recebe[4],recebe[1])
-            print('verificacao2',verificacao2)
 
             #verifica se o retorno é falso, caso seja falso aquele produto não foi cadastrado naquela loja
             if verificacao2 == []:
                 #verificar se a loja existe
                 ver_existe_loja = Banco().LojaConsultaHome(recebe[4], None)
-                print('ver_existe', ver_existe_loja)
                 #Se ver_existe_loja retornar falso a loja não existe
                 if ver_existe_loja == []:
                     nmensagem = "Loja não existe, por favor cadastre em uma loja existente!"
@@ -44,7 +42,6 @@ def conectar():
                 else:
                     #Se a loja existe, cadastra o produto
                     verificacao3 = Banco().Produto(recebe[1],recebe[2],recebe[3],recebe[4])
-                    print("Adiciona produto",verificacao3)
                     # Verificação se o produto foi realmente cadastrado
                     if verificacao3 != []:
                         #trasforma em String para mandar para o cliente
@@ -183,14 +180,17 @@ def conectar():
             #recebe os valores da loja para ser alterados
             #verifica se a loja existe
             verificacao = Banco().LojaConsulta(recebe[1])
+            print("existe loja",verificacao)
             if verificacao != []:
                 outra = ''
                 #for para pegar o id_loja da tabela LojaConsulta
                 for i in verificacao[0]:
-                    outra += outra + ","
+                    outra += str(i) + ","
                 outra = outra.split(',')
+                print(outra)
 
                 verificacao2 = Banco().AlterarDadosDaLoja(recebe[1], outra[4], recebe[2], recebe[4], recebe[3], recebe[5])
+                print("Alteração",verificacao2)
                 verificacao2 = verificacao2 + ","
                 mensagem = verificacao2.encode()
             elif verificacao == []:
