@@ -73,9 +73,19 @@ def conectar():
 
         #Alterando os valores do produto
         elif opcao == "alterarValoresdoProduto":
-            #altera os valores no banco
-            nmensagem = "Valores Alterador"
-            mensagem = nmensagem.encode()
+            #Verifica se o produto existe naquela loja
+            verificacao = Banco().ProdutoConsulta(recebe[4],recebe[1])
+            #se existir ele cadastra altera os valores do produto
+            if verificacao != []:
+                identificadorProd = verificacao[0][0]
+                verificacao2 = Banco().AlterarDadosDoProduto(recebe[1],recebe[2],recebe[3],identificadorProd,recebe[4])
+                if verificacao2 != []:
+                    nmensagem = "Valores do produto " + str(verificacao2) + " alterados!"
+                    mensagem = nmensagem.encode()
+            #caso contrario ele manda uma mensadem de aviso!
+            else:
+                nmensagem = "Produto não cadastrado na loja ou loja não existente!"
+                mensagem = nmensagem.encode()
 
         #Excluir produto
         elif opcao == "excluirProduto":

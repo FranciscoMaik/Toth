@@ -215,21 +215,26 @@ class Ui_tela_cad_prod(object):
         quantidade = str(self.sb_quant_prod.value())
         preco = str(self.dsp_preco_prod.value())
         loja = str(self.sb_id_loja_prod.value())
+        if globalServer.conectado == False:
+            QtWidgets.QMessageBox.about(None, 'Produto', "Servidor não conectado, por favor vá a página Acesso e para conecá-lo!")
+        else:
+            if nome == "" or quantidade == "0" or preco == "0.0" or loja == "0":
+                QtWidgets.QMessageBox.about(None,"Produto","Algum campo está vazio, por favor preencha os campos!")
+            else:
+                ip = globalServer.ip
+                port = 7000
+                addr = ((ip, port))
+                client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                client_socket.connect(addr)
 
-        ip = globalServer.ip
-        port = 7000
-        addr = ((ip, port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
+                a = "alterarValoresdoProduto," + nome + "," + quantidade + "," + preco + "," + loja
 
-        a = "alterarValoresdoProduto," + nome + "," + quantidade + "," + preco + "," + loja
+                client_socket.send(a.encode())
+                mensagem_recebida = client_socket.recv(1024).decode()
+                QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
+                client_socket.close()
 
-        client_socket.send(a.encode())
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Produto", mensagem_recebida)
-        client_socket.close()
-
-        self.cancelarProduto()
+                self.cancelarProduto()
 
     def excluirProduto(self):
         nome = self.txt_nome_prod_prod.toPlainText()

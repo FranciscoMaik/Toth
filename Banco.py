@@ -216,18 +216,32 @@ class Banco:
             return "Exclusao"
         except Exception as e:
             return None
-    
-    def AlterarDadosDoProduto(self,NomeDoProduto,Quantidade,PrecoUnitario,IdentificadorProduto):
-        #self.ExcluiLoja(NomeDoProduto)
+
+    #Função deve ser altera
+    def AlterarDadosDoProduto(self,NomeDoProduto:str,Quantidade:str,PrecoUnitario:str,IdentificadorProduto:str,IdentificadorLoja:str):
+        """
+        Função responsavel pela alteração dos dados do produto!
+
+        :param NomeDoProduto: Novo nome do produto -> type(str)
+        :param Quantidade: Nova quantidade para o produto -> type(str)
+        :param PrecoUnitario: Novo preço unitario para o produto -> type(str)
+        :param IdentificadorProduto: Identificador do produto que deve ter seus dados alterados -> type(str)
+        :param IdentificadorLoja: identificador da loja onde possui um produto que deve ser alterado os valores -> type(str)
+
+
+        :return: A função retorna o Nome do produto caso tenha conseguido fazer a alteração, caso contrario
+        a função retorna uma lista vazia!
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
-            sql1 = "UPDATE Produto SET NomeDoProduto = '{0}',Quantidade = {1}, PrecoUnitario = {2} WHERE IdentificadorProduto = {3}".format(NomeDoProduto,Quantidade,PrecoUnitario,IdentificadorProduto)
+            sql1 = "UPDATE Produto SET NomeDoProduto = '{0}',Quantidade = '{1}', PrecoUnitario = '{2}' WHERE IdentificadorProduto = '{3}' AND IdentificadorLoja = '{4}'".format(NomeDoProduto,Quantidade,PrecoUnitario,IdentificadorProduto,IdentificadorLoja)
             executar.execute(sql1)
             conexao.commit()
             conexao.close()
+            return NomeDoProduto
         except Exception as e:
-            raise
+            return []
 
     def BuscaFuncionario(self,CPF:str):
         """
