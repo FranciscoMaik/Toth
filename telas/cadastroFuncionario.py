@@ -422,7 +422,7 @@ class Ui_fundo_func(object):
     def alterarValores(self):
         nome = self.txt_nome_func.toPlainText()
         senha = self.txt_senha_fun.toPlainText()
-        cpf = self.txt_cpf_func.toPlainText()
+        cpfentrada = self.txt_cpf_func.toPlainText()
         num = self.txt_num_func.toPlainText()
         loja = str(self.sb_id_loja_func.value())
         rua = self.txt_rua_func.toPlainText()
@@ -430,86 +430,144 @@ class Ui_fundo_func(object):
         cep = self.txt_cep_func.toPlainText()
         numero_rua = self.txt_num_end_func.toPlainText()
 
-        ip = globalServer.ip
-        port = 7000
-        addr = ((ip, port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
+        if globalServer.ip == "":
+            QtWidgets.QMessageBox.about(None, "Funcionário",
+                                        "O servidor não está conectado! Por favor vá a página de conexão e se conecte ao servidor!")
+        else:
 
-        a = "alterarDadosFuncionario," + nome + "," + rua + "," + num + "," + bairro + "," + cep + "," + senha + "," + cpf + "," + loja + "," + numero_rua
+            try:
+                soma = 0
+                dgit = 0
+                index = 0
+                validade = True
+                a = cpfentrada
+                cpf = list()
+                for x in a:
+                    if x != '.' and x != '-':
+                        b = int(x)
+                        cpf.append(b)
 
-        client_socket.send(a.encode())
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
-        client_socket.close()
+                for x in range(10, 1, -1):
+                    soma += x * cpf[index]
+                    index += 1
 
-        self.cancelarFuncionario()
+                dgit = (soma * 10) % 11
+
+                if dgit == 10:
+                    dgit = 0
+
+                if dgit != cpf[9]:
+                    validade = False
+                    exit(1)
+
+                index = 0
+                soma = 0
+                for x in range(11, 1, -1):
+                    soma += x * cpf[index]
+                    index += 1
+
+                dgit = (soma * 10) % 11
+
+                if dgit == 10:
+                    dgit1 = 0
+
+                if dgit != cpf[10]:
+                    validade = False
+                    exit(1)
+
+            except:
+                if (cpfentrada != ''):
+                    QtWidgets.QMessageBox.about(None, "Funcionário", "CPF Inválido")
+
+            if cpfentrada == '':
+                QtWidgets.QMessageBox.about(None, "Funcionário", "Por favor, preencher o campo CPF para exclui-lo!")
+
+            if(cpfentrada != '' and validade == True):
+                ip = globalServer.ip
+                port = 7000
+                addr = ((ip, port))
+                client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                client_socket.connect(addr)
+
+                a = "alterarDadosFuncionario," + nome + "," + rua + "," + num + "," + bairro + "," + cep + "," + senha + "," + cpfentrada + "," + loja + "," + numero_rua
+
+                client_socket.send(a.encode())
+                mensagem_recebida = client_socket.recv(1024).decode()
+                QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
+                client_socket.close()
+
+                self.cancelarFuncionario()
 
     def excluirFuncionario(self):
         cpfentrada = self.txt_cpf_func.toPlainText()
 
-        try:
-            soma = 0
-            dgit = 0
-            index = 0
-            validade = True
-            a = cpfentrada
-            cpf = list()
-            for x in a:
-                if x != '.' and x != '-':
-                    b = int(x)
-                    cpf.append(b)
+        if globalServer.ip == "":
+            QtWidgets.QMessageBox.about(None, "Funcionário",
+                                        "O servidor não está conectado! Por favor vá a página de conexão e se conecte ao servidor!")
+        else:
 
-            for x in range(10, 1, -1):
-                soma += x * cpf[index]
-                index += 1
-
-            dgit = (soma * 10) % 11
-
-            if dgit == 10:
+            try:
+                soma = 0
                 dgit = 0
+                index = 0
+                validade = True
+                a = cpfentrada
+                cpf = list()
+                for x in a:
+                    if x != '.' and x != '-':
+                        b = int(x)
+                        cpf.append(b)
 
-            if dgit != cpf[9]:
-                validade = False
-                exit(1)
+                for x in range(10, 1, -1):
+                    soma += x * cpf[index]
+                    index += 1
 
-            index = 0
-            soma = 0
-            for x in range(11, 1, -1):
-                soma += x * cpf[index]
-                index += 1
+                dgit = (soma * 10) % 11
 
-            dgit = (soma * 10) % 11
+                if dgit == 10:
+                    dgit = 0
 
-            if dgit == 10:
-                dgit1 = 0
+                if dgit != cpf[9]:
+                    validade = False
+                    exit(1)
 
-            if dgit != cpf[10]:
-                validade = False
-                exit(1)
+                index = 0
+                soma = 0
+                for x in range(11, 1, -1):
+                    soma += x * cpf[index]
+                    index += 1
 
-        except:
-            if (cpfentrada != ''):
-                QtWidgets.QMessageBox.about(None, "Funcionário", "CPF Inválido")
+                dgit = (soma * 10) % 11
 
-        if cpfentrada == '':
-            QtWidgets.QMessageBox.about(None, "Funcionário", "Por favor, preencher o campo CPF para exclui-lo!")
+                if dgit == 10:
+                    dgit1 = 0
 
-        if(cpfentrada != '' and validade == True):
-            ip = globalServer.ip
-            port = 7000
-            addr = ((ip, port))
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.connect(addr)
+                if dgit != cpf[10]:
+                    validade = False
+                    exit(1)
 
-            a = "excluirFuncionario,"
+            except:
+                if (cpfentrada != ''):
+                    QtWidgets.QMessageBox.about(None, "Funcionário", "CPF Inválido")
 
-            client_socket.send(a.encode())
-            mensagem_recebida = client_socket.recv(1024).decode()
-            QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
-            client_socket.close()
+            if cpfentrada == '':
+                QtWidgets.QMessageBox.about(None, "Funcionário", "Por favor, preencher o campo CPF para exclui-lo!")
 
-            self.cancelarFuncionario()
+            if(cpfentrada != '' and validade == True):
+                ip = globalServer.ip
+                port = 7000
+                addr = ((ip, port))
+                client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                client_socket.connect(addr)
+
+                a = "excluirFuncionario," + cpfentrada
+
+                client_socket.send(a.encode())
+                mensagem_recebida = client_socket.recv(1024).decode()
+                QtWidgets.QMessageBox.about(None, "Funcionário", mensagem_recebida)
+                client_socket.close()
+
+                self.cancelarFuncionario()
 
 
 

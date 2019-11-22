@@ -9,13 +9,7 @@ class Banco:
             executar = conexao.cursor()
             sql = "INSERT INTO Funcionario VALUES ('{0}','{1}','{2}','{3}',{4})".format(NomeFuncionario,CPF,NumeroDeTelefone,Senha,id_loja)
             executar.execute(sql)
-            sql2 = "SELECT *FROM Funcionario;"
-            ultimoid = executar.execute(sql2)
-            id_funcionario = ultimoid.fetchall()
-            contador = 0
-            for x in id_funcionario:
-                contador = contador + 1
-            sql3 = "INSERT INTO EnderecoFuncionario VALUES ('{0}','{1}',{2},'{3}',{4})".format(NomeDaRua,Bairro,Numero,CEP,id_funcionario[contador-1][1])
+            sql3 = "INSERT INTO EnderecoFuncionario VALUES ('{0}','{1}',{2},'{3}',{4})".format(NomeDaRua,Bairro,Numero,CEP,CPF)
             resultado = executar.execute(sql3)
             conexao.commit()
             conexao.close()
@@ -44,10 +38,8 @@ class Banco:
             executar.execute(sql)
             conexao.commit()
             conexao.close()
-            print("Eu estou aqui")
             return NomeDoProduto
         except Exception as e:
-            print(e)
             return []
 
     def DadosDaLoja(self,NomeDaFilial,NomeDaRua,Bairro,Numero,CEP):
@@ -148,8 +140,7 @@ class Banco:
         except Exception as e:
             return []
 
-    #Função de exclusão de loja, Natan está função não exclui os dados do endereço da loja, somente a loja.
-    def ExcluiLoja(self,NomeDaFilial):
+    def ExcluiLoja(self,NomeDaFilial,id_loja):
         """
         Função responsavel pela exclusão de dados de uma filial, exclui todos os seus campos no banco.
 
@@ -161,7 +152,9 @@ class Banco:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             sql = "DELETE FROM DadosDaLoja WHERE NomeDaFilial = '{0}'".format(NomeDaFilial)
-            resultado = executar.execute(sql)
+            executar.execute(sql)
+            sql1 = "DELETE FROM EnderecoLoja WHERE IdentificadorLoja = '{0}'".format(id_loja)
+            executar.execute(sql1)
             conexao.commit()
             conexao.close()
             return NomeDaFilial
@@ -184,7 +177,6 @@ class Banco:
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
-            print("Entrou 1")
             sql1 = "UPDATE DadosDaLoja SET NomeDaFilial = '{0}' WHERE IdentificadorLoja = '{1}'".format(NomeDaFilial,id_loja)
             executar.execute(sql1)
             sql2 = "UPDATE EnderecoLoja SET NomeDaRua = '{0}', Bairro = '{1}', Numero = '{2}', CEP = '{3}' WHERE IdentificadorLoja = '{4}'".format(NomeDaRua,Bairro,Numero,CEP,id_loja)
@@ -194,7 +186,6 @@ class Banco:
             return NomeDaFilial
         except Exception as e:
             return []
-
 
     def ExcluiProduto(self,NomeDoProduto:str,id_loja:str):
         """
@@ -217,7 +208,6 @@ class Banco:
         except Exception as e:
             return None
 
-    #Função deve ser altera
     def AlterarDadosDoProduto(self,NomeDoProduto:str,Quantidade:str,PrecoUnitario:str,IdentificadorProduto:str,IdentificadorLoja:str):
         """
         Função responsavel pela alteração dos dados do produto!
@@ -249,7 +239,7 @@ class Banco:
 
         :param CPF: CPF do funcionário -> type(str)
 
-        :return: A função retorna uma lista com os dados do funcionário.
+        :return: A função retorna uma lista com os dados do funcionário, caso contrario retorna uma lista vazia.
         """
         try:
             lista = []
@@ -267,27 +257,60 @@ class Banco:
         except Exception as e:
             return []
 
-    def AlteraFuncionario(self,NomeDoFuncionario,CPF,NumeroDeTelefone,Senha,IdentificadorLoja):
+    def AlteraFuncionario(self,NomeDoFuncionario:str,Rua:str,NumeroRua:str,Bairro:str,CEP:str,CPF:str,NumeroDeTelefone:str,Senha:str,IdentificadorLoja:str):
+        """
+        Função responsavel para alterar os dados do funcionario.
+
+        :param NomeDoFuncionario: Novo nome do funcionario -> type(str)
+        :param Rua: Novo nome da rua do funcionario -> type(str)
+        :param NumeroRua: Novo numero da rua do funcionário -> type(str)
+        :param Bairro: Novo nome do bairro do funcionario -> type(str)
+        :param CEP: Novo CEP do endereço do funcionário -> type(str)
+        :param CPF: CPF do funcionário, campo não alteravel -> type(str)
+        :param NumeroDeTelefone: Novo numero de telefone do funcionario -> type(str)
+        :param Senha: Nova senha do funcionario -> type(str)
+        :param IdentificadorLoja: Nova loja onde o funcionário vai trabalhar -> type(str)
+
+
+        :return: A função retorna o CPF do Funcionário caso a alteração seja bem sucedida, caso contrario a função retorna uma
+        lista vazia.
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             sql = "UPDATE Funcionario SET NomeDoFuncionario = '{0}', NumeroDeTelefone = '{1}', Senha = '{2}', IdentificadorLoja = {3} WHERE CPF = '{4}'".format(NomeDoFuncionario,NumeroDeTelefone,Senha,IdentificadorLoja,CPF)
             executar.execute(sql)
+            sql2 = "UPDATE EnderecoFuncionario SET NomeDaRua = '{0}', Bairro = '{1}', Numero = '{2}', CEP = {3} WHERE IdentificadorFuncionario = '{4}'".format(
+                Rua, Bairro, NumeroRua, CEP, CPF)
+            executar.execute(sql2)
             conexao.commit()
             conexao.close()
+            return CPF
         except Exception as e:
-            return False
+            return []
 
     def ExcluiFuncionario(self,CPF):
+        """
+        Função responsavel por excluir um funcionário do banco!
+
+
+        :param CPF: CPF do funcionário que será excluído do banco -> type(str)
+
+        :return: A função retorna o CPF do funcionário se conseguir exclui-lo, caso contrario o retorno é uma lista
+        vazia.
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             sql = "DELETE FROM Funcionario WHERE CPF = '{0}'".format(CPF)
-            resultado = executar.execute(sql)
+            executar.execute(sql)
+            sql1 = "DELETE FROM EnderecoFuncionario WHERE IdentificadorFuncionario = '{0}'".format(CPF)
+            executar.execute(sql1)
             conexao.commit()
             conexao.close()
+            return CPF
         except Exception as e:
-            return False
+            return []
 
     def Login(self,CPF:str,Senha:str):
         """
@@ -295,17 +318,17 @@ class Banco:
 
         :param CPF: CPF do funcionário -> type (str)
         :param Senha: Senha do funcionário -> type (str)
+
         :return: A função retorna um dicionário se encontrar aquele funcionário com aquela senha,
         caso contrario ele retorna uma lista vazia.
         """
         try:
-            print(CPF,Senha)
+
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             sql = "SELECT *FROM Funcionario WHERE CPF = '{0}' AND Senha = '{1}'".format(CPF,Senha)
             resultado = executar.execute(sql)
             teste = resultado.fetchall()
-            print(teste)
             conexao.commit()
             conexao.close()
             return teste

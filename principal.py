@@ -139,7 +139,6 @@ def conectar():
                     for j in i[0]:
                         outra += str(j) + ","
                 mensagem = outra.encode()
-                print(outra)
             #Caso ele não esteja cadastrado no banco é retornado vazio!
             else:
                 nmensagem = "noexiste,"
@@ -147,15 +146,44 @@ def conectar():
 
         #Alterar valores do funcionário
         elif opcao == "alterarDadosFuncionario":
-            #recebe e altera os valores de um funcionario
-            nmensagem = "Valores alterados"
-            mensagem = nmensagem.encode()
+            verificacao = Banco().BuscaFuncionario(recebe[7])
+            #Verifica se o funcionario realmente existe
+            if verificacao != [] and verificacao !=[[],[]]:
+                verificacao1 = Banco().LojaConsultaHome(recebe[8], None)
+                # verifica se a nova loja na qual o funcionario vai ser cadastrado existe
+                if verificacao1 != []:
+                    verificacao2 = Banco().AlteraFuncionario(recebe[1],recebe[2],recebe[9],recebe[4],recebe[5],recebe[7],recebe[3],recebe[6],recebe[8])
+                    if verificacao2 != []:
+                        nmensagem = "Dados do funcionário alterados!"
+                        mensagem = nmensagem.encode()
+                    else:
+                        nmensagem = "Não foi possivel alterar os dados do funcionário!"
+                        mensagem = nmensagem.encode()
+                else:
+                    nmensagem = "Loja onde deseja cadastrar o funcionário não existe!"
+                    mensagem = nmensagem.encode()
+            else:
+                nmensagem = "Funcionário não cadastrado!"
+                mensagem = nmensagem.encode()
 
         #Exclusão de funcionário
         elif opcao == "excluirFuncionario":
-            #excluir funcionário do banco
-            nmensagem = "Funcionário excluido"
-            mensagem = nmensagem.encode()
+            #verifica se o funcionário existe
+            verificacao = Banco().BuscaFuncionario(recebe[1])
+            if verificacao != [[],[]] or verificacao !=[]:
+                verificacao2 = Banco().ExcluiFuncionario(recebe[1])
+                #verifica se o funcionário foi excluído
+                if verificacao2 != []:
+                    nmensagem = "Funcionário removido do banco!"
+                    mensagem = nmensagem.encode()
+                #caso não tenha conseguido remover o funcionário ele manda uma mensagem de alerta!
+                else:
+                    nmensagem = "Não foi possivel excluir funcionário!"
+                    mensagem = nmensagem.encode()
+            #caso o funcionario não exista ele recebe uma mensagem de alerta
+            else:
+                nmensagem = "Funcionário não cadastrado!"
+                mensagem = nmensagem.encode()
 
         #Cadastro de lojas
         elif opcao == "Loja":
@@ -210,9 +238,9 @@ def conectar():
         #Exclusão da loja
         elif opcao == "excluirLoja":
             #Exclui a loja do banco
-            verificacao = Banco().LojaConsulta(recebe[1])
+            verificacao = Banco().LojaConsultaHome(None,recebe[1])
             if verificacao != []:
-                verificacao2 = Banco().ExcluiLoja(recebe[1])
+                verificacao2 = Banco().ExcluiLoja(recebe[1],verificacao[0][0])
                 verificacao2 = verificacao2 + ","
                 mensagem = verificacao2.encode()
             elif verificacao == []:
