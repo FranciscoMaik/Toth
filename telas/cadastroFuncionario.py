@@ -233,6 +233,11 @@ class Ui_fundo_func(object):
         self.funcionalidades()
 
     def funcionalidades(self):
+        """
+        Função responsavel por chamar as funções dos botões e caixas de textos.
+
+        :return: A função não possuí retorno.
+        """
         self.btn_cad_func.clicked.connect(self.cadastrarFuncionario)
         self.btn_cancel_func.clicked.connect(self.cancelarFuncionario)
         self.btn_buscar_funcionario.clicked.connect(self.buscarFuncionario)
@@ -240,6 +245,12 @@ class Ui_fundo_func(object):
         self.btn_excluir_funcionario.clicked.connect(self.excluirFuncionario)
 
     def cadastrarFuncionario(self):
+        """
+        Função responsavel por cadastrar um funcionário, ela é ativada quando houver o click no botão
+        btn_cad_func, a função pega os dados dos campos de entrada e envia ao servidor.
+
+        :return: A função não possui retorno.
+        """
         nome = self.txt_nome_func.toPlainText()
         senha = self.txt_senha_fun.toPlainText()
         cpfentrada = self.txt_cpf_func.toPlainText()
@@ -324,6 +335,12 @@ class Ui_fundo_func(object):
                                             'Algum campo está vazio ou inválido, por favor preencha todos os campos!')
 
     def cancelarFuncionario(self):
+        """
+        Função reponsavel por limpar os campos de entrada, ela é ativada quando clicado no botão btn_cancel_func.
+
+        :return: A função não possui retorno
+        """
+
         self.txt_num_end_func.setText("")
         self.txt_cep_func.setText("")
         self.txt_bairro_func.setText("")
@@ -335,6 +352,12 @@ class Ui_fundo_func(object):
         self.sb_id_loja_func.setValue(0)
 
     def buscarFuncionario(self):
+        """
+        Função responsavél pela busca dos dados de um funcionário cadastrado, ela é ativa quando clicado no botão
+        btn_buscar_funcionario.
+
+        :return: A função não possui retorno.
+        """
         cpfentrada = self.txt_cpf_func.toPlainText()
         if globalServer.ip == "":
             QtWidgets.QMessageBox.about(None, "Funcionário",
@@ -420,6 +443,12 @@ class Ui_fundo_func(object):
 
 
     def alterarValores(self):
+        """
+        Função responsavel pela alteração dos dados do funcionario, ela pega os dados dos campos e reescreve nos
+        dados antigos.
+
+        :return: A função não possui retorno.
+        """
         nome = self.txt_nome_func.toPlainText()
         senha = self.txt_senha_fun.toPlainText()
         cpfentrada = self.txt_cpf_func.toPlainText()
@@ -499,6 +528,12 @@ class Ui_fundo_func(object):
                 self.cancelarFuncionario()
 
     def excluirFuncionario(self):
+        """
+        Função responsavel pela exclusão de um funcionario, ela pega o CPF do campo de entrada manda para o servidor e exclui o
+        funcionário.
+
+        :return: A função não possui retorno
+        """
         cpfentrada = self.txt_cpf_func.toPlainText()
 
         if globalServer.ip == "":

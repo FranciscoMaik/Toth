@@ -1,9 +1,28 @@
 import sqlite3
 class Banco:
     def __init__(self):
+        """
+        Função de iniciação do banco
+        """
         pass
-    #Função de cadastro de Funcionário
-    def Funcionario(self,NomeFuncionario,CPF,NumeroDeTelefone,Senha,id_loja,NomeDaRua,Bairro,Numero,CEP):
+
+    def Funcionario(self,NomeFuncionario:str,CPF:str,NumeroDeTelefone:str,Senha:str,id_loja:str,NomeDaRua:str,Bairro:str,Numero:str,CEP:str):
+        """
+        Função resonsavel pelo cadastro do funcionário no banco.
+
+        :param NomeFuncionario: Nome do funcionario a ser cadastrado -> type(str)
+        :param CPF: CPF do funcionário -> type(str)
+        :param NumeroDeTelefone: Numero de telefone do funcionario -> type(str)
+        :param Senha: Senha do funcionario -> type(str)
+        :param id_loja: Identificador da loja onde o funcionário será cadastrado -> type(str)
+        :param NomeDaRua: Nome da rua do endereço do funcionario -> type(str)
+        :param Bairro: Nome do bairro do endereço do funcionario -> type(str)
+        :param Numero: Numero do endereço do funcionário -> type(str)
+        :param CEP: CEP do endereço do funcionário -> type(str)
+
+        :return: A função retorna uma lista com os dados do funcionário cadastrado, caso contrario ela retorna uma
+        lista vazia.
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -42,7 +61,18 @@ class Banco:
         except Exception as e:
             return []
 
-    def DadosDaLoja(self,NomeDaFilial,NomeDaRua,Bairro,Numero,CEP):
+    def DadosDaLoja(self,NomeDaFilial:str,NomeDaRua:str,Bairro:str,Numero:str,CEP:str):
+        """
+        Função responsavel pelo cadastro de uma filial.
+
+        :param NomeDaFilial: Nome da  filial a ser cadastrada -> type(str)
+        :param NomeDaRua: Nome da rua da loja -> type(str)
+        :param Bairro: Nome do bairro -> type(str)
+        :param Numero: Numero do endereço da loja -> type(str)
+        :param CEP: Numero do  CEP do endereço da loja -> type(str)
+
+        :return: A função não possui retorno.
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -96,8 +126,17 @@ class Banco:
         except Exception as e:
             return []
 
-    #Função que retorna dados da loja
-    def LojaConsultaHome(self,id_loja,NomeDaFilial):
+    def LojaConsultaHome(self,id_loja:str,NomeDaFilial:str):
+        """
+        Função responsável por retornar dados da filial, a função faz a busca utilizando o nome e identificador da loja ou somente
+        o nome da filial ou somente o identificador da loja.
+
+        :param id_loja: Identificador da filial que deseja se obter informações -> type(str)
+        :param NomeDaFilial: Nome da filial que deseja se obter informações -> type(str)
+
+
+        :return: A função retorna uma lista com os dados da loja, caso contrario ela retorna falso.
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -126,8 +165,14 @@ class Banco:
         except Exception as e:
             return False
 
-    #Função que retorna dados de uma unica loja
-    def LojaConsulta(self,NomeDaFilial):
+    def LojaConsulta(self,NomeDaFilial:str):
+        """
+        Função responsavel pela busca de uma loja no banco;
+
+        :param NomeDaFilial: Nome da filial para a busca no banco -> type(str)
+
+        :return: A função retorna uma lista com os dados da loja buscado, caso contrario ela retorna uma lista vazia
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -140,7 +185,7 @@ class Banco:
         except Exception as e:
             return []
 
-    def ExcluiLoja(self,NomeDaFilial,id_loja):
+    def ExcluiLoja(self,NomeDaFilial:str,id_loja:str):
         """
         Função responsavel pela exclusão de dados de uma filial, exclui todos os seus campos no banco.
 
@@ -289,7 +334,7 @@ class Banco:
         except Exception as e:
             return []
 
-    def ExcluiFuncionario(self,CPF):
+    def ExcluiFuncionario(self,CPF:str):
         """
         Função responsavel por excluir um funcionário do banco!
 
