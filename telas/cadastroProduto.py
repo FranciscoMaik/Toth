@@ -139,6 +139,11 @@ class Ui_tela_cad_prod(object):
         self.funcionalidades()
 
     def funcionalidades(self):
+        """
+            As funcionalidades da tela de cadastrar produto
+        
+            :return: A função não possui retorno.
+        """
         self.btn_cad_prod.clicked.connect(self.cadastrarProduto)
         self.btn_cancel_prod.clicked.connect(self.cancelarProduto)
         self.btn_buscar_prod.clicked.connect(self.buscarProduto)
@@ -146,6 +151,11 @@ class Ui_tela_cad_prod(object):
         self.btn_excluir_produto.clicked.connect(self.excluirProduto)
 
     def cadastrarProduto(self):
+        """
+            Faz os cadastro de um produto com seu nome, quantodade, preco e a loja em que se encontra
+        
+            :return: A função não possui retorno.
+        """
         nome = self.txt_nome_prod_prod.toPlainText()
         quantidade = str(self.sb_quant_prod.value())
         preco = str(self.dsp_preco_prod.value())
@@ -172,12 +182,22 @@ class Ui_tela_cad_prod(object):
         self.cancelarProduto()
 
     def cancelarProduto(self):
+        """
+            Cancela um produto deixando todos os campos vazios
+        
+            :return: A função não possui retorno.
+        """
         self.txt_nome_prod_prod.setText("")
         self.sb_quant_prod.setValue(0)
         self.sb_id_loja_prod.setValue(0)
         self.dsp_preco_prod.setValue(0.0)
 
     def buscarProduto(self):
+        """
+            Faz a busca de um produto pelo seu nome e o id da loja em que se encontra
+        
+            :return: A função não possui retorno.
+        """
         nome = self.txt_nome_prod_prod.toPlainText()
         loja = str(self.sb_id_loja_prod.value())
 
@@ -211,6 +231,11 @@ class Ui_tela_cad_prod(object):
                 client_socket.close()
 
     def alterarValoresProduto(self):
+        """
+            Altera os valores do produto como nome, quantidade, preco ou loja
+        
+            :return: A função não possui retorno.
+        """
         nome = self.txt_nome_prod_prod.toPlainText()
         quantidade = str(self.sb_quant_prod.value())
         preco = str(self.dsp_preco_prod.value())
@@ -237,6 +262,11 @@ class Ui_tela_cad_prod(object):
                 self.cancelarProduto()
 
     def excluirProduto(self):
+        """
+            Faz a exclusão deum produto em uma loja pelo seu nome e id da loja em que se encontra
+        
+            :return: A função não possui retorno.
+        """
         nome = self.txt_nome_prod_prod.toPlainText()
         loja = str(self.sb_id_loja_prod.value())
 

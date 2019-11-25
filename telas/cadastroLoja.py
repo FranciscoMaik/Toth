@@ -172,13 +172,25 @@ class Ui_ui_loja(object):
         self.funcionalidades()
 
     def funcionalidades(self):
-            self.btn_cancel_loja.clicked.connect(self.limparCampos)
-            self.btn_cad_loja.clicked.connect(self.cadastrarLoja)
-            self.btn_buscar_loja.clicked.connect(self.buscarLoja)
-            self.btn_alterar_loja.clicked.connect(self.alterarValores)
-            self.btn_exluir__loja.clicked.connect(self.excluirLoja)
+        """
+            Função responsavel pelas funcionalidades
+        
+            :return: A função não possui retorno.
+        """
+        self.btn_cancel_loja.clicked.connect(self.limparCampos)
+        self.btn_cad_loja.clicked.connect(self.cadastrarLoja)
+        self.btn_buscar_loja.clicked.connect(self.buscarLoja)
+        self.btn_alterar_loja.clicked.connect(self.alterarValores)
+        self.btn_exluir__loja.clicked.connect(self.excluirLoja)
 
     def cadastrarLoja(self):
+        """
+            Essa função é responsavel pela tela de cadastro de loja, ele pega o nome da loja e o
+            endereço da mesma
+            
+            :return: A função não possui retorno.
+        """
+        
         nome = self.txt_nome_loja.toPlainText()
         rua = self.txt_rua_loja.toPlainText()
         num = self.txt_num_loja.toPlainText()
@@ -209,6 +221,11 @@ class Ui_ui_loja(object):
                 self.limparCampos()
 
     def limparCampos(self):
+        """
+            Essa função limpas os campos da tela de cadastrar loja
+        
+            :return: A função não possui retorno.
+        """
         self.txt_nome_loja.setText("")
         self.txt_bairro_loja.setText("")
         self.txt_cep_loja.setText("")
@@ -216,6 +233,12 @@ class Ui_ui_loja(object):
         self.txt_rua_loja.setText("")
 
     def buscarLoja(self):
+        """
+            Faz a busca de uma loja usando seu nome da filial
+            
+            :return: A função não possui retorno.
+        """
+        
         nome = self.txt_nome_loja.toPlainText()
 
         if globalServer.conectado == False:
@@ -252,6 +275,11 @@ class Ui_ui_loja(object):
                 client_socket.close()
 
     def alterarValores(self):
+        """
+            altera os dados da loja de acordo com os dados fornecidos
+        
+            :return: A função não possui retorno.
+        """
         ip = globalServer.ip
         port = 7000
         addr = ((ip, port))
@@ -285,6 +313,11 @@ class Ui_ui_loja(object):
                 self.limparCampos()
 
     def excluirLoja(self):
+        """
+            Exclui uma loja pelo seu nome de filial
+        
+            :return: A função não possui retorno.
+        """
         nome = self.txt_nome_loja.toPlainText()
         if globalServer.conectado == False:
             QtWidgets.QMessageBox.about(None, 'Loja',"Servidor não conectado por favor ir a página Acesso e conecte!")
