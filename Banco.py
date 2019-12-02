@@ -161,6 +161,15 @@ class Banco:
                 conexao.commit()
                 conexao.close()
                 return resultado
+            elif (id_loja == None) and (NomeDaFilial == None):
+                print("entrou aqui! e execultou")
+                sql = "SELECT * FROM DadosDaLoja"
+                resultado = executar.execute(sql)
+                resultado = resultado.fetchall()
+                print("saiu", resultado)
+                conexao.commit()
+                conexao.close()
+                return resultado
 
         except Exception as e:
             return False

@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from  PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
 import socket
 import time
 import globalServer
@@ -170,6 +171,8 @@ class Ui_ui_home(object):
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
+        self.btn_limpar_tabela_home = QtWidgets.QPushButton(self.frame)
+        self.btn_limpar_tabela_home.setGeometry(QtCore.QRect(100, 250,150,31))
         self.btn_buscar_loja = QtWidgets.QPushButton(self.frame)
         self.btn_buscar_loja.setGeometry(QtCore.QRect(620, 250, 91, 31))
         font = QtGui.QFont()
@@ -181,6 +184,12 @@ class Ui_ui_home(object):
 "border-radius: 5px;\n"
 "}")
         self.btn_buscar_loja.setObjectName("btn_buscar_loja")
+        self.btn_limpar_tabela_home.setFont(font)
+        self.btn_limpar_tabela_home.setStyleSheet("#btn_limpar_tabela_home{\n"
+                                           "background-color:rgb(138, 226, 52);\n"
+                                           "border-radius: 5px;\n"
+                                           "}")
+        self.btn_limpar_tabela_home.setObjectName("btn_limpar_tabela_home")
         self.sb_id_loja = QtWidgets.QSpinBox(self.frame)
         self.sb_id_loja.setGeometry(QtCore.QRect(310, 170, 311, 41))
         self.sb_id_loja.setStyleSheet("#sb_id_loja{\n"
@@ -202,7 +211,7 @@ class Ui_ui_home(object):
         font.setPointSize(14)
         self.label_29.setFont(font)
         self.label_29.setObjectName("label_29")
-        self.tableLojas = QtWidgets.QTableView(self.buscar_loja)
+        self.tableLojas = QtWidgets.QTableWidget(self.buscar_loja)
         self.tableLojas.setGeometry(QtCore.QRect(230, 490, 741, 192))
         self.tableLojas.setObjectName("tableLojas")
         self.label_28.raise_()
@@ -472,6 +481,7 @@ class Ui_ui_home(object):
         self.label_26.setText(_translate("ui_home", "Nome da Filial"))
         self.label_27.setText(_translate("ui_home", "Identificador"))
         self.btn_buscar_loja.setText(_translate("ui_home", "Buscar"))
+        self.btn_limpar_tabela_home.setText(_translate("ui_home", "Limpar Tabela"))
         self.label_28.setText(_translate("ui_home", "Id"))
         self.label_29.setText(_translate("ui_home", "Nome"))
         self.grafico.setTabText(self.grafico.indexOf(self.buscar_loja), _translate("ui_home", "Buscar Loja"))
@@ -514,6 +524,12 @@ class Ui_ui_home(object):
         self.btn_ver_estoque.clicked.connect(self.buscarEstoqueProdutos)
         self.pushButton.clicked.connect(self.fazLogin)
         self.pushButton_2.clicked.connect(self.fazLogout)
+        self.btn_limpar_tabela_home.clicked.connect(self.loadDadosDasLojasLimpar)
+
+
+    def loadDadosDasLojasLimpar(self):
+        lista = [" "]
+        self.loadDadosDasLojas(lista)
 
     def fazLogout(self):
         if globalServer.Funcionario == False:
@@ -639,6 +655,15 @@ class Ui_ui_home(object):
         QtWidgets.QMessageBox.about(None, "Home", mensagem_recebida)
         client_socket.close()
 
+    def loadDadosDasLojas(self,lista):
+        self.tableLojas.setRowCount(len(lista))
+        self.tableLojas.setColumnCount(len(lista[0]))
+        for i in range(len(lista)):
+            for j in range(len(lista[0])):
+                self.tableLojas.setItem(i,j,QTableWidgetItem(lista[i][j]))
+
+
+
     def buscarDadosDasLojas(self):
         ip = globalServer.ip
         port = 7000
@@ -646,20 +671,77 @@ class Ui_ui_home(object):
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect(addr)
 
-        nomeFilialBuscarLoja = ""
-        identificadorLoja = ""
+        nomeFilialBuscarLoja = None
+        identificadorLoja = "0"
 
-        if self.cb_nome_filial.isChecked() == True:
-            nomeFilialBuscarLoja = self.txt_nome_filial.text()
-        if self.cb_id_loja.isChecked() == True:
-            identificadorLoja = str(self.sb_id_loja.value())
 
-        a = "buscarLojaHome,"
+        if globalServer.conectado == False:
+            QtWidgets.QMessageBox.about(None,"Home","Servidor não conectado, por favor se conectar ao servidor!")
 
-        client_socket.send((a.encode()))
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Home", mensagem_recebida)
-        client_socket.close()
+        else:
+            if self.cb_nome_filial.isChecked() == True:
+                nomeFilialBuscarLoja = self.txt_nome_filial.text()
+            if self.cb_id_loja.isChecked() == True:
+                identificadorLoja = str(self.sb_id_loja.value())
+
+            if nomeFilialBuscarLoja == None and identificadorLoja != "0":
+                a = "buscarLojaHome," + "vazio," + identificadorLoja
+
+                client_socket.send((a.encode()))
+                mensagem_recebida = client_socket.recv(1024).decode()
+
+                rec = mensagem_recebida.split(",")
+
+                m = []
+                for i in range(1):
+                    m.append([])
+                    for j in range(2):
+                        m[i].append(rec[j])
+
+
+                self.loadDadosDasLojas(m)
+
+                client_socket.close()
+
+            elif nomeFilialBuscarLoja != None and identificadorLoja == "0":
+                a = "buscarLojaHome," + nomeFilialBuscarLoja + "," + "vazio"
+
+                client_socket.send((a.encode()))
+                mensagem_recebida = client_socket.recv(1024).decode()
+
+                rec = mensagem_recebida.split(",")
+
+                m = []
+                for i in range(1):
+                    m.append([])
+                    for j in range(2):
+                        m[i].append(rec[j])
+
+                self.loadDadosDasLojas(m)
+
+                self.loadDadosDasLojas(rec)
+                client_socket.close()
+
+            else:
+                a = "buscarLojaHome,vazio,vazio"
+                client_socket.send((a.encode()))
+                mensagem_recebida = client_socket.recv(1024).decode()
+
+                rec = mensagem_recebida.split(";")
+                for i in range(len(rec)):
+                    rec2 = rec[i].split(",")
+                    m = []
+                    for j in range(len(rec)):
+                        m.append([])
+                        for k in range(2):
+                            m[i].append(rec2[j])
+
+                    self.loadDadosDasLojas(m)
+
+                # chamar função e setar valores
+                client_socket.close()
+
+
 
     def estadoDoCheckBox4(self):
         if self.cb_id_loja_estoque.isChecked() == True:

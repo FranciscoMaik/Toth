@@ -1,7 +1,7 @@
-from produtos import Produto
-from funcionario import Funcionario
-from endereço import Endereco
-from loja import Loja
+# from toth.Classes.produtos import produtos
+# from funcionario import Funcionario
+# from endereço import Endereco
+# from loja import Loja
 import socket
 
 from Banco import Banco
@@ -15,6 +15,7 @@ serv_socket.bind(addr)
 serv_socket.listen(10)
 
 def conectar():
+    global mensagem
     while (True):
         print("Servidor está aguardando Conexão!")
         con, cliente = serv_socket.accept()
@@ -187,14 +188,10 @@ def conectar():
 
         #Cadastro de lojas
         elif opcao == "Loja":
-            #cria endereço da loja
-            end_loja = Endereco(recebe[2],recebe[4],recebe[3],int(recebe[5]))
-            #cria loja
-            loja = Loja(recebe[1],end_loja)
             validacao = Banco().LojaConsulta(recebe[1])
             if validacao == []:
                 Banco().DadosDaLoja(recebe[1],recebe[2],recebe[4],recebe[3],recebe[5])
-                nmensagem = "Loja " + loja.nome_da_filial + " Cadastrada!"
+                nmensagem = "Loja " + recebe[1] + " Cadastrada!"
                 mensagem = nmensagem.encode()
             elif validacao != []:
                 nmensagem = "Loja Não pode ser Cadastrada, há uma filial com o mesmo nome!"
@@ -255,9 +252,43 @@ def conectar():
 
         #BuscarLojaHome
         elif opcao == "buscarLojaHome":
-            #busca a loja no banco de acordo com os parâmetros
-            nmensagem = "Loja home"
-            mensagem = nmensagem.encode()
+            if recebe[1] == "vazio" and recebe[2] != "vazio":
+                verificacao = Banco().LojaConsultaHome(recebe[2],None)
+                if verificacao != []:
+                    outra = ""
+                    for i in verificacao[0]:
+                        outra += str(i) + ","
+                    mensagem = outra.encode()
+
+                elif verificacao == []:
+                    nmensagem = "Loja não cadastrada!"
+                    mensagem = nmensagem.encode()
+
+            elif  recebe[1] != "vazio" and recebe[2] == "vazio":
+                print("Entrou opcao 2")
+                verificacao = Banco().LojaConsultaHome(None,recebe[1])
+                print("Verificação 2", verificacao)
+                if verificacao != []:
+                    outra = ""
+                    for i in verificacao[0]:
+                        outra += str(i) + ","
+                    print(outra)
+                    mensagem = outra.encode()
+                elif verificacao == []:
+                    print("Entrou aqui! Opção dois!")
+                    nmensagem = "Loja não cadastrada!"
+                    mensagem = nmensagem.encode()
+
+            elif recebe[1] == "vazio" and recebe[2] == "vazio":
+                verificacao = Banco().LojaConsultaHome(None,None)
+                print(verificacao)
+                if verificacao != False:
+                    outra = ""
+                    for i in verificacao:
+                        for j in i:
+                            outra = str(j) + ","
+                        outra += ";"
+                    mensagem = outra.encode()
 
         #Login
         elif opcao == "Login":
