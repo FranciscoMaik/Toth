@@ -246,9 +246,55 @@ def conectar():
 
         #Buscar estoque no home
         elif opcao == "buscarEstoqueHome":
-            #busca as instancias no banco e retorna eles
-            nmensagem = "Estoque home"
-            mensagem = nmensagem.encode()
+            if recebe[1] != "vazio" and recebe[2] == "vazio":
+                verificacao = Banco().ProdutoConsultaItens(None,recebe[1])
+                if verificacao != []:
+                    outra = ""
+                    for i in verificacao:
+                        for j in i:
+                            outra += str(j) + ","
+                        outra += ";"
+
+                    mensagem = outra.encode()
+                else:
+                    nmensagem = "Não possuí nenhum produto com esse nome!"
+                    mensagem = nmensagem.encode()
+            elif recebe[1] == "vazio" and recebe[2] != "vazio":
+                verificacao = Banco().ProdutoConsultaItens(recebe[2], None)
+                if verificacao != []:
+                    outra = ""
+                    for i in verificacao:
+                        for j in i:
+                            outra += str(j) + ","
+                        outra += ";"
+                    mensagem = outra.encode()
+                else:
+                    nmensagem = "A loja não existe!"
+                    mensagem = nmensagem.encode()
+            elif recebe[1] != "vazio" and recebe[2] != "vazio":
+                verificacao = Banco().ProdutoConsultaItens(recebe[2],recebe[1])
+                if verificacao != []:
+                    outra = ""
+                    for i in verificacao:
+                        for j in i:
+                            outra += str(j) + ","
+                        outra += ";"
+                    mensagem = outra.encode()
+                else:
+                    nmensagem = "Produto não encontrado na loja!"
+                    mensagem = nmensagem.encode()
+            elif recebe[1] == "vazio" and recebe[2] == "vazio":
+                verificacao = Banco().todosOsProdutos()
+                if verificacao != []:
+                    outra = ""
+                    for i in verificacao:
+                        for j in i:
+                            outra += str(j) + ","
+                        outra += ";"
+                    mensagem = outra.encode()
+                else:
+                    nmensagem = "Não existe nenhum produto cadastrado!"
+                    mensagem = nmensagem.encode()
 
         #BuscarLojaHome
         elif opcao == "buscarLojaHome":
@@ -279,14 +325,24 @@ def conectar():
                     nmensagem = "Loja não cadastrada!"
                     mensagem = nmensagem.encode()
 
-            elif recebe[1] == "vazio" and recebe[2] == "vazio":
-                verificacao = Banco().LojaConsultaHome(None,None)
-                print(verificacao)
+            elif  recebe[1] != "vazio" and recebe[2] != "vazio":
+                verificacao = Banco().LojaConsultaHome(recebe[2],recebe[1])
                 if verificacao != False:
+                    outra = ""
+                    for i in verificacao[0]:
+                        outra += str(i) + ","
+                    mensagem = outra.encode()
+                elif verificacao == False:
+                    nmensagem = "Loja não cadastrada!"
+                    mensagem = nmensagem.encode()
+
+            elif recebe[1] == "vazio" and recebe[2] == "vazio":
+                verificacao = Banco().todosOsDadosDaLoja()
+                if verificacao != []:
                     outra = ""
                     for i in verificacao:
                         for j in i:
-                            outra = str(j) + ","
+                            outra += str(j) + ","
                         outra += ";"
                     mensagem = outra.encode()
 
@@ -303,10 +359,34 @@ def conectar():
                 nmensagem = "naoencontrado,"
                 mensagem = nmensagem.encode()
 
-        #Vender
-        elif opcao == 'Vender':
-            nmensagem = "Produto vendido!"
-            mensagem = nmensagem.encode()
+        #Adicionar Item a lista
+        elif opcao == 'AdicionarItem':
+            verificacao = Banco().ProdutoConsultaItens(recebe[3],recebe[2])
+            print(verificacao)
+            if verificacao != []:
+                if int(verificacao[0][1]) >= int(recebe[4]):
+                    nmensagem = "add,Produto adicionado na lista de compras!"
+                    mensagem = nmensagem.encode()
+                else:
+                    nmensagem = "noadd,A quantidade solicitada excede a quantidade existente!"
+                    mensagem = nmensagem.encode()
+            else:
+                nmensagem = "Não existe este produto cadastrado nesta loja!"
+                mensagem = nmensagem.encode()
+
+        elif opcao == "finalizarCompra":
+            verificacao = Banco().ProdutoConsulta(recebe[3],recebe[1])
+            print(verificacao)
+            if verificacao != []:
+                nova_quantia = int(verificacao[0][4]) - int(recebe[2])
+                custo_venda = float(verificacao[0][3]) * int(recebe[2])
+                verificacao1 = Banco().AlterarDadosDoProduto(recebe[1],str(nova_quantia),verificacao[0][3],verificacao[0][0],recebe[3])
+                if verificacao1 != []:
+                    nmensagem = "remove,"+str(custo_venda)
+                    mensagem = nmensagem.encode()
+                else:
+                    nmensagem = "noremove,Não foi possivel retirar essa quantidade do produto"
+                    mensagem = nmensagem.encode()
 
         #Mensagem de conexão
         else:

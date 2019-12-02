@@ -126,6 +126,36 @@ class Banco:
         except Exception as e:
             return []
 
+    def ProdutoConsultaItens(self,id_loja:str,NomeDoProduto:str):
+
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            if ((id_loja != '') and (NomeDoProduto == None)):
+                sql = "SELECT * FROM Produto WHERE IdentificadorLoja = {0}".format(id_loja)
+                resultado = executar.execute(sql)
+                resultado = resultado.fetchall()
+                conexao.commit()
+                conexao.close()
+                return resultado
+            elif ((id_loja == None) and (NomeDoProduto != '')):
+                sql = "SELECT * FROM Produto WHERE NomeDoProduto = '{0}'".format(NomeDoProduto)
+                resultado = executar.execute(sql)
+                resultado = resultado.fetchall()
+                conexao.commit()
+                conexao.close()
+                return resultado
+            elif ((id_loja != "") and (NomeDoProduto != "")):
+                sql = "SELECT * FROM Produto WHERE NomeDoProduto = '{0}' AND IdentificadorLoja = {1}".format(NomeDoProduto,id_loja,id_loja)
+                resultado = executar.execute(sql)
+                resultado = resultado.fetchall()
+                conexao.commit()
+                conexao.close()
+                return resultado
+
+        except Exception as e:
+            return []
+
     def LojaConsultaHome(self,id_loja:str,NomeDaFilial:str):
         """
         Função responsável por retornar dados da filial, a função faz a busca utilizando o nome e identificador da loja ou somente
@@ -161,18 +191,35 @@ class Banco:
                 conexao.commit()
                 conexao.close()
                 return resultado
-            elif (id_loja == None) and (NomeDaFilial == None):
-                print("entrou aqui! e execultou")
-                sql = "SELECT * FROM DadosDaLoja"
-                resultado = executar.execute(sql)
-                resultado = resultado.fetchall()
-                print("saiu", resultado)
-                conexao.commit()
-                conexao.close()
-                return resultado
 
         except Exception as e:
             return False
+
+    def todosOsDadosDaLoja(self):
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            sql = "SELECT * FROM DadosDaLoja"
+            resultado = executar.execute(sql)
+            resultado = resultado.fetchall()
+            conexao.commit()
+            conexao.close()
+            return resultado
+        except Exception as e:
+            return []
+
+    def todosOsProdutos(self):
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            sql = "SELECT * FROM Produto"
+            resultado = executar.execute(sql)
+            resultado = resultado.fetchall()
+            conexao.commit()
+            conexao.close()
+            return resultado
+        except Exception as e:
+            return []
 
     def LojaConsulta(self,NomeDaFilial:str):
         """
@@ -389,7 +436,7 @@ class Banco:
         except Exception as e:
             return []
 
-    def Vender(self,CPF):
+    def Vender(self,nomeVendedor,dataDaVenda,precoTotal):
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -398,4 +445,4 @@ class Banco:
             conexao.commit()
             conexao.close()
         except Exception as e:
-            return False
+            return []

@@ -332,7 +332,7 @@ class Ui_ui_home(object):
         font.setPointSize(14)
         self.btn_vender_produto.setFont(font)
         self.btn_vender_produto.setObjectName("btn_vender_produto")
-        self.tableEstoque = QtWidgets.QTableView(self.ver_estoque)
+        self.tableEstoque = QtWidgets.QTableWidget(self.ver_estoque)
         self.tableEstoque.setGeometry(QtCore.QRect(170, 290, 931, 341))
         self.tableEstoque.setObjectName("tableEstoque")
         self.tableEstoque.horizontalHeader().setCascadingSectionResizes(False)
@@ -640,22 +640,105 @@ class Ui_ui_home(object):
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect(addr)
 
-        nomeProdutoEstoque = ""
-        idLojaEstoque = ""
+        nomeProdutoEstoque = None
+        idLojaEstoque = "0"
+        if globalServer.Funcionario != False:
+            QtWidgets.QMessageBox.about(None,'Home','O servidor não está conectado, por favor conectar ao servidor!')
+        else:
+            if self.cb_nome_prod_estoque.isChecked() == True:
+                nomeProdutoEstoque = self.txt_nome_produto_estoque.text()
+            else:
+                nomeProdutoEstoque = None
+            if self.cb_id_loja_estoque.isChecked() == True:
+                idLojaEstoque = str(self.sb_id_loja_estoque.value())
+            else:
+                idLojaEstoque =  "0"
 
-        if self.cb_nome_prod_estoque.isChecked() == True:
-            nomeProdutoEstoque = self.txt_nome_produto_estoque.text()
-        if self.cb_id_loja_estoque.isChecked() == True:
-            idLojaEstoque = str(self.sb_id_loja_estoque.value())
+            if self.cb_nome_prod_estoque.isChecked() ==  True and nomeProdutoEstoque  == " ":
+                QtWidgets.QMessageBox.about(None, "Home", "Caixa de nome selecionada mas está com o campo vazio!")
+            else:
+                if self.cb_id_loja_estoque.isChecked() == True and idLojaEstoque ==  "0":
+                    QtWidgets.QMessageBox.about(None,"Home","Caixa da Identificação da loja selecionada mas o  valor inválido!")
+                else:
+                    if nomeProdutoEstoque != None and idLojaEstoque == "0":
+                        a = "buscarEstoqueHome," + nomeProdutoEstoque + ",vazio"
 
-        a = "buscarEstoqueHome,"
+                        client_socket.send((a.encode()))
+                        mensagem_recebida = client_socket.recv(1024).decode()
 
-        client_socket.send((a.encode()))
-        mensagem_recebida = client_socket.recv(1024).decode()
-        QtWidgets.QMessageBox.about(None, "Home", mensagem_recebida)
-        client_socket.close()
+                        rec = mensagem_recebida.split(",")[:-1]
+
+                        m = []
+                        rec = mensagem_recebida.split(";")[:-1]
+                        for i in range(len(rec)):
+                            rec2 = rec[i].split(",")[:-1]
+                            m.append(rec2)
+
+                        self.loadDadosDoEstoque(m)
+
+                        client_socket.close()
+
+                    elif nomeProdutoEstoque == None and idLojaEstoque != "0":
+                        a = "buscarEstoqueHome,vazio," + idLojaEstoque
+
+                        client_socket.send((a.encode()))
+                        mensagem_recebida = client_socket.recv(1024).decode()
+
+                        rec = mensagem_recebida.split(",")[:-1]
+
+                        m = []
+                        rec = mensagem_recebida.split(";")[:-1]
+                        for i in range(len(rec)):
+                            rec2 = rec[i].split(",")[:-1]
+                            m.append(rec2)
+
+                        self.loadDadosDoEstoque(m)
+
+                        client_socket.close()
+
+                    elif nomeProdutoEstoque != None and idLojaEstoque != "0":
+                        a = "buscarEstoqueHome," + nomeProdutoEstoque + "," + idLojaEstoque
+
+                        client_socket.send((a.encode()))
+
+                        mensagem_recebida = client_socket.recv(1024).decode()
+
+                        rec = mensagem_recebida.split(",")[:-1]
+
+                        m = []
+                        rec = mensagem_recebida.split(";")[:-1]
+                        for i in range(len(rec)):
+                            rec2 = rec[i].split(",")[:-1]
+                            m.append(rec2)
+
+                        self.loadDadosDoEstoque(m)
+
+                        client_socket.close()
+                    else:
+                        a = "buscarEstoqueHome,vazio,vazio"
+                        client_socket.send((a.encode()))
+                        mensagem_recebida = client_socket.recv(1024).decode()
+
+                        m = []
+                        rec = mensagem_recebida.split(";")[:-1]
+                        for i in range(len(rec)):
+                            rec2 = rec[i].split(",")[:-1]
+                            m.append(rec2)
+
+                        self.loadDadosDoEstoque(m)
+                        client_socket.close()
+
+    def loadDadosDoEstoque(self,lista):
+        self.tableEstoque.setRowCount(len(lista))
+        self.tableEstoque.setColumnCount(len(lista[0]))
+
+        for i in range(len(lista)):
+            for j in range(len(lista[0])):
+                self.tableEstoque.setItem(i,j,QTableWidgetItem(lista[i][j]))
+
 
     def loadDadosDasLojas(self,lista):
+        print(lista)
         self.tableLojas.setRowCount(len(lista))
         self.tableLojas.setColumnCount(len(lista[0]))
         for i in range(len(lista)):
@@ -681,67 +764,82 @@ class Ui_ui_home(object):
         else:
             if self.cb_nome_filial.isChecked() == True:
                 nomeFilialBuscarLoja = self.txt_nome_filial.text()
+            else:
+                nomeFilialBuscarLoja = None
             if self.cb_id_loja.isChecked() == True:
                 identificadorLoja = str(self.sb_id_loja.value())
-
-            if nomeFilialBuscarLoja == None and identificadorLoja != "0":
-                a = "buscarLojaHome," + "vazio," + identificadorLoja
-
-                client_socket.send((a.encode()))
-                mensagem_recebida = client_socket.recv(1024).decode()
-
-                rec = mensagem_recebida.split(",")
-
-                m = []
-                for i in range(1):
-                    m.append([])
-                    for j in range(2):
-                        m[i].append(rec[j])
-
-
-                self.loadDadosDasLojas(m)
-
-                client_socket.close()
-
-            elif nomeFilialBuscarLoja != None and identificadorLoja == "0":
-                a = "buscarLojaHome," + nomeFilialBuscarLoja + "," + "vazio"
-
-                client_socket.send((a.encode()))
-                mensagem_recebida = client_socket.recv(1024).decode()
-
-                rec = mensagem_recebida.split(",")
-
-                m = []
-                for i in range(1):
-                    m.append([])
-                    for j in range(2):
-                        m[i].append(rec[j])
-
-                self.loadDadosDasLojas(m)
-
-                self.loadDadosDasLojas(rec)
-                client_socket.close()
-
             else:
-                a = "buscarLojaHome,vazio,vazio"
-                client_socket.send((a.encode()))
-                mensagem_recebida = client_socket.recv(1024).decode()
+                identificadorLoja = "0"
 
-                rec = mensagem_recebida.split(";")
-                for i in range(len(rec)):
-                    rec2 = rec[i].split(",")
-                    m = []
-                    for j in range(len(rec)):
-                        m.append([])
-                        for k in range(2):
-                            m[i].append(rec2[j])
+            if self.cb_nome_filial.isChecked() == True and nomeFilialBuscarLoja == "":
+                QtWidgets.QMessageBox.about(None, "Home", "Campo texto foi selecionado e esta vazio!")
+            else:
+                if self.cb_id_loja.isChecked() == True and identificadorLoja == "0":
+                    QtWidgets.QMessageBox.about(None, "Home", "Campo  de identificação selecionado mas com valor invalido!")
+                else:
+                    if nomeFilialBuscarLoja == None and identificadorLoja != "0":
+                        print("Caso 1 Nome = null , id = sim")
+                        a = "buscarLojaHome," + "vazio," + identificadorLoja
 
-                    self.loadDadosDasLojas(m)
+                        client_socket.send((a.encode()))
+                        mensagem_recebida = client_socket.recv(1024).decode()
 
-                # chamar função e setar valores
-                client_socket.close()
+                        rec = mensagem_recebida.split(",")[:-1]
+
+                        m = [rec]
+
+                        self.loadDadosDasLojas(m)
+
+                        client_socket.close()
+
+                    elif nomeFilialBuscarLoja != None and identificadorLoja == "0":
+                        print("Opção dois Nome = Sim, id = não")
+                        a = "buscarLojaHome," + nomeFilialBuscarLoja + "," + "vazio"
+
+                        client_socket.send((a.encode()))
+                        mensagem_recebida = client_socket.recv(1024).decode()
+
+                        rec = mensagem_recebida.split(",")[:-1]
+                        m = [rec]
+
+                        # for i in range(3):
+                        #     m.append(rec[i])
 
 
+                        self.loadDadosDasLojas(m)
+
+                        client_socket.close()
+
+                    elif nomeFilialBuscarLoja != None and identificadorLoja != "0":
+                        print("Opção três Nome = sim , id = sim")
+                        a = "buscarLojaHome," + nomeFilialBuscarLoja + "," + identificadorLoja
+
+                        client_socket.send((a.encode()))
+                        mensagem_recebida = client_socket.recv(1024).decode()
+
+                        rec = mensagem_recebida.split(",")
+
+                        m = [rec]
+
+                        self.loadDadosDasLojas(m)
+
+                        client_socket.close()
+
+                    else:
+                        print("Opção quatro nome = não, id = não")
+                        a = "buscarLojaHome,vazio,vazio"
+                        client_socket.send((a.encode()))
+                        mensagem_recebida = client_socket.recv(1024).decode()
+
+                        m=[]
+                        rec = mensagem_recebida.split(";")[:-1]
+                        for i in range(len(rec)):
+                            rec2 = rec[i].split(",")[:-1]
+                            rec2.reverse()
+                            m.append(rec2)
+
+                        self.loadDadosDasLojas(m)
+                        client_socket.close()
 
     def estadoDoCheckBox4(self):
         if self.cb_id_loja_estoque.isChecked() == True:
