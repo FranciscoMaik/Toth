@@ -142,18 +142,16 @@ class Ui_Form(object):
 
 
     def venderProdutos(self):
-        ip = globalServer.ip
-        port = 7000
-        addr = ((ip, port))
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(addr)
 
-        if globalServer.ip == []:
+
+        if globalServer.ip == "":
             QtWidgets.QMessageBox.about(None,"Vender","O servidor não está conectado, por favor vá a pagina de acesso e se conecte ao servidor!")
         else:
             if globalServer.lista_de_compra != []:
                 lista_total_compra = []
+                print("Total da lista de compra",len(globalServer.lista_de_compra))
                 for i in globalServer.lista_de_compra:
+                    print("Entrou no for")
                     nome = i[0]
                     quantidade = i[1]
                     idLoja = i[2]
@@ -166,16 +164,23 @@ class Ui_Form(object):
                     elif rec[0] == "noremove":
                         QtWidgets.QMessageBox.about(None,"Vender",rec[1])
 
-                print(lista_total_compra)
-
                 preco_total = 0.0
-                for i in range(len(lista_total_compra)):
-                    preco_total += float(lista_total_compra[i])
+                for preco in lista_total_compra:
+                    preco_total += preco
 
-                """datacompra = datetime.now()
+                print("Preco total",preco_total)
+
+                ip = globalServer.ip
+                port = 7000
+                addr = ((ip, port))
+                client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                client_socket.connect(addr)
+
+                datacompra = datetime.now()
                 a = "compra," + globalServer.Funcionario + "," + str(datacompra.date()) + "," + str(preco_total)
                 client_socket.send(a.encode())
                 mensagem_recebida = client_socket.recv(1024).decode()
+                print(mensagem_recebida)
                 client_socket.close()
 
                 # qr = qrcode.make('Total da compra: ' + str(preco_total) + '\nNome do vendedor: ' + globalServer.Funcionario + '\nId da venda: ' + mensagem_recebida + '\nData da venda: ' + str(datacompra.date()))
@@ -184,7 +189,7 @@ class Ui_Form(object):
                 pixmap = QPixmap("qrvenda.png")
                 pixmap = pixmap.scaled(int(pixmap.width() * 0.7), int(pixmap.height() * 0.7))
                 self.qr_code.setPixmap(pixmap)
-                self.qr_code.resize(pixmap.width(), pixmap.height())"""
+                self.qr_code.resize(pixmap.width(), pixmap.height())
 
                 globalServer.lista_de_compra.clear()
             else:
@@ -200,7 +205,7 @@ class Ui_Form(object):
         if globalServer.Funcionario == False:
             QtWidgets.QMessageBox.about(None,"Vender","Funcionário não est´a conectado, por favor vá a pagina de acesso e faça o Login!")
         else:
-            if globalServer.ip == []:
+            if globalServer.ip == "":
                 QtWidgets.QMessageBox.about(None,"Vender", "O servidor não está conectado, por favor vá até a pagina de acesso e conecte ao servidor!")
             else:
                 if(idProduto == '' or idProduto.isdecimal() == False):

@@ -440,9 +440,14 @@ class Banco:
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
-            sql = ""
-            resultado = executar.execute(sql)
+            sql = "INSERT INTO Venda VALUES(null,'{0}','{1}','{2}')".format(dataDaVenda,nomeVendedor,precoTotal)
+            executar.execute(sql)
+            sql1 = "SELECT * FROM Venda"
+            resultado = executar.execute(sql1)
+            resultado = resultado.fetchall()
+            a = resultado
             conexao.commit()
             conexao.close()
+            return a
         except Exception as e:
-            return []
+            return e

@@ -642,7 +642,7 @@ class Ui_ui_home(object):
 
         nomeProdutoEstoque = None
         idLojaEstoque = "0"
-        if globalServer.Funcionario != False:
+        if globalServer.ip != "":
             QtWidgets.QMessageBox.about(None,'Home','O servidor não está conectado, por favor conectar ao servidor!')
         else:
             if self.cb_nome_prod_estoque.isChecked() == True:
@@ -652,7 +652,7 @@ class Ui_ui_home(object):
             if self.cb_id_loja_estoque.isChecked() == True:
                 idLojaEstoque = str(self.sb_id_loja_estoque.value())
             else:
-                idLojaEstoque =  "0"
+                idLojaEstoque = "0"
 
             if self.cb_nome_prod_estoque.isChecked() ==  True and nomeProdutoEstoque  == " ":
                 QtWidgets.QMessageBox.about(None, "Home", "Caixa de nome selecionada mas está com o campo vazio!")
@@ -731,6 +731,10 @@ class Ui_ui_home(object):
     def loadDadosDoEstoque(self,lista):
         self.tableEstoque.setRowCount(len(lista))
         self.tableEstoque.setColumnCount(len(lista[0]))
+        self.tableEstoque.setHorizontalHeaderLabels(
+            ["Nome do Produto", "Quantidade", "Id_Produto", "Preço_Uni", "Id_loja"])
+        self.tableEstoque.resize(931, 341)
+
 
         for i in range(len(lista)):
             for j in range(len(lista[0])):
