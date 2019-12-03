@@ -127,7 +127,18 @@ class Banco:
             return []
 
     def ProdutoConsultaItens(self,id_loja:str,NomeDoProduto:str):
+        """
+        Esta função é responsável por retornar informações sobre produtos cadastrados no banco,
+        passando somente o nome do produto ela retornará dados de produtos com o mesmo nome em todas as lojas,
+        passando somente o nome da lojas ela retorna dados de todos os produtos daquela loja e  passando
+        nome do produto e loja ela retorna informações sobre um unico produto.
 
+        :param id_loja: Identificador da loja. -> type(str)
+        :param NomeDoProduto: Nome do produto que deseja buscar informações. -> type(str)
+
+        :return: A funções retorna uma lista com informações dos produtos, caso contrario
+        ela retorna uma lista vazia.
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -196,6 +207,12 @@ class Banco:
             return False
 
     def todosOsDadosDaLoja(self):
+        """
+        Função responsavel por retornar dados de todas as lojas cadastradas no banco.
+
+        :return: A função retorna uma lista com todos os dados das lojas cadastradas, caso
+        contrario ela retorna uma lista vazia.
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -209,6 +226,12 @@ class Banco:
             return []
 
     def todosOsProdutos(self):
+        """
+        Esta função retorna todos os produtos cadastrado no banco.
+
+        :return: A função retorna uma lista com todos os dados dos produtos
+        cadastrados, caso contrario ela retorna uma lista vazia.
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
@@ -436,18 +459,30 @@ class Banco:
         except Exception as e:
             return []
 
-    def Vender(self,nomeVendedor,dataDaVenda,precoTotal):
+    def Vender(self,nomeVendedor:str,dataDaVenda:str,precoTotal:str):
+        """
+        Função responsável por salvar os dados de uma venda.
+
+        :param nomeVendedor: Nome do vendedor que efetou a venda -> type(str)
+        :param dataDaVenda: Data da venda feita -> type(str)
+        :param precoTotal: Preço total da compra efetuada -> type(str)
+
+        :return: A função retorna os dados da ultima compra salva, caso contrario ela
+        retorna uma lista vazia.
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
             sql = "INSERT INTO Venda VALUES(null,'{0}','{1}','{2}')".format(dataDaVenda,nomeVendedor,precoTotal)
             executar.execute(sql)
+            print("Alguma coisa")
             sql1 = "SELECT * FROM Venda"
             resultado = executar.execute(sql1)
             resultado = resultado.fetchall()
-            a = resultado
+            a = resultado[-1]
+            print(resultado)
             conexao.commit()
             conexao.close()
             return a
         except Exception as e:
-            return e
+            return []

@@ -509,6 +509,7 @@ class Ui_ui_home(object):
     def funcionalidades(self):
         """
         Função responsável pela ação do click dos botões e campos de textos.
+
         :return: Não possuí retorno
         """
         self.btn_conect_server.clicked.connect(self.conectarServer)
@@ -528,10 +529,21 @@ class Ui_ui_home(object):
 
 
     def loadDadosDasLojasLimpar(self):
+        """
+        Função responsavel por limpar os dados da tabela com os dados da loja.
+
+        :return: A função não possui retorno.
+
+        """
         lista = [" "]
         self.loadDadosDasLojas(lista)
 
     def fazLogout(self):
+        """
+        Função responsavel por fazer o logout do funcionario logado.
+
+        :return: A função não possui retorno.
+        """
         if globalServer.Funcionario == False:
             QtWidgets.QMessageBox.about(None,'Home',"Não há nenhum funcionário logado!")
         else:
@@ -542,6 +554,11 @@ class Ui_ui_home(object):
             self.txt_senha_conectada.setText(" ")
 
     def fazLogin(self):
+        """
+        Função responsavel por fazer o login do funcionario.
+
+        :return: A função não possui retorno.
+        """
         #pega os campos de entrada
         cpfentrada = self.txt_cpf_home_login.toPlainText()
         senha = self.txt_senha_conectada.toPlainText()
@@ -634,6 +651,11 @@ class Ui_ui_home(object):
 
 
     def buscarEstoqueProdutos(self):
+        """
+        Função responsavel por buscar e mostrar os dados dos produtos na tela.
+
+        :return: A função não possuí retorno.
+        """
         ip = globalServer.ip
         port = 7000
         addr = ((ip, port))
@@ -729,6 +751,12 @@ class Ui_ui_home(object):
                         client_socket.close()
 
     def loadDadosDoEstoque(self,lista):
+        """
+        A função mostra os dados dos produtos na tabela.
+
+        :param lista: A função recebe uma lista com os dados que devem ser mostrados.
+        :return:
+        """
         self.tableEstoque.setRowCount(len(lista))
         self.tableEstoque.setColumnCount(len(lista[0]))
         self.tableEstoque.setHorizontalHeaderLabels(
@@ -742,9 +770,17 @@ class Ui_ui_home(object):
 
 
     def loadDadosDasLojas(self,lista):
-        print(lista)
+        """
+        A função mostra os dados das lojas em uma tabela.
+
+        :param lista: Lista contendo dados das lojas a serem exibidos.
+
+        :return: A função não possui retorno.
+        """
         self.tableLojas.setRowCount(len(lista))
         self.tableLojas.setColumnCount(len(lista[0]))
+        self.tableEstoque.setHorizontalHeaderLabels(
+            ["Id_loja","Nome da Loja"])
         for i in range(len(lista)):
             for j in range(len(lista[0])):
                 self.tableLojas.setItem(i,j,QTableWidgetItem(lista[i][j]))
@@ -752,6 +788,10 @@ class Ui_ui_home(object):
 
 
     def buscarDadosDasLojas(self):
+        """
+        Função responsavel por buscar os dados das lojas no servidor.
+        :return:
+        """
         ip = globalServer.ip
         port = 7000
         addr = ((ip, port))
@@ -806,10 +846,6 @@ class Ui_ui_home(object):
                         rec = mensagem_recebida.split(",")[:-1]
                         m = [rec]
 
-                        # for i in range(3):
-                        #     m.append(rec[i])
-
-
                         self.loadDadosDasLojas(m)
 
                         client_socket.close()
@@ -846,30 +882,55 @@ class Ui_ui_home(object):
                         client_socket.close()
 
     def estadoDoCheckBox4(self):
+        """
+        Função responsavel por identificar o estado do checkbox do campo identificação da loja.
+
+        :return: A função não possui retorno.
+        """
         if self.cb_id_loja_estoque.isChecked() == True:
             self.sb_id_loja_estoque.setDisabled(False)
         else:
             self.sb_id_loja_estoque.setDisabled(True)
 
     def estadoDoCheckBox3(self):
+        """
+        Função responsavel por identificar o estado do checkbox do campo nome do produto.
+
+        :return: A função não possui retorno.
+        """
         if self.cb_nome_prod_estoque.isChecked() == True:
             self.txt_nome_produto_estoque.setDisabled(False)
         else:
             self.txt_nome_produto_estoque.setDisabled(True)
 
     def estadoDoCheckBox2(self):
+        """
+        Função responsavel por identificar o estado do checkbox do campo identificação da loja na busca de lojas.
+
+        :return: A função não possui retorno
+        """
         if self.cb_id_loja.isChecked() == True:
             self.sb_id_loja.setDisabled(False)
         else:
             self.sb_id_loja.setDisabled(True)
 
     def estadoDoCheckBox1(self):
+        """
+        Função responsavel por identificar o estado do checkbox do campo nome da loja na busca de lojas.
+
+        :return: A função não possui retorno
+        """
         if self.cb_nome_filial.isChecked() == True:
             self.txt_nome_filial.setDisabled(False)
         else:
             self.txt_nome_filial.setDisabled(True)
 
     def conectarServer(self):
+        """
+        Função de conexão ao servidor.
+
+        :return: A função não possui retorno.
+        """
         ipentrada = self.txt_ip_server.toPlainText()
 
         if ipentrada == '':
@@ -909,24 +970,24 @@ class Ui_ui_home(object):
                 self.txt_ip_server.setText("")
 
     def funcConecta(self, result,addr, mensagem_recebida,msg='Criar Cliente'):
-          client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-          client_socket.connect(addr)
-          client_socket.send((msg.encode()))
-          msg_rec = client_socket.recv(1024).decode()
-          mensagem_recebida[0] = msg_rec
-          client_socket.close()
-          result[0] = True
+        """
+        Função responsavel por criar a abertura de conexão com o socket.
 
-          # adicionar loja no produto
-          # adicionar o endereço
-          # tirar id da loja e colocar nome da filial
-          # retirar a tela de buscar produto
-          # colocar o botão vender no ver estoque
-          # colocar nome cpf para a conexão
-          # arquivo para ter o ip do server
-          # campo senha no cadastro de funcionário
-          # logar funcionário
-          # tratamento das entradas
+        :param result: Resultado da conexão
+        :param addr: Endereço da conexão
+        :param mensagem_recebida: Mensagem recebida da conexão
+        :param msg: Mensagem para identificar qual tipo de conexão será usada.
+
+        :return: A função retorna uma dado em booleano identificando o estado da conexão.
+        """
+
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+        client_socket.send((msg.encode()))
+        msg_rec = client_socket.recv(1024).decode()
+        mensagem_recebida[0] = msg_rec
+        client_socket.close()
+        result[0] = True
 
 if __name__ == "__main__":
     import sys

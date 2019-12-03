@@ -15,6 +15,11 @@ serv_socket.bind(addr)
 serv_socket.listen(10)
 
 def conectar():
+    """
+    Função reponsavel pela conexão com o banco e tratamento dos dados recebidos do cliente.
+
+    :return: A função retorna  uma string com dados, dependendo da solicitação do cliente.
+    """
     global mensagem
     while (True):
         print("Servidor está aguardando Conexão!")
