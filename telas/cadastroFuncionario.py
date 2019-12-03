@@ -211,7 +211,7 @@ class Ui_fundo_func(object):
 
     def retranslateUi(self, fundo_func):
         _translate = QtCore.QCoreApplication.translate
-        fundo_func.setWindowTitle(_translate("fundo_func", "Dialog"))
+        fundo_func.setWindowTitle(_translate("fundo_func", "TOTH"))
         self.label_4.setText(_translate("fundo_func", "CPF"))
         self.label_8.setText(_translate("fundo_func", "Bairro"))
         self.label_5.setText(_translate("fundo_func", "Número de Telefone"))

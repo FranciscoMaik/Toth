@@ -475,14 +475,25 @@ class Banco:
             executar = conexao.cursor()
             sql = "INSERT INTO Venda VALUES(null,'{0}','{1}','{2}')".format(dataDaVenda,nomeVendedor,precoTotal)
             executar.execute(sql)
-            print("Alguma coisa")
             sql1 = "SELECT * FROM Venda"
             resultado = executar.execute(sql1)
             resultado = resultado.fetchall()
             a = resultado[-1]
-            print(resultado)
             conexao.commit()
             conexao.close()
             return a
+        except Exception as e:
+            return []
+
+    def resultadosVendas(self,data):
+        try:
+            conexao = sqlite3.connect("Loja")
+            executar = conexao.cursor()
+            sql = "SELECT * FROM Venda WHERE Data = '{0}'".format(data)
+            resultado = executar.execute(sql)
+            resultado = resultado.fetchall()
+            conexao.commit()
+            conexao.close()
+            return resultado
         except Exception as e:
             return []

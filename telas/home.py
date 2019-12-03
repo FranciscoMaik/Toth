@@ -7,19 +7,23 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QPixmap
 from  PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
 import socket
 import time
 import globalServer
 import threading
+from pylab import *
+from datetime import datetime
 class Ui_ui_home(object):
     def setupUi(self, ui_home):
         ui_home.setObjectName("ui_home")
+        ui_home.setGeometry(400,100,1191,861)
         ui_home.resize(1180, 814)
         ui_home.setAutoFillBackground(False)
         self.grafico = QtWidgets.QTabWidget(ui_home)
         self.grafico.setEnabled(True)
-        self.grafico.setGeometry(QtCore.QRect(0, 0, 1191, 861))
+        self.grafico.setGeometry(QtCore.QRect(0, 0,1191, 861))
         font = QtGui.QFont()
         font.setFamily("DejaVu Sans")
         font.setPointSize(12)
@@ -76,20 +80,12 @@ class Ui_ui_home(object):
         font.setWeight(75)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
-        self.btn_atualizar_dia = QtWidgets.QPushButton(self.pagina_inicial)
-        self.btn_atualizar_dia.setGeometry(QtCore.QRect(810, 120, 151, 31))
         font = QtGui.QFont()
         font.setFamily("Microsoft PhagsPa")
         font.setPointSize(16)
-        self.btn_atualizar_dia.setFont(font)
-        self.btn_atualizar_dia.setObjectName("btn_atualizar_dia")
-        self.btn_atualizar_mes = QtWidgets.QPushButton(self.pagina_inicial)
-        self.btn_atualizar_mes.setGeometry(QtCore.QRect(970, 120, 151, 31))
         font = QtGui.QFont()
         font.setFamily("Microsoft PhagsPa")
         font.setPointSize(16)
-        self.btn_atualizar_mes.setFont(font)
-        self.btn_atualizar_mes.setObjectName("btn_atualizar_mes")
         self.btn_atualizar = QtWidgets.QPushButton(self.pagina_inicial)
         self.btn_atualizar.setGeometry(QtCore.QRect(650, 120, 151, 31))
         font = QtGui.QFont()
@@ -100,7 +96,7 @@ class Ui_ui_home(object):
         self.gridLayoutWidget = QtWidgets.QWidget(self.pagina_inicial)
         self.gridLayoutWidget.setGeometry(QtCore.QRect(660, 310, 471, 381))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
-        self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
+        self.gridLayout = QtWidgets.QLabel(self.gridLayoutWidget)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
         self.lb_loja_conect = QtWidgets.QLabel(self.pagina_inicial)
@@ -110,9 +106,10 @@ class Ui_ui_home(object):
         self.data_inicial = QtWidgets.QDateEdit(self.pagina_inicial)
         self.data_inicial.setGeometry(QtCore.QRect(660, 226, 131, 31))
         self.data_inicial.setObjectName("data_inicial")
-        self.date_final = QtWidgets.QDateEdit(self.pagina_inicial)
-        self.date_final.setGeometry(QtCore.QRect(830, 226, 131, 31))
-        self.date_final.setObjectName("date_final")
+        data = datetime.now()
+        data = QtCore.QDate(data.year,data.month,data.day)
+        self.data_inicial.setDate(data)
+        self.data_inicial.update()
         self.label_3 = QtWidgets.QLabel(self.pagina_inicial)
         self.label_3.setGeometry(QtCore.QRect(660, 170, 191, 51))
         font = QtGui.QFont()
@@ -197,25 +194,9 @@ class Ui_ui_home(object):
 "}")
         self.sb_id_loja.setMaximum(1000)
         self.sb_id_loja.setObjectName("sb_id_loja")
-        self.label_28 = QtWidgets.QLabel(self.buscar_loja)
-        self.label_28.setGeometry(QtCore.QRect(231, 431, 251, 31))
-        font = QtGui.QFont()
-        font.setFamily("Ubuntu")
-        font.setPointSize(14)
-        self.label_28.setFont(font)
-        self.label_28.setObjectName("label_28")
-        self.label_29 = QtWidgets.QLabel(self.buscar_loja)
-        self.label_29.setGeometry(QtCore.QRect(484, 431, 481, 31))
-        font = QtGui.QFont()
-        font.setFamily("Ubuntu")
-        font.setPointSize(14)
-        self.label_29.setFont(font)
-        self.label_29.setObjectName("label_29")
         self.tableLojas = QtWidgets.QTableWidget(self.buscar_loja)
         self.tableLojas.setGeometry(QtCore.QRect(230, 490, 741, 192))
         self.tableLojas.setObjectName("tableLojas")
-        self.label_28.raise_()
-        self.label_29.raise_()
         self.frame.raise_()
         self.label_25.raise_()
         self.label_26.raise_()
@@ -289,43 +270,26 @@ class Ui_ui_home(object):
         self.sb_id_loja_estoque.setObjectName("sb_id_loja_estoque")
         self.btn_ver_estoque = QtWidgets.QPushButton(self.frame_2)
         self.btn_ver_estoque.setGeometry(QtCore.QRect(740, 110, 161, 32))
+        self.limpar_grafico_estoque = QtWidgets.QPushButton(self.frame_2)
+        self.limpar_grafico_estoque.setGeometry(QtCore.QRect(100, 110, 161, 32))
         font = QtGui.QFont()
         font.setFamily("DejaVu Sans")
         font.setPointSize(14)
         self.btn_ver_estoque.setFont(font)
+        self.limpar_grafico_estoque.setFont(font)
+        self.limpar_grafico_estoque.setStyleSheet("#btn_ver_estoque{\n"
+"background-color:rgb(138, 226, 52);\n"
+"border-radius: 5px;\n"
+"}")
         self.btn_ver_estoque.setStyleSheet("#btn_ver_estoque{\n"
 "background-color:rgb(138, 226, 52);\n"
 "border-radius: 5px;\n"
 "}")
         self.btn_ver_estoque.setObjectName("btn_ver_estoque")
-        self.label_21 = QtWidgets.QLabel(self.ver_estoque)
-        self.label_21.setGeometry(QtCore.QRect(171, 251, 231, 25))
+        self.limpar_grafico_estoque.setObjectName("limpar_grafico_estoque")
         font = QtGui.QFont()
         font.setFamily("Microsoft PhagsPa")
         font.setPointSize(16)
-        self.label_21.setFont(font)
-        self.label_21.setObjectName("label_21")
-        self.label_22 = QtWidgets.QLabel(self.ver_estoque)
-        self.label_22.setGeometry(QtCore.QRect(320, 250, 231, 25))
-        font = QtGui.QFont()
-        font.setFamily("Microsoft PhagsPa")
-        font.setPointSize(16)
-        self.label_22.setFont(font)
-        self.label_22.setObjectName("label_22")
-        self.label_23 = QtWidgets.QLabel(self.ver_estoque)
-        self.label_23.setGeometry(QtCore.QRect(710, 250, 231, 25))
-        font = QtGui.QFont()
-        font.setFamily("Microsoft PhagsPa")
-        font.setPointSize(16)
-        self.label_23.setFont(font)
-        self.label_23.setObjectName("label_23")
-        self.label_24 = QtWidgets.QLabel(self.ver_estoque)
-        self.label_24.setGeometry(QtCore.QRect(910, 250, 231, 25))
-        font = QtGui.QFont()
-        font.setFamily("Microsoft PhagsPa")
-        font.setPointSize(16)
-        self.label_24.setFont(font)
-        self.label_24.setObjectName("label_24")
         self.btn_vender_produto = QtWidgets.QPushButton(self.ver_estoque)
         self.btn_vender_produto.setGeometry(QtCore.QRect(960, 660, 141, 31))
         font = QtGui.QFont()
@@ -336,10 +300,6 @@ class Ui_ui_home(object):
         self.tableEstoque.setGeometry(QtCore.QRect(170, 290, 931, 341))
         self.tableEstoque.setObjectName("tableEstoque")
         self.tableEstoque.horizontalHeader().setCascadingSectionResizes(False)
-        self.label_21.raise_()
-        self.label_22.raise_()
-        self.label_23.raise_()
-        self.label_24.raise_()
         self.frame_2.raise_()
         self.label_19.raise_()
         self.cb_nome_prod_estoque.raise_()
@@ -466,14 +426,12 @@ class Ui_ui_home(object):
 
     def retranslateUi(self, ui_home):
         _translate = QtCore.QCoreApplication.translate
-        ui_home.setWindowTitle(_translate("ui_home", "Dialog"))
+        ui_home.setWindowTitle(_translate("ui_home", "TOTH"))
         self.label.setText(_translate("ui_home", "MENU DE OPÇÕES"))
         self.btn_cadastrar_loja.setText(_translate("ui_home", "Opções da Loja"))
         self.btn_cadastrar_funcionario.setText(_translate("ui_home", "Opções do Funcionário"))
         self.btn_cadastrar_produto.setText(_translate("ui_home", "Opções de Produto"))
         self.label_2.setText(_translate("ui_home", "Gráfico de Compras"))
-        self.btn_atualizar_dia.setText(_translate("ui_home", "Do dia"))
-        self.btn_atualizar_mes.setText(_translate("ui_home", "Do mês"))
         self.btn_atualizar.setText(_translate("ui_home", "Atualizar"))
         self.label_3.setText(_translate("ui_home", "Período"))
         self.grafico.setTabText(self.grafico.indexOf(self.pagina_inicial), _translate("ui_home", "Página Inicial"))
@@ -482,16 +440,11 @@ class Ui_ui_home(object):
         self.label_27.setText(_translate("ui_home", "Identificador"))
         self.btn_buscar_loja.setText(_translate("ui_home", "Buscar"))
         self.btn_limpar_tabela_home.setText(_translate("ui_home", "Limpar Tabela"))
-        self.label_28.setText(_translate("ui_home", "Id"))
-        self.label_29.setText(_translate("ui_home", "Nome"))
         self.grafico.setTabText(self.grafico.indexOf(self.buscar_loja), _translate("ui_home", "Buscar Loja"))
         self.label_19.setText(_translate("ui_home", "Id da Loja"))
         self.label_20.setText(_translate("ui_home", "Nome do Produto"))
         self.btn_ver_estoque.setText(_translate("ui_home", "Ver Estoque"))
-        self.label_21.setText(_translate("ui_home", "Id_Produto"))
-        self.label_22.setText(_translate("ui_home", "Nome Produto"))
-        self.label_23.setText(_translate("ui_home", "Quantidade"))
-        self.label_24.setText(_translate("ui_home", "Nome Loja"))
+        self.limpar_grafico_estoque.setText(_translate("ui_home", "Limpar Dados"))
         self.btn_vender_produto.setText(_translate("ui_home", "Vender"))
         self.grafico.setTabText(self.grafico.indexOf(self.ver_estoque), _translate("ui_home", "Ver Estoque"))
         self.label_4.setText(_translate("ui_home", "Funcionario Conetado"))
@@ -526,6 +479,64 @@ class Ui_ui_home(object):
         self.pushButton.clicked.connect(self.fazLogin)
         self.pushButton_2.clicked.connect(self.fazLogout)
         self.btn_limpar_tabela_home.clicked.connect(self.loadDadosDasLojasLimpar)
+        self.btn_atualizar.clicked.connect(self.mostrarGrafico)
+        self.limpar_grafico_estoque.clicked.connect(self.loadDadosDoEstoqueLimpar)
+
+    def loadDadosDoEstoqueLimpar(self):
+        """
+        Função responsavel por limpar a tabela de produtos no estoque.
+
+        :return: A função não possui retorno
+        """
+        if globalServer.conectado == False:
+            QtWidgets.QMessageBox.about(None,"Home","Servidor não está conectado, vá a pagina de aceso e se conecte ao servidor")
+        else:
+            lista = [" "]
+            self.loadDadosDoEstoque(lista)
+
+    def mostrarGrafico(self):
+        """
+        Função responsavel por mostrar a quantidade de vendas diarias.
+
+        :return:A Função não possuí retorno.
+        """
+        ip = globalServer.ip
+        port = 7000
+        addr = ((ip, port))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(addr)
+        if globalServer.conectado == False:
+            QtWidgets.QMessageBox.about(None,"Home","Servidor não está conectado, vá a pagina de aceso e se conecte ao servidor")
+        else:
+            data = self.data_inicial.date()
+            dia = data.day()
+            mes = data.month()
+            ano = data.year()
+            tudo = '%d-%.2d-%.2d'%(ano,mes,dia)
+
+            a = "grafico,"+tudo
+
+            client_socket.send(a.encode())
+            mensagem_recebida = client_socket.recv(1024).decode()
+            rec = mensagem_recebida.split(",")
+            if rec[0] == "sdados":
+                names = ["Vendas do Dia"]
+                values = [int(rec[1])]
+                pos = arange(len(names)) + .5
+                bar(pos,values,align='center',color='#b8ff5c')
+                xticks(pos,names,rotation=0,size='small')
+                grid(False)
+                savefig(fname="grafico.png",format='png')
+
+                pixmap = QPixmap("grafico.png")
+                pixmap = pixmap.scaled(int(pixmap.width() * 0.7), int(pixmap.height() * 0.7))
+                self.gridLayout.setPixmap(pixmap)
+                self.gridLayout.resize(pixmap.width(), pixmap.height())
+
+            elif rec[0] == "ndados":
+                QtWidgets.QMessageBox.about(None,"Home",rec[1])
+            client_socket.close()
+
 
 
     def loadDadosDasLojasLimpar(self):
@@ -535,8 +546,11 @@ class Ui_ui_home(object):
         :return: A função não possui retorno.
 
         """
-        lista = [" "]
-        self.loadDadosDasLojas(lista)
+        if globalServer.conectado == False:
+            QtWidgets.QMessageBox.about(None,"Home","Servidor não está conectado, vá a pagina de aceso e se conecte ao servidor")
+        else:
+            lista = [" "]
+            self.loadDadosDasLojas(lista)
 
     def fazLogout(self):
         """
@@ -664,7 +678,7 @@ class Ui_ui_home(object):
 
         nomeProdutoEstoque = None
         idLojaEstoque = "0"
-        if globalServer.ip != "":
+        if globalServer.conectado == False:
             QtWidgets.QMessageBox.about(None,'Home','O servidor não está conectado, por favor conectar ao servidor!')
         else:
             if self.cb_nome_prod_estoque.isChecked() == True:
@@ -755,7 +769,8 @@ class Ui_ui_home(object):
         A função mostra os dados dos produtos na tabela.
 
         :param lista: A função recebe uma lista com os dados que devem ser mostrados.
-        :return:
+
+        :return: A função não possui retorno
         """
         self.tableEstoque.setRowCount(len(lista))
         self.tableEstoque.setColumnCount(len(lista[0]))
@@ -779,7 +794,7 @@ class Ui_ui_home(object):
         """
         self.tableLojas.setRowCount(len(lista))
         self.tableLojas.setColumnCount(len(lista[0]))
-        self.tableEstoque.setHorizontalHeaderLabels(
+        self.tableLojas.setHorizontalHeaderLabels(
             ["Id_loja","Nome da Loja"])
         for i in range(len(lista)):
             for j in range(len(lista[0])):
@@ -790,7 +805,8 @@ class Ui_ui_home(object):
     def buscarDadosDasLojas(self):
         """
         Função responsavel por buscar os dados das lojas no servidor.
-        :return:
+
+        :return: A função não possui retorno.
         """
         ip = globalServer.ip
         port = 7000
@@ -932,42 +948,44 @@ class Ui_ui_home(object):
         :return: A função não possui retorno.
         """
         ipentrada = self.txt_ip_server.toPlainText()
+        if globalServer.conectado != False:
+            QtWidgets.QMessageBox.about(None,"Home","Já possui um servidor conectado!")
+        else:
+            if ipentrada == '':
+                QtWidgets.QMessageBox.about(None, "Home", "Informar IP do Servidor!")
 
-        if ipentrada == '':
-            QtWidgets.QMessageBox.about(None, "Home", "Informar IP do Servidor!")
+            ipentrada2 = ipentrada.split('.')
+            testado = True
+            for i in ipentrada2:
+                if i.isdecimal() == True:
+                    pass
+                else:
+                    testado = False
+            if testado == False and ipentrada != '':
+                QtWidgets.QMessageBox.about(None, "Home", "informar um IP válido!")
 
-        ipentrada2 = ipentrada.split('.')
-        testado = True
-        for i in ipentrada2:
-            if i.isdecimal() == True:
-                pass
-            else:
-                testado = False
-        if testado == False and ipentrada != '':
-            QtWidgets.QMessageBox.about(None, "Home", "informar um IP válido!")
+            if(ipentrada != '' and testado == True):
+                ip = self.txt_ip_server.toPlainText()
+                globalServer.ip = ip
+                port = 7000
+                addr = ((globalServer.ip, port))
+                a = "Criar Cliente,"
+                result = [False]
+                mensagem_recebida = ['']
+                t = threading.Thread(target = self.funcConecta, args = (result,addr,mensagem_recebida,a))
+                t.start()
+                n = 5
+                while n>0 and result[0] == False:
+                    time.sleep(1)
+                    n -= 1
 
-        if(ipentrada != '' and testado == True):
-            ip = self.txt_ip_server.toPlainText()
-            globalServer.ip = ip
-            port = 7000
-            addr = ((globalServer.ip, port))
-            a = "Criar Cliente,"
-            result = [False]
-            mensagem_recebida = ['']
-            t = threading.Thread(target = self.funcConecta, args = (result,addr,mensagem_recebida,a))
-            t.start()
-            n = 5
-            while n>0 and result[0] == False:
-                time.sleep(1)
-                n -= 1
-
-            if result[0]==True:
-                QtWidgets.QMessageBox.about(None, "Conectar", mensagem_recebida[0])
-                globalServer.conectado = True
-                self.txt_ip_server.setText('')
-            else:
-                QtWidgets.QMessageBox.about(None, "Conectar", 'Erro')
-                self.txt_ip_server.setText("")
+                if result[0]==True:
+                    QtWidgets.QMessageBox.about(None, "Conectar", mensagem_recebida[0])
+                    globalServer.conectado = True
+                    self.txt_ip_server.setText('')
+                else:
+                    QtWidgets.QMessageBox.about(None, "Conectar", 'Erro')
+                    self.txt_ip_server.setText("")
 
     def funcConecta(self, result,addr, mensagem_recebida,msg='Criar Cliente'):
         """
@@ -995,6 +1013,6 @@ if __name__ == "__main__":
     ui_home = QtWidgets.QDialog()
     ui = Ui_ui_home()
     ui.setupUi(ui_home)
-    ui_home.showMaximized()
+    ui_home.show()
     sys.exit(app.exec_())
 

@@ -154,7 +154,7 @@ class Ui_ui_loja(object):
 
     def retranslateUi(self, ui_loja):
         _translate = QtCore.QCoreApplication.translate
-        ui_loja.setWindowTitle(_translate("ui_loja", "Dialog"))
+        ui_loja.setWindowTitle(_translate("ui_loja", "TOTH"))
         self.label_8.setText(_translate("ui_loja", "Bairro"))
         self.label_11.setText(_translate("ui_loja", "Número"))
         self.label_6.setText(_translate("ui_loja", "Endereço"))

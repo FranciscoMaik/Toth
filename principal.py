@@ -378,7 +378,7 @@ def conectar():
             else:
                 nmensagem = "Não existe este produto cadastrado nesta loja!"
                 mensagem = nmensagem.encode()
-
+        #Finalizar a compra total
         elif opcao == "finalizarCompra":
             verificacao = Banco().ProdutoConsulta(recebe[3],recebe[1])
             print(verificacao)
@@ -393,6 +393,25 @@ def conectar():
                     nmensagem = "noremove,Não foi possivel retirar essa quantidade do produto"
                     mensagem = nmensagem.encode()
 
+        #Armazenamento da compra
+        elif opcao == "compra":
+            verificacao = Banco().Vender(recebe[1],recebe[2],recebe[3])
+            if verificacao != []:
+                nmensagem = str(verificacao[0])
+                mensagem = nmensagem.encode()
+
+        #Dados para o grafico
+        elif opcao == "grafico":
+            print("data",recebe[1])
+            verificacao = Banco().resultadosVendas(recebe[1])
+            if verificacao != []:
+                total = len(verificacao)
+                print(total)
+                nmensagem = "sdados," + str(total)
+                mensagem = nmensagem.encode()
+            else:
+                nmensagem = "ndados,Não foi encontrado dados dessa data!"
+                mensagem = nmensagem.encode()
         #Mensagem de conexão
         else:
             mensagem = "Cliente Conectado!".encode()

@@ -5,7 +5,7 @@
 # Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
-
+import qrcode as qrcode
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QPixmap
 #import qrcode
@@ -122,10 +122,24 @@ class Ui_Form(object):
         self.funcionalidades()
 
     def funcionalidades(self):
+        """
+        Função responsavel por chamar as funcionalidades de click dos botões.
+
+        :return: A função não possui retorno.
+        """
         self.btn_vender.clicked.connect(self.adicionarProdutos)
         self.btn_finalizar_compra.clicked.connect(self.venderProdutos)
 
-    def dandoBaixa(self,nome,quantidade,idLoja):
+    def dandoBaixa(self,nome:str,quantidade:str,idLoja:str):
+        """
+        Função responsavel por dar baixa em um unico produto.
+
+        :param nome: Nome do produto. -> type(str)
+        :param quantidade: Quantidade do produto a ser retirado do estoque. -> type(str)
+        :param idLoja: Identificador da loja em qual vai retirar o produto. -> type(str)
+
+        :return: A função retorna uma mensagem com o valor total da compra de um item.
+        """
         ip = globalServer.ip
         port = 7000
         addr = ((ip, port))
@@ -142,16 +156,18 @@ class Ui_Form(object):
 
 
     def venderProdutos(self):
+        """
+        Função responsavel por finalizar a lista de compras,gerando um QRCode com os dados da compra.
 
+        :return: A função não possui retorno.
+        """
 
-        if globalServer.ip == "":
+        if globalServer.conectado == False:
             QtWidgets.QMessageBox.about(None,"Vender","O servidor não está conectado, por favor vá a pagina de acesso e se conecte ao servidor!")
         else:
             if globalServer.lista_de_compra != []:
                 lista_total_compra = []
-                print("Total da lista de compra",len(globalServer.lista_de_compra))
                 for i in globalServer.lista_de_compra:
-                    print("Entrou no for")
                     nome = i[0]
                     quantidade = i[1]
                     idLoja = i[2]
@@ -164,11 +180,9 @@ class Ui_Form(object):
                     elif rec[0] == "noremove":
                         QtWidgets.QMessageBox.about(None,"Vender",rec[1])
 
-                preco_total = 0.0
+                preco_total1 = 0.0
                 for preco in lista_total_compra:
-                    preco_total += preco
-
-                print("Preco total",preco_total)
+                    preco_total1 += preco
 
                 ip = globalServer.ip
                 port = 7000
@@ -177,14 +191,14 @@ class Ui_Form(object):
                 client_socket.connect(addr)
 
                 datacompra = datetime.now()
-                a = "compra," + globalServer.Funcionario + "," + str(datacompra.date()) + "," + str(preco_total)
+                a = "compra," + globalServer.Funcionario + "," + str(datacompra.date()) + "," + '%.2lf'%(preco_total1)
                 client_socket.send(a.encode())
                 mensagem_recebida = client_socket.recv(1024).decode()
                 print(mensagem_recebida)
                 client_socket.close()
 
-                # qr = qrcode.make('Total da compra: ' + str(preco_total) + '\nNome do vendedor: ' + globalServer.Funcionario + '\nId da venda: ' + mensagem_recebida + '\nData da venda: ' + str(datacompra.date()))
-                # qr.save("qrvenda.png")
+                qr = qrcode.make('Total da compra: %.2lf'%(preco_total1) + '\nCPF do Vendedor: ' + globalServer.Funcionario + '\nId da venda: ' + mensagem_recebida + '\nData da venda: ' + str(datacompra.date()))
+                qr.save("qrvenda.png")
 
                 pixmap = QPixmap("qrvenda.png")
                 pixmap = pixmap.scaled(int(pixmap.width() * 0.7), int(pixmap.height() * 0.7))
@@ -197,6 +211,11 @@ class Ui_Form(object):
 
 
     def adicionarProdutos(self):
+        """
+        Função responsavel por adicionar produtos na lista de compras.
+
+        :return: A função não possui retorno.
+        """
         idProduto = self.ln_id_prod_venda.text()
         nomeProduto = self.ln_nome_prod_venda.text()
         idLoja = str(self.sb_loja_venda.value())
@@ -205,7 +224,7 @@ class Ui_Form(object):
         if globalServer.Funcionario == False:
             QtWidgets.QMessageBox.about(None,"Vender","Funcionário não est´a conectado, por favor vá a pagina de acesso e faça o Login!")
         else:
-            if globalServer.ip == "":
+            if globalServer.conectado == False:
                 QtWidgets.QMessageBox.about(None,"Vender", "O servidor não está conectado, por favor vá até a pagina de acesso e conecte ao servidor!")
             else:
                 if(idProduto == '' or idProduto.isdecimal() == False):

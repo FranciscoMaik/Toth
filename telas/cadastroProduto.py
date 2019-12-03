@@ -123,7 +123,7 @@ class Ui_tela_cad_prod(object):
 
     def retranslateUi(self, tela_cad_prod):
         _translate = QtCore.QCoreApplication.translate
-        tela_cad_prod.setWindowTitle(_translate("tela_cad_prod", "Dialog"))
+        tela_cad_prod.setWindowTitle(_translate("tela_cad_prod", "TOTH"))
         self.label_4.setText(_translate("tela_cad_prod", "Quantidade"))
         self.label_5.setText(_translate("tela_cad_prod", "Preço"))
         self.btn_cad_prod.setText(_translate("tela_cad_prod", "Cadastrar"))
