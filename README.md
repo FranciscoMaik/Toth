@@ -77,12 +77,17 @@ Sistemas de gerenciamento de estoques de um conjunto de lojas de construção
 ## Esquema de Funcionamento
 ![esquema](https://user-images.githubusercontent.com/20601076/70104773-df091b00-161d-11ea-8cde-8ce26c01f104.png)
 
+##Arquivos a ser executados
+ * Arquivo *principal.py*, este aquivo é o servidor da aplicação e ele se comunica com o arquivo *Banco.py*, que por sua vez é responsavel por executar operações no banco;
+ * Arquivo *stack_telas.py*, este aquivo é o responsavel por manipular as transições entre as telas.
+
 ## O que precisa ser Adicionado
 - [ ] Gráfico mensal e de intervalos de tempo
 - [ ] Ocultar senhas na digitação
 - [ ] Não deixar qualquer funcionário alterar a senha
 - [ ] Não deixar que seja vendas de produtos mais do que tem no estoque
-- [ ] Utilizar um banco com IP (Internet Protocol) Fixo
+- [ ] Utilizar um servidor com IP (Internet Protocol) Fixo
+- [ ] Fazer uma melhor utilização de Tecnicas de IHC
 
 ## Responsáveis pelo trabalho
 [Francisco Maik](https://github.com/FranciscoMaik)
