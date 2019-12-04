@@ -1,4 +1,7 @@
 # Toth
+
+<img src="https://user-images.githubusercontent.com/20601076/70105955-2644db00-1621-11ea-905c-9fe7b55cbe75.jpg">
+
 Sistemas de gerenciamento de estoques de um conjunto de lojas de construção
 
 * Adição da tela de vendas -> telas -> vender.py,vender.ui
