@@ -88,6 +88,7 @@ Sistemas de gerenciamento de estoques de um conjunto de lojas de construção
 - [ ] Não deixar que seja vendas de produtos mais do que tem no estoque
 - [ ] Utilizar um servidor com IP (Internet Protocol) Fixo
 - [ ] Fazer uma melhor utilização de Tecnicas de IHC
+- [ ] Lista Total no QRCode da venda
 
 ## Responsáveis pelo trabalho
 [Francisco Maik](https://github.com/FranciscoMaik)
