@@ -32,3 +32,17 @@ Sistemas de gerenciamento de estoques de um conjunto de lojas de construção
 
 ## Pasta Classes
 * Nesta pasta contem arquivos *.py* que são utilizados quando o trabalho estava utilizando a manipulação sem *server*;
+
+## Necessidades para o Uso
+* Python 3.6.9 ou Superiores;
+* Biblioteca qrcode -> instalação com o PIP -> *pip3 install qrcode[pil]*
+* Biblioteca Matplotlib -> instalação com o PIP -> *pip3 install matplotlib*
+* Banco de dados SQLite3 -> instalação -> 
+
+    
+    sudo apt install sqlite3
+    sudo apt install sqlite3 libsqlite3-dev
+    sudo add-apt-repository ppa:linuxgndu/sqlitebrowser
+    sudo apt install sqlitebrowser
+    
+## Telas da Aplicação
