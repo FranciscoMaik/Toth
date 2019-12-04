@@ -485,7 +485,14 @@ class Banco:
         except Exception as e:
             return []
 
-    def resultadosVendas(self,data):
+    def resultadosVendas(self,data:str):
+        """
+        Função responsavel por mostrar quantas vendas foram feitas no dia
+
+        :param data: Data para saber a quantidade de venda do dia -> type(str)
+
+        :return: A função retorna uma lista com todas as vendas caso contrario ela retorna uma lista vazia
+        """
         try:
             conexao = sqlite3.connect("Loja")
             executar = conexao.cursor()
