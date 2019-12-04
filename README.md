@@ -38,12 +38,13 @@ Sistemas de gerenciamento de estoques de um conjunto de lojas de construção
 * Biblioteca qrcode -> instalação com o PIP -> *pip3 install qrcode[pil]*
 * Biblioteca Matplotlib -> instalação com o PIP -> *pip3 install matplotlib*
 * Banco de dados SQLite3 -> instalação -> 
-
-    
-    sudo apt install sqlite3
-    sudo apt install sqlite3 libsqlite3-dev
-    sudo add-apt-repository ppa:linuxgndu/sqlitebrowser
-    sudo apt install sqlitebrowser
+> sudo apt install sqlite3
+>
+> sudo apt install sqlite3 libsqlite3-dev
+>
+> sudo add-apt-repository ppa:linuxgndu/sqlitebrowser
+>
+> sudo apt install sqlitebrowser
 
 * PyQt5 -> instalação com o PIP -> *pip3 install PyQt5*
 
