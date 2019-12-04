@@ -77,7 +77,7 @@ Sistemas de gerenciamento de estoques de um conjunto de lojas de construção
 ## Esquema de Funcionamento
 ![esquema](https://user-images.githubusercontent.com/20601076/70104773-df091b00-161d-11ea-8cde-8ce26c01f104.png)
 
-##Arquivos a ser executados
+## Arquivos a ser executados
  * Arquivo *principal.py*, este aquivo é o servidor da aplicação e ele se comunica com o arquivo *Banco.py*, que por sua vez é responsavel por executar operações no banco;
  * Arquivo *stack_telas.py*, este aquivo é o responsavel por manipular as transições entre as telas.
 
