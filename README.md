@@ -6,7 +6,7 @@ Sistemas de gerenciamento de estoques de um conjunto de lojas de construção
 
 ## Pasta telas
 * Os arquivos *.ui* são gerados no QtDesigner;
-* Os arquivos *.py* desta pasta são extraído a partir do comando *pyuic5 -x arquivo.ui -o arquivo.py*;
+* Os arquivos *.py* desta pasta são extraído a partir do comando *`pyuic5 -x arquivo.ui -o arquivo.py`*;
 * Os arquvis .png são gerados a partir de cada compra, e são sobrescrevido;
 * O arquivo *stack_telas.py* é reponsavel pelo genrênciamento das mudanças das telas;
 ## Pasta Protótipos
@@ -22,18 +22,19 @@ Sistemas de gerenciamento de estoques de um conjunto de lojas de construção
 
 ## Necessidades para o Uso
 * Python 3.6.9 ou Superiores;
-* Biblioteca qrcode -> instalação com o PIP -> *pip3 install qrcode[pil]*
-* Biblioteca Matplotlib -> instalação com o PIP -> *pip3 install matplotlib*
+* Biblioteca qrcode -> instalação com o PIP -> *`pip3 install qrcode[pil]`*
+* Biblioteca Matplotlib -> instalação com o PIP -> *`pip3 install matplotlib`*
 * Banco de dados SQLite3 -> instalação -> 
-> sudo apt install sqlite3
->
-> sudo apt install sqlite3 libsqlite3-dev
->
-> sudo add-apt-repository ppa:linuxgndu/sqlitebrowser
->
-> sudo apt install sqlitebrowser
 
-* PyQt5 -> instalação com o PIP -> *pip3 install PyQt5*
+`sudo apt install sqlite3`
+
+`sudo apt install sqlite3 libsqlite3-dev`
+
+`sudo add-apt-repository ppa:linuxgndu/sqlitebrowser`
+
+`sudo apt install sqlitebrowser`
+
+* PyQt5 -> instalação com o PIP -> *`pip3 install PyQt5`*
 
 ## Telas da Aplicação
 * Tela de Acesso
@@ -71,8 +72,8 @@ Sistemas de gerenciamento de estoques de um conjunto de lojas de construção
 ## Ferramentas Utilizadas
 * Pycharm -> [Instalação do Pycharm ](https://www.youtube.com/watch?v=cVROiVgR_qg)
 * Linux
-* Qt Designer -> instalação -> *sudo apt-get install python-qt5 qt5-designer*
-* DB Browser for SQLite -> *sudo apt-get install sqlitebrowser*
+* Qt Designer -> instalação -> *`sudo apt-get install python-qt5 qt5-designer`*
+* DB Browser for SQLite -> *`sudo apt-get install sqlitebrowser`*
 
 ## Esquema de Funcionamento
 ![esquema](https://user-images.githubusercontent.com/20601076/70104773-df091b00-161d-11ea-8cde-8ce26c01f104.png)
@@ -85,7 +86,7 @@ Sistemas de gerenciamento de estoques de um conjunto de lojas de construção
 - [ ] Gráfico mensal e de intervalos de tempo
 - [ ] Ocultar senhas na digitação
 - [ ] Não deixar qualquer funcionário alterar a senha
-- [ ] Não deixar que seja vendas de produtos mais do que tem no estoque
+- [ ] Não deixar que seja feita vendas de produtos mais do que tem no estoque
 - [ ] Utilizar um servidor com IP (Internet Protocol) Fixo
 - [ ] Fazer uma melhor utilização de Tecnicas de IHC
 - [ ] Lista Total no QRCode da venda
